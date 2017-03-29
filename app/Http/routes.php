@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','StaticPagesController@home')->name('home');
+Route::get('/painter','StaticPagesController@painter')->name('painter');
+Route::get('/writer','StaticPagesController@writer')->name('writer');
+Route::get('/works','StaticPagesController@works')->name('works');
+Route::get('/kuolie','StaticPagesController@kuolie')->name('kuolie');
