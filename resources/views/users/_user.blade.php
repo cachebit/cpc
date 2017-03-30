@@ -10,6 +10,7 @@
       <p><b>{{ $user->character }}: </b><a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a></p>
       <p><b>psg: </b>{{ $user->prestige }}</p>
       <p><b>exp: </b>{{ $user->experience }}</p>
+      <p><b>activated: </b>{{ $user->activated }}</p>
     </div>
   </div>
 </li>

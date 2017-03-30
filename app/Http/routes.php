@@ -21,6 +21,7 @@ Route::get('kuolie','StaticPagesController@kuolie')->name('kuolie');
 //users
 Route::get('signup', 'UsersController@create')->name('signup');
 Route::resource('users', 'UsersController');
+Route::get('signup/confirm/{token}', 'UsersController@confirmEmail')->name('confirm_email');
 
 //session
 Route::get('signin', 'SessionController@create')->name('signin');
