@@ -16,13 +16,13 @@
               <form action="{{ route('signout') }}" method="post">
                 {{ csrf_field() }}
                 {{ method_field('DELETE') }}
-                <button type="submit" class="btn btn-danger" name="button">sign out</button>
+                <button type="submit" class="btn btn-danger btn-block" name="button">sign out</button>
               </form>
             </a>
           </li>
         </ul>
       </li>
-      <li><a href="#">All Users</a></li>
+      <li><a href="{{ route('users.index') }}">All Users</a></li>
       @else
       <li><a href="{{ route('signin') }}">Sign In</a></li>
       <li><a href="{{ route('signup') }}">Sign Up</a></li>

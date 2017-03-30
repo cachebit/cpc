@@ -30,7 +30,7 @@
           </div>
 
           <div class="form-group">
-            <label for="password_confirmation">confirm:</label>
+            <label for="password_confirmation">confirmation:</label>
             <input class="form-control" type="password" name="password_confirmation">
           </div>
 

@@ -23,7 +23,7 @@
       <li><a href="#">works</a></li>
       <li><a href="#">friends</a></li>
       <li><a href="#">fans</a></li>
-      <li><a href="#">change user's info</a></li>
+      <li><a href="{{ route('users.edit', Auth::user()->id) }}">change user's info</a></li>
     </ul>
   </div>
 </div>
