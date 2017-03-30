@@ -21,3 +21,8 @@ Route::get('kuolie','StaticPagesController@kuolie')->name('kuolie');
 //users
 Route::get('signup', 'UsersController@create')->name('signup');
 Route::resource('users', 'UsersController');
+
+//session
+Route::get('signin', 'SessionController@create')->name('signin');
+Route::post('signin','SessionController@store')->name('signin');
+Route::delete('signout','SessionController@destroy')->name('signout');

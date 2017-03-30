@@ -12,16 +12,20 @@
   </head>
   <body>
     <div class="container">
-      @include('shared._header')
-      @include('shared._nav')
+      @include('layouts._header')
+      @include('layouts._nav')
       <div class="row">
-        @include('shared._messages')
+        @include('shared.messages')
         <div class="col-sm-9">
           @yield('content')
         </div>
-        @include('shared._right_column')
+        <div class="col-sm-3">
+          @if (Auth::check())
+            @include('layouts._right_column')
+          @endif
+        </div>
       </div>
-      @include('shared._footer')
+      @include('layouts._footer')
     </div>
   </body>
 </html>

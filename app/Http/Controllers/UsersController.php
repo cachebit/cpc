@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\User;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -46,6 +47,7 @@ class UsersController extends Controller
         'experience' => '0'
       ]);
 
+      Auth::login($user);
       session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
       return redirect()->route('users.show',compact('user'));
     }
