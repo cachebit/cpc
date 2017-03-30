@@ -14,7 +14,13 @@
     <div class="container">
       @include('shared._header')
       @include('shared._nav')
-      @yield('content')
+      <div class="row">
+        @include('shared._messages')
+        <div class="col-sm-9">
+          @yield('content')
+        </div>
+        @include('shared._right_column')
+      </div>
       @include('shared._footer')
     </div>
   </body>

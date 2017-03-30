@@ -3,7 +3,7 @@
   <nav class="col-sm-6">
     <ul class="nav nav-pills">
       <li><a href="#">Sign In</a></li>
-      <li><a href="#">Sign Up</a></li>
+      <li><a href="{{ route('signup') }}">Sign Up</a></li>
     </ul>
   </nav>
 </div>
