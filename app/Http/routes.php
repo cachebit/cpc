@@ -27,3 +27,10 @@ Route::get('signup/confirm/{token}', 'UsersController@confirmEmail')->name('conf
 Route::get('signin', 'SessionController@create')->name('signin');
 Route::post('signin','SessionController@store')->name('signin');
 Route::delete('signout','SessionController@destroy')->name('signout');
+
+
+//password reset
+Route::get('password/email', 'Auth\PasswordController@getEmail')->name('password.reset');
+Route::post('password/email', 'Auth\PasswordController@postEmail')->name('password.reset');
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset')->name('password.edit');
+Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.update');

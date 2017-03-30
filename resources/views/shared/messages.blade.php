@@ -1,4 +1,4 @@
-@foreach (['danger', 'warning', 'success', 'info'] as $msg)
+@foreach (['danger', 'warning', 'success', 'info', 'status'] as $msg)
   @if(session()->has($msg))
     <div class="col-sm-12 flash-message">
       <p class="alert alert-{{ $msg }}">

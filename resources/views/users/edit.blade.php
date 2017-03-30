@@ -23,12 +23,11 @@
 
         <div class="form-group">
           <label for="email">email:</label>
-          <input class="form-control" type="text" name="email" value="{{ $user->email }}" disabled>
+          <input class="form-control" type="email" name="email" value="{{ $user->email }}" disabled>
         </div>
 
         <div class="form-group">
           <label for="original_password">original password:</label>
-          <a href="#">Forget your password?</a>
           <input class="form-control" type="password" name="original_password">
         </div>
 

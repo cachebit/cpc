@@ -20,7 +20,7 @@
           </div>
 
           <div class="form-group">
-            <label for="password">password:</label>
+            <label for="password">password( <a href="{{ route('password.reset') }}">Forget your password?</a> ):</label>
             <input class="form-control" type="password" name="password">
           </div>
 
