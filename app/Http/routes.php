@@ -38,4 +38,13 @@ Route::post('password/reset', 'Auth\PasswordController@postReset')->name('passwo
 //works
 Route::get('works/start', 'WorksController@start')->name('works.start');
 Route::post('works/create', 'WorksController@create')->name('works.create');
-Route::post('works', 'WorksController@store')->name('works.store');
+Route::post('works/distribute', 'WorksController@distribute')->name('works.distribute');
+Route::resource('opuscules', 'OpusculesController');
+Route::resource('novellas', 'NovellasController');
+Route::resource('novels', 'NovelsController');
+Route::resource('posters', 'PostersController');
+Route::resource('sketches', 'SketchesController');
+Route::resource('drafts', 'DraftsController');
+Route::resource('settings', 'SettingsController');
+// Route::resource('webtoons', 'webtoonsController');
+// Route::resource('single_frames', 'SingleFramesController')

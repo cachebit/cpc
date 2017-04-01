@@ -26,7 +26,7 @@ class NovellasController extends Controller
      */
     public function create()
     {
-        //
+        return view('works.create', ['type' => 'novellas']);
     }
 
     /**
@@ -37,7 +37,12 @@ class NovellasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request,[
+        'title' => 'required',
+        'section' => 'required'
+        'genre' => 'required'
+      ]);
+        return 'novella.store';
     }
 
     /**

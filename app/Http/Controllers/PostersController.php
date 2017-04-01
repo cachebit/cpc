@@ -26,7 +26,7 @@ class PostersController extends Controller
      */
     public function create()
     {
-        //
+        return view('works.create', ['type' => 'posters']);
     }
 
     /**
@@ -37,7 +37,11 @@ class PostersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request,[
+        'title' => 'required',
+        'genre' => 'required'
+      ]);
+        return 'poster.store';
     }
 
     /**

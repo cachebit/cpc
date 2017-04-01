@@ -26,7 +26,7 @@ class DraftsController extends Controller
      */
     public function create()
     {
-        return view()
+        return view('works.create', ['type' => 'drafts']);
     }
 
     /**
@@ -37,7 +37,10 @@ class DraftsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request,[
+        'title' => 'required',
+      ]);
+        return 'drafts.store';
     }
 
     /**

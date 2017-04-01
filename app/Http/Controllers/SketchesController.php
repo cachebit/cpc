@@ -26,7 +26,7 @@ class SketchesController extends Controller
      */
     public function create()
     {
-        //
+        return view('works.create', ['type' => 'sketches']);
     }
 
     /**
@@ -37,7 +37,11 @@ class SketchesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request,[
+        'title' => 'required',
+        'genre' => 'required'
+      ]);
+        return 'sketches.store';
     }
 
     /**

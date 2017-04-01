@@ -26,7 +26,7 @@ class NovelsController extends Controller
      */
     public function create()
     {
-        //
+        return view('works.create', ['type' => 'novels']);
     }
 
     /**
@@ -37,7 +37,13 @@ class NovelsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request,[
+        'title' => 'required',
+        'volum' => 'required,'
+        'section' => 'required'
+        'genre' => 'required'
+      ]);
+        return 'novel.store';
     }
 
     /**

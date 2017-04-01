@@ -9,13 +9,14 @@
         <h5>Upload Your Works!</h5>
       </div>
       <div class="panel-body">
-        <form class="form-inline" action="{{ route('works.create') }}" method="post">
+        @include('shared.errors')
+
+        <form class="form-inline" action="{{ route('works.distribute') }}" method="post">
           {{ csrf_field() }}
 
           @include('forms._type_selector')
-          @include('forms._genre_selector')
 
-          <button type="submit" name="button" class="btn btn-primary pull-right">Start to Create!</button>
+          <button type="submit" name="button" class="btn btn-primary pull-right">next</button>
 
         </form>
 
