@@ -43,7 +43,7 @@ class OpusculesController extends Controller
         'title' => 'required',
         'genre' => 'required'
       ]);
-      return redirect('works.genreCreate',['genre' => $request->genre]);
+      return redirect()->route($request->genre.'.create',[$request]);
     }
 
     /**

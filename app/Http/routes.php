@@ -46,5 +46,7 @@ Route::resource('posters', 'PostersController');
 Route::resource('sketches', 'SketchesController');
 Route::resource('drafts', 'DraftsController');
 Route::resource('settings', 'SettingsController');
-// Route::resource('webtoons', 'webtoonsController');
-// Route::resource('single_frames', 'SingleFramesController')
+Route::resource('webtoons', 'webtoonsController');
+Route::resource('single_frames', 'SingleFramesController');
+Route::resource('multiple_frames', 'MultipleFramesController');
+Route::resource('scenarios', 'ScenariosController');

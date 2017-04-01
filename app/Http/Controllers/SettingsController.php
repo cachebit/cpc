@@ -41,7 +41,7 @@ class SettingsController extends Controller
         'title' => 'required',
         'genre' => 'required'
       ]);
-        return 'settings.store';
+      return redirect()->route($request->genre.'.create',[$request]);
     }
 
     /**

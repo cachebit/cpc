@@ -41,7 +41,7 @@ class SketchesController extends Controller
         'title' => 'required',
         'genre' => 'required'
       ]);
-        return 'sketches.store';
+      return redirect()->route($request->genre.'.create',[$request]);
     }
 
     /**

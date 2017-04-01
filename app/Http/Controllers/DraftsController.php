@@ -40,7 +40,7 @@ class DraftsController extends Controller
       $this->validate($request,[
         'title' => 'required',
       ]);
-        return 'drafts.store';
+      return redirect()->route($request->genre.'.create',[$request]);
     }
 
     /**

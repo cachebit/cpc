@@ -41,7 +41,7 @@ class PostersController extends Controller
         'title' => 'required',
         'genre' => 'required'
       ]);
-        return 'poster.store';
+      return redirect()->route($request->genre.'.create',[$request]);
     }
 
     /**

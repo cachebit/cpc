@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class NovellasController extends Controller
+class ScenariosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,9 +24,9 @@ class NovellasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('works.create', ['type' => 'novellas']);
+      return view('works.genre_create',compact('request'));
     }
 
     /**
@@ -37,12 +37,7 @@ class NovellasController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request,[
-        'title' => 'required',
-        'section' => 'required',
-        'genre' => 'required'
-      ]);
-      return redirect()->route($request->genre.'.create',[$request]);
+        return 'scenarios controller store';
     }
 
     /**

@@ -27,7 +27,7 @@ class WorksController extends Controller
       $this->validate($request, [
         'type' => 'required',
       ]);
-      return redirect(route($request->type.'.create'));
+      return redirect()->route($request->type.'.create');
     }
 
 }

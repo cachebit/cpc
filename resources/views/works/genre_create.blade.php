@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('title' ,$type.' generator')
+@section('title', $request->genre.' generator')
 
 @section('content')
 <div class="row">
@@ -21,34 +21,27 @@
   <div class="col-sm-8">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h5>{{ $type.' generator' }}</h5>
+        <h5>{{ $request->genre.' generator' }}</h5>
       </div>
       <div class="panel-body">
         @include('shared.errors')
 
-        <form method="post" action="{{ route($type.'.store') }}">
+        @include('works._title_volum_section')
+
+        <form method="post" action="{{ route($request->genre.'.store') }}">
           {{ csrf_field() }}
 
+          @if($request->genre === 'scenarios')
           <div class="form-group">
-            <label for="title">title</label>
-            <input class="form-control" type="text" name="title" value="{{ old('title') }}">
+            <label for="content">content:</label>
+            <textarea class="form-control" name="content" rows="8"></textarea>
           </div>
-
-          @if($type === 'novels')
+          @else
           <div class="form-group">
-            <label for="volum">volum</label>
-            <input class="form-control" type="text" name="volum" value="{{ old('volum') }}">
-          </div>
-          @endif
-
-          @if($type === 'novels' || $type === 'novellas')
-          <div class="form-group">
-            <label for="title">section</label>
-            <input class="form-control" type="text" name="section" value="{{ old('section') }}">
+            <label for="image">image:</label>
+            <input class="form-control" type="file" name="image">
           </div>
           @endif
-
-          @include('forms._genre_selector')
 
           <button class="btn btn-primary pull-right" type="submit" name="button">submit</button>
         </form>
@@ -60,5 +53,4 @@
 
 
 </div>
-
 @stop

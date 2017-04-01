@@ -39,11 +39,11 @@ class NovelsController extends Controller
     {
       $this->validate($request,[
         'title' => 'required',
-        'volum' => 'required,'
-        'section' => 'required'
+        'volum' => 'required',
+        'section' => 'required',
         'genre' => 'required'
       ]);
-        return 'novel.store';
+      return redirect()->route($request->genre.'.create',[$request]);
     }
 
     /**

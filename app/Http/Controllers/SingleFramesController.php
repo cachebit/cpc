@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class NovellasController extends Controller
+class SingleFramesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,10 +24,10 @@ class NovellasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('works.create', ['type' => 'novellas']);
-    }
+     public function create(Request $request)
+     {
+       return view('works.genre_create',compact('request'));
+     }
 
     /**
      * Store a newly created resource in storage.
@@ -37,12 +37,7 @@ class NovellasController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request,[
-        'title' => 'required',
-        'section' => 'required',
-        'genre' => 'required'
-      ]);
-      return redirect()->route($request->genre.'.create',[$request]);
+        return 'single frame controller store';
     }
 
     /**
