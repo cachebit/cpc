@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Auth;
+use Carbon\Carbon;
+use App\Novella;
+
 class NovellasController extends Controller
 {
 
@@ -23,6 +27,14 @@ class NovellasController extends Controller
         'section' => 'required',
         'genre' => 'required'
       ]);
+
+      $request['user_id'] = Auth::user()->id;
+      $request['score'] = 0;
+      $request['scored'] = false;
+      $request['published_at'] = Carbon::now();
+
+      App\Novella::create([$request]);
+
       return redirect()->route($request->genre.'.create',[$request]);
     }
 

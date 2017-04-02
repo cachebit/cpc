@@ -29,6 +29,8 @@
         <form method="post" action="{{ route($type.'.store') }}">
           {{ csrf_field() }}
 
+          <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
           <div class="form-group">
             <label for="title">title</label>
             <input class="form-control" type="text" name="title" value="{{ old('title') }}">

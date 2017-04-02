@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Auth;
+use Carbon\Carbon;
+use App\Novel;
+
 class NovelsController extends Controller
 {
 
@@ -22,10 +26,14 @@ class NovelsController extends Controller
         'title' => 'required',
         'volum' => 'required',
         'section' => 'required',
-        'genre' => 'required'
+        'genre' => 'required',
+        'user_id' => 'required'
       ]);
+
+      Novel::create([$request]);
+
       return redirect()->route($request->genre.'.create',[$request]);
     }
 
-    
+
 }

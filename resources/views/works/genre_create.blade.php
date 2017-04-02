@@ -31,6 +31,10 @@
         <form method="post" action="{{ route($request->genre.'.store') }}">
           {{ csrf_field() }}
 
+          <input type="hidden" name="user_id" value="{{ $request->user_id }}">
+          <input type="hidden" name="imageable_id" value="{{ $request->id }}">
+          <input type="hidden" name="imageable_type" value="{{ $request->type }}">
+
           @if($request->genre === 'scenarios')
           <div class="form-group">
             <label for="content">content:</label>
