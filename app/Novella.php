@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Novella extends Model
 {
+  protected $table = 'novellas';
+
+  protected $fillable = [
+    'user_id',
+    'published_at',
+    'score',
+    'scored',
+    'title',
+    'section',
+    'genre',
+  ];
+
   public function user()
   {
       return $this->belongsTo('App\User');

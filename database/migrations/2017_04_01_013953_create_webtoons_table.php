@@ -16,7 +16,7 @@ class CreateWebtoonsTable extends Migration
           $table->increments('id');
           $table->integer('user_id')->index();
           $table->integer('imageable_id');
-          $table->string('imageable_type');
+          $table->string('imageable_type')->index();
           $table->string('path');
           $table->timestamps();
         });

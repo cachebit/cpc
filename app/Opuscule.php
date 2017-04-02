@@ -8,7 +8,14 @@ class Opuscule extends Model
 {
   protected $table = 'opuscules';
 
-  protected $fillable = [];
+  protected $fillable = [
+    'user_id',
+    'published_at',
+    'score',
+    'scored',
+    'title',
+    'genre',
+  ];
 
   public function user()
   {

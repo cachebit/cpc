@@ -6,6 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Novel extends Model
 {
+  protected $table = 'novels';
+
+  protected $fillable = [
+    'user_id',
+    'published_at',
+    'score',
+    'scored',
+    'title',
+    'volum',
+    'section',
+    'genre',
+  ];
+
   public function user()
   {
       return $this->belongsTo('App\User');

@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
+  protected $table = 'settings';
+
+  protected $fillable = [
+    'user_id',
+    'published_at',
+    'score',
+    'scored',
+    'title',
+    'genre',
+  ];
+
   public function user()
   {
       return $this->belongsTo('App\User');
