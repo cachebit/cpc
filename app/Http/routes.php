@@ -37,7 +37,6 @@ Route::post('password/reset', 'Auth\PasswordController@postReset')->name('passwo
 
 //works
 Route::get('works/start', 'WorksController@start')->name('works.start');
-Route::post('works/create', 'WorksController@create')->name('works.create');
 Route::post('works/distribute', 'WorksController@distribute')->name('works.distribute');
 Route::resource('opuscules', 'OpusculesController');
 Route::resource('novellas', 'NovellasController');

@@ -12,11 +12,6 @@ use Auth;
 class WorksController extends Controller
 {
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function start()
     {
         return view('works.start');
