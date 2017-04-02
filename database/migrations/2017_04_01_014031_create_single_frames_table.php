@@ -13,8 +13,14 @@ class CreateSingleFramesTable extends Migration
     public function up()
     {
         Schema::create('single_frames', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+          $table->increments('id');
+          $table->integer('user_id')->index();
+          $table->integer('imageable_id');
+          $table->string('imageable_type')->index();
+          $table->float('score')->index();
+          $table->boolean('scored');
+          $table->string('path');
+          $table->timestamps();
         });
     }
 

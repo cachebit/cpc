@@ -13,8 +13,16 @@ class CreateNovelsTable extends Migration
     public function up()
     {
         Schema::create('novels', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+          $table->increments('id');
+          $table->integer('user_id')->index();
+          $table->timestamps('publish_at')->index();
+          $table->float('score')->index();
+          $table->boolean('scored');
+          $table->string('title');
+          $table->string('volum');
+          $table->string('section');
+          $table->string('genre');
+          $table->timestamps();
         });
     }
 

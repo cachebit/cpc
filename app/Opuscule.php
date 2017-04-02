@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Opuscule extends Model
 {
+  protected $table = 'opuscules';
+
+  protected $fillable = [];
+
   public function user()
   {
       return $this->belongsTo('App\User');

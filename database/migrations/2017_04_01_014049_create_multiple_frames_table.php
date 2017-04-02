@@ -13,8 +13,12 @@ class CreateMultipleFramesTable extends Migration
     public function up()
     {
         Schema::create('multiple_frames', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+          $table->increments('id');
+          $table->integer('user_id')->index();
+          $table->integer('imageable_id');
+          $table->string('imageable_type');
+          $table->string('path');
+          $table->timestamps();
         });
     }
 
