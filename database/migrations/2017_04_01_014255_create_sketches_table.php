@@ -19,6 +19,7 @@ class CreateSketchesTable extends Migration
           $table->float('score')->index();
           $table->boolean('scored');
           $table->string('title');
+          $table->string('genre');
           $table->timestamps();
         });
     }

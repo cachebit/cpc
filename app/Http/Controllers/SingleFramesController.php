@@ -7,24 +7,38 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\SingleFrame;
+
 class SingleFramesController extends Controller
 {
 
-     public function create(Request $request)
-     {
-       return view('works.genre_create',compact('request'));
-     }
+  public function edit($id)
+  {
+    $genre = SingleFrame::findOrFail($id);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        return 'single frame controller store';
-    }
+    return view('works.genre_edit',compact('genre'));
+  }
 
-    
+  public function update(Request $request)
+  {
+
+    $this->validate($request,[
+      'id' => 'required',
+      'path' => 'required|min:1'
+    ]);
+
+    $singel_frame = SingleFrame::findOrFail($request->id);
+    $singel_frame->update([
+      'path' => $request->path,
+    ]);
+
+    return redirect()->route('single_frames.show', $request->id);
+  }
+
+  public function show($id)
+  {
+    $genre = SingleFrame::findOrFail($id);
+    return view('works.genre_show',compact('genre'));
+  }
+
 }

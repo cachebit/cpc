@@ -14,6 +14,7 @@ class Sketch extends Model
     'score',
     'scored',
     'title',
+    'genre',
   ];
 
   public function user()

@@ -8,8 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Auth;
-use Carbon\Carbon;
+
 use App\Sketch;
+use App\SingleFrame;
 
 class SketchesController extends Controller
 {
@@ -24,24 +25,32 @@ class SketchesController extends Controller
     {
       $this->validate($request,[
         'title' => 'required',
+        'genre' => 'required',
       ]);
 
       $sketch = Sketch::create([
         'title' => $request->title,
+        'genre' => $request->genre,
         'user_id'=> Auth::user()->id,
         'score' => '0',
         'scored' => false,
       ]);
 
-      return redirect()->route('sketches.show',$sketch->id);
+      $function = $sketch->genre;
+
+      return $this->$function($sketch);
     }
 
-    public function show($id)
+    public function single_frames(Sketch $sketch)
     {
-      $request = Sketch::findOrFail($id);
+      $single_frame = new SingleFrame([
+        'user_id' => $sketch->user_id,
+        'path' => 'image path',
+      ]);
 
-      return view('works.show',compact('request'));
+      $sketch->single_frames()->save($single_frame);
+
+      return redirect()->route('single_frames.edit', $single_frame->id);
     }
-
 
 }

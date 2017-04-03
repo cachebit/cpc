@@ -8,8 +8,12 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Auth;
-use Carbon\Carbon;
+
 use App\Novel;
+use App\Webtoon;
+use App\SingleFrame;
+use App\MultipleFrame;
+use App\Scenario;
 
 class NovelsController extends Controller
 {
@@ -39,15 +43,57 @@ class NovelsController extends Controller
         'scored' => false,
       ]);
 
-      return redirect()->route('novels.show',$novel->id);
+      $function = $novel->genre;
+
+      return $this->$function($novel);
     }
 
-    public function show($id)
+    public function webtoons(Novel $novel)
     {
-      $request = Novel::findOrFail($id);
+      $webtoon = new Webtoon([
+        'user_id' => $novel->user_id,
+        'path' => 'image path',
+      ]);
 
-      return view('works.show',compact('request'));
+      $novel->webtoons()->save($webtoon);
+
+      return redirect()->route('webtoons.edit', $webtoon->id);
     }
 
+    public function single_frames(Novel $novel)
+    {
+      $single_frame = new SingleFrame([
+        'user_id' => $novel->user_id,
+        'path' => 'image path',
+      ]);
+
+      $novel->single_frames()->save($single_frame);
+
+      return redirect()->route('single_frames.edit', $single_frame->id);
+    }
+
+    public function multiple_frames(Novel $novel)
+    {
+      $multiple_frame = new MultipleFrame([
+        'user_id' => $novel->user_id,
+        'path' => 'image path',
+      ]);
+
+      $novel->multiple_frames()->save($multiple_frame);
+
+      return redirect()->route('multiple_frames.edit', $multiple_frame->id);
+    }
+
+    public function scenarios(Novel $novel)
+    {
+      $scenario = new Scenario([
+        'user_id' => $novel->user_id,
+        'content' => 'add contents',
+      ]);
+
+      $novel->scenarios()->save($scenario);
+
+      return redirect()->route('scenarios.edit', $scenario->id);
+    }
 
 }

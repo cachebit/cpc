@@ -8,8 +8,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Auth;
-use Carbon\Carbon;
+
 use App\Setting;
+use App\SingleFrame;
+use App\Scenario;
 
 class SettingsController extends Controller
 {
@@ -35,16 +37,33 @@ class SettingsController extends Controller
         'scored' => false,
       ]);
 
-      return redirect()->route('settings.show',$setting->id);
+      $function = $setting->genre;
+
+      return $this->$function($setting);
     }
 
-    public function show($id)
+    public function single_frames(Setting $setting)
     {
-      $request = Setting::findOrFail($id);
+      $single_frame = new SingleFrame([
+        'user_id' => $setting->user_id,
+        'path' => 'image path',
+      ]);
 
-      return view('works.show',compact('request'));
+      $setting->single_frames()->save($single_frame);
+
+      return redirect()->route('single_frames.edit', $single_frame->id);
     }
 
+    public function scenarios(Setting $setting)
+    {
+      $scenario = new Scenario([
+        'user_id' => $setting->user_id,
+        'content' => 'add contents',
+      ]);
 
+      $setting->scenarios()->save($scenario);
+
+      return redirect()->route('scenarios.edit', $scenario->id);
+    }
 
 }

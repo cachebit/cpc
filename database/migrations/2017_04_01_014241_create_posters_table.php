@@ -19,7 +19,7 @@ class CreatePostersTable extends Migration
           $table->float('score')->index();
           $table->boolean('scored');
           $table->string('title');
-          $table->string('genre')->index();
+          $table->string('genre');
           $table->timestamps();
         });
     }

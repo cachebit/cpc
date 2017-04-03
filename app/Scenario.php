@@ -10,7 +10,7 @@ class Scenario extends Model
 
   protected $fillable = [
     'user_id',
-    'text',
+    'content',
     'imageable_id',
     'imageable_type',
   ];

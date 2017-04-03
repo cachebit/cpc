@@ -1,4 +1,4 @@
-@if($type === 'sketches')
+@if($type === 'sketches' || $type === 'posters')
 <div class="form-group">
   <label for="type">genre:</label>
   <select class="form-control" name="genre">

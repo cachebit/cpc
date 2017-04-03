@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('title', $request->genre.' generator')
+@section('title', 'generator')
 
 @section('content')
 <div class="row">
@@ -21,24 +21,23 @@
   <div class="col-sm-8">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h5>{{ $request->genre.' generator' }}</h5>
+        <h5>{{ 'generator' }}</h5>
       </div>
       <div class="panel-body">
         @include('shared.errors')
 
         @include('works._title_volum_section')
 
-        <form method="post" action="{{ route($request->genre.'.store') }}">
+        <form method="post" action="{{ route($genre->imageable->genre.'.update') }}">
           {{ csrf_field() }}
+          {{ method_field('PATCH') }}
 
-          <input type="hidden" name="user_id" value="{{ $request->user_id }}">
-          <input type="hidden" name="imageable_id" value="{{ $request->id }}">
-          <input type="hidden" name="imageable_type" value="{{ $request->type }}">
+          <input type="hidden" name="id" value="{{ $genre->id }}">
 
-          @if($request->genre === 'scenarios')
+          @if($genre->content)
           <div class="form-group">
             <label for="content">content:</label>
-            <textarea class="form-control" name="content" rows="8"></textarea>
+            <textarea class="form-control" name="content" rows="8">{{ $genre->content }}</textarea>
           </div>
           @else
           <div class="form-group">

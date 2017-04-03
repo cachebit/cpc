@@ -8,8 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Auth;
-use Carbon\Carbon;
+
 use App\Poster;
+use App\SingleFrame;
 
 class PostersController extends Controller
 {
@@ -24,7 +25,7 @@ class PostersController extends Controller
     {
       $this->validate($request,[
         'title' => 'required',
-        'genre' => 'required'
+        'genre' => 'required',
       ]);
 
       $poster = Poster::create([
@@ -35,15 +36,21 @@ class PostersController extends Controller
         'scored' => false,
       ]);
 
-      return redirect()->route('posetrs.show',$poster->id);
+      $function = $poster->genre;
+
+      return $this->$function($poster);
     }
 
-    public function show($id)
+    public function single_frames(Poster $poster)
     {
-      $request = Poster::findOrFail($id);
+      $single_frame = new SingleFrame([
+        'user_id' => $poster->user_id,
+        'path' => 'image path',
+      ]);
 
-      return view('works.show',compact('request'));
+      $poster->single_frames()->save($single_frame);
+
+      return redirect()->route('single_frames.edit', $single_frame->id);
     }
-
 
 }

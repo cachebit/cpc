@@ -2,7 +2,9 @@
 
 namespace App;
 
-class Opuscule extends Type
+use Illuminate\Database\Eloquent\Model;
+
+class Opuscule extends Model
 {
   protected $table = 'opuscules';
 

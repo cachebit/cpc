@@ -8,8 +8,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Auth;
-use Carbon\Carbon;
-use App\Dradt;
+
+use App\Draft;
+use App\Scenario;
 
 class DraftsController extends Controller
 {
@@ -23,23 +24,32 @@ class DraftsController extends Controller
     {
       $this->validate($request,[
         'title' => 'required',
+        'genre' => 'required',
       ]);
 
       $draft = Draft::create([
         'title' => $request->title,
+        'genre' => $request->genre,
         'user_id'=> Auth::user()->id,
         'score' => '0',
         'scored' => false,
       ]);
 
-      return redirect()->route('drafts.show',$draft->id);
-    }
+      $function = $draft->genre;
 
-    public function show($id)
+      return $this->$function($draft);
+    }
+    public function scenarios(Draft $draft)
     {
-      $request = Draft::findOrFail($id);
+      $scenario = new Scenario([
+        'user_id' => $draft->user_id,
+        'content' => 'add contents',
+      ]);
 
-      return view('works.show',compact('request'));
+      $draft->scenarios()->save($scenario);
+
+      return redirect()->route('scenarios.edit', $scenario->id);
     }
+
 
 }
