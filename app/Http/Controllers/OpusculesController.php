@@ -40,7 +40,14 @@ class OpusculesController extends Controller
         'scored' => false,
       ]);
 
-      return redirect()->route($puscules->genre.'.edit',$genre->id);
+      $function = $opuscule->genre;
+
+      return $this->$function($opuscule);
+    }
+
+    public function webtoons(Opuscule $type)
+    {
+      return 'opuscle webtoon function';
     }
 
 }

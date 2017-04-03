@@ -39,6 +39,7 @@ Route::post('password/reset', 'Auth\PasswordController@postReset')->name('passwo
 Route::get('works/start', 'WorksController@start')->name('works.start');
 Route::post('works/distribute', 'WorksController@distribute')->name('works.distribute');
 Route::resource('opuscules', 'OpusculesController');
+Route::get('opuscules/{id}/webtoons', 'OpusculesController@webtoons')->name('opuscules.webtoons');
 Route::resource('novellas', 'NovellasController');
 Route::resource('novels', 'NovelsController');
 Route::resource('posters', 'PostersController');

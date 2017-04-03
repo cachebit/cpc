@@ -7,26 +7,29 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Webtoon;
+use App\Type;
 
 class WebtoonsController extends Controller
 {
 
-  public function create($id)
+  public function create(Type $type)
   {
-    return view('works.genre_create',compact('request'));
+    $webtoon = new Webtoon([
+      'user_id' => $type->user_id,
+      'path' => '',
+    ]);
+    dd($webtoon);
+    $type->webtoons()->save($webtoon);
+
+    return redirect()->route('webtoons.edit',$webtoon->id);
   }
 
-
-  public function store(Request $request)
-  {
-    dd($request);
-      return ;
-  }
 
   public function edit($id)
   {
-    return 'webtoons edit';
+    $webtoon = Webtoon::findOrFail($id);
+    return view('works.edit', compact('webtoon'));
   }
-
 
 }
