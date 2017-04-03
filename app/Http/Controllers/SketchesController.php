@@ -24,17 +24,23 @@ class SketchesController extends Controller
     {
       $this->validate($request,[
         'title' => 'required',
-        'genre' => 'required'
       ]);
 
-      $request['user_id'] = Auth::user()->id;
-      $request['score'] = 0;
-      $request['scored'] = false;
-      $request['published_at'] = Carbon::now();
+      $sketch = Sketch::create([
+        'title' => $request->title,
+        'user_id'=> Auth::user()->id,
+        'score' => '0',
+        'scored' => false,
+      ]);
 
-      App\Sketch::create([$request]);
+      return redirect()->route('sketches.show',$sketch->id);
+    }
 
-      return redirect()->route($request->genre.'.create',[$request]);
+    public function show($id)
+    {
+      $request = Sketch::findOrFail($id);
+
+      return view('works.show',compact('request'));
     }
 
 

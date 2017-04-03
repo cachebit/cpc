@@ -25,14 +25,21 @@ class DraftsController extends Controller
         'title' => 'required',
       ]);
 
-      $request['user_id'] = Auth::user()->id;
-      $request['score'] = 0;
-      $request['scored'] = false;
-      $request['published_at'] = Carbon::now();
+      $draft = Draft::create([
+        'title' => $request->title,
+        'user_id'=> Auth::user()->id,
+        'score' => '0',
+        'scored' => false,
+      ]);
 
-      App\Draft::create([$request]);
+      return redirect()->route('drafts.show',$draft->id);
+    }
 
-      return redirect()->route($request->genre.'.create',[$request]);
+    public function show($id)
+    {
+      $request = Draft::findOrFail($id);
+
+      return view('works.show',compact('request'));
     }
 
 }

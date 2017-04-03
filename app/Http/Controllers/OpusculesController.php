@@ -19,23 +19,28 @@ class OpusculesController extends Controller
       return view('works.create', ['type' => 'opuscules']);
     }
 
+    public function genre()
+    {
+
+    }
+
 
     public function store(Request $request)
     {
       $this->validate($request,[
         'title' => 'required',
-        'genre' => 'required'
+        'genre' => 'required',
       ]);
 
-      $request['user_id'] = Auth::user()->id;
-      $request['score'] = 0;
-      $request['scored'] = false;
-      $request['published_at'] = Carbon::now();
+      $opuscule = Opuscule::create([
+        'title' => $request->title,
+        'genre' => $request->genre,
+        'user_id'=> Auth::user()->id,
+        'score' => '0',
+        'scored' => false,
+      ]);
 
-      Opuscule::create([$request]);
-
-      return redirect()->route($request->genre.'.create',[$request]);
+      return redirect()->route($puscules->genre.'.edit',$genre->id);
     }
-
 
 }

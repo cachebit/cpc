@@ -25,17 +25,26 @@ class NovellasController extends Controller
       $this->validate($request,[
         'title' => 'required',
         'section' => 'required',
-        'genre' => 'required'
+        'genre' => 'required',
       ]);
 
-      $request['user_id'] = Auth::user()->id;
-      $request['score'] = 0;
-      $request['scored'] = false;
-      $request['published_at'] = Carbon::now();
+      $novella = Novella::create([
+        'title' => $request->title,
+        'section' => $request->section,
+        'genre' => $request->genre,
+        'user_id'=> Auth::user()->id,
+        'score' => '0',
+        'scored' => false,
+      ]);
 
-      App\Novella::create([$request]);
+      return redirect()->route('novells.show',$novella->id);
+    }
 
-      return redirect()->route($request->genre.'.create',[$request]);
+    public function show($id)
+    {
+      $request = Novella::findOrFail($id);
+
+      return view('works.show',compact('request'));
     }
 
 }

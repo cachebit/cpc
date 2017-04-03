@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 class WebtoonsController extends Controller
 {
 
-  public function create(Work $work)
+  public function create($id)
   {
     return view('works.genre_create',compact('request'));
   }
@@ -21,6 +21,11 @@ class WebtoonsController extends Controller
   {
     dd($request);
       return ;
+  }
+
+  public function edit($id)
+  {
+    return 'webtoons edit';
   }
 
 

@@ -27,12 +27,26 @@ class NovelsController extends Controller
         'volum' => 'required',
         'section' => 'required',
         'genre' => 'required',
-        'user_id' => 'required'
       ]);
 
-      Novel::create([$request]);
+      $novel = Novel::create([
+        'title' => $request->title,
+        'volum'=> $request->volum,
+        'section' => $request->section,
+        'genre' => $request->genre,
+        'user_id'=> Auth::user()->id,
+        'score' => '0',
+        'scored' => false,
+      ]);
 
-      return redirect()->route($request->genre.'.create',[$request]);
+      return redirect()->route('novels.show',$novel->id);
+    }
+
+    public function show($id)
+    {
+      $request = Novel::findOrFail($id);
+
+      return view('works.show',compact('request'));
     }
 
 

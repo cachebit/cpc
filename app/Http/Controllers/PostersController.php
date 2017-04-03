@@ -27,14 +27,22 @@ class PostersController extends Controller
         'genre' => 'required'
       ]);
 
-      $request['user_id'] = Auth::user()->id;
-      $request['score'] = 0;
-      $request['scored'] = false;
-      $request['published_at'] = Carbon::now();
+      $poster = Poster::create([
+        'title' => $request->title,
+        'genre' => $request->genre,
+        'user_id'=> Auth::user()->id,
+        'score' => '0',
+        'scored' => false,
+      ]);
 
-      App\Poster::create([$request]);
+      return redirect()->route('posetrs.show',$poster->id);
+    }
 
-      return redirect()->route($request->genre.'.create',[$request]);
+    public function show($id)
+    {
+      $request = Poster::findOrFail($id);
+
+      return view('works.show',compact('request'));
     }
 
 
