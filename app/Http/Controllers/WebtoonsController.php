@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Webtoon;
+use Input;
 
 class WebtoonsController extends Controller
 {
@@ -20,15 +21,14 @@ class WebtoonsController extends Controller
 
   public function update(Request $request)
   {
-
     $this->validate($request,[
       'id' => 'required',
-      'path' => 'required|min:1'
+      'image' => 'required'
     ]);
 
     $webtoon = Webtoon::findOrFail($request->id);
     $webtoon->update([
-      'path' => $request->path,
+      'path' => $request->image,
     ]);
 
     return redirect()->route('webtoons.show', $request->id);

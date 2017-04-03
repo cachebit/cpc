@@ -21,10 +21,9 @@ class SingleFramesController extends Controller
 
   public function update(Request $request)
   {
-
     $this->validate($request,[
       'id' => 'required',
-      'path' => 'required|min:1'
+      'image' => 'required|image'
     ]);
 
     $singel_frame = SingleFrame::findOrFail($request->id);

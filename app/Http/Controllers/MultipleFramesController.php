@@ -24,7 +24,7 @@ class MultipleFramesController extends Controller
 
     $this->validate($request,[
       'id' => 'required',
-      'path' => 'required|min:1'
+      'image' => 'required|image'
     ]);
 
     $multiple_frame = MultipleFrame::findOrFail($request->id);
