@@ -21,7 +21,7 @@
     @if($genre->content)
       <p>{{ $genre->content }}</p>
     @else
-      <img src="{{ $genre->path }}" alt="">
+      <img class="img-responsive" src="{{ $genre->path }}" alt="{{ $genre->imageable->title }}">
     @endif
 
     <hr>

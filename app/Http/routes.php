@@ -45,11 +45,10 @@ Route::resource('posters', 'PostersController');
 Route::resource('sketches', 'SketchesController');
 Route::resource('drafts', 'DraftsController');
 Route::resource('settings', 'SettingsController');
-Route::resource('webtoons', 'webtoonsController');
+Route::resource('webtoons', 'WebtoonsController');
+Route::post('webtoons','WebtoonsController@upload')->name('webtoons.upload');
 Route::resource('single_frames', 'SingleFramesController');
+Route::post('single_frames','SingleFramesController@upload')->name('single_frames.upload');
 Route::resource('multiple_frames', 'MultipleFramesController');
+Route::post('multiple_frames','MultipleFramesController@upload')->name('multiple_frames.upload');
 Route::resource('scenarios', 'ScenariosController');
-
-//uopz_overload
-Route::get('upload','UploadController@upload')->name('upload');
-Route::post('upload','UploadController@store')->name('upload.store');

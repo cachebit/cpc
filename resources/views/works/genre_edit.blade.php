@@ -28,26 +28,34 @@
 
         @include('works._title_volum_section')
 
-        <form method="post" action="{{ route($genre->imageable->genre.'.update') }}">
+        @if($genre->content)
+        <form method="post" action="{{ route($genre->imageable->genre.'.update') }}"  enctype="multipart/form-data">
           {{ csrf_field() }}
           {{ method_field('PATCH') }}
 
           <input type="hidden" name="id" value="{{ $genre->id }}">
 
-          @if($genre->content)
+
           <div class="form-group">
             <label for="content">content:</label>
             <textarea class="form-control" name="content" rows="8">{{ $genre->content }}</textarea>
           </div>
-          @else
+
+          <button class="btn btn-primary pull-right" type="submit" name="button">submit</button>
+        </form>
+        @else<form method="post" action="{{ route($genre->imageable->genre.'.upload') }}"  enctype="multipart/form-data">
+          {{ csrf_field() }}
+
+          <input type="hidden" name="id" value="{{ $genre->id }}">
+
           <div class="form-group">
             <label for="image">image:</label>
             <input class="form-control" type="file" name="image">
           </div>
-          @endif
 
           <button class="btn btn-primary pull-right" type="submit" name="button">submit</button>
         </form>
+        @endif
 
       </div>
     </div>
