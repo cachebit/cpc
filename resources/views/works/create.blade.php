@@ -28,7 +28,7 @@
 
         <form method="post" action="{{ route($type.'.store') }}">
           {{ csrf_field() }}
-          
+
           <div class="form-group">
             <label for="title">title</label>
             <input class="form-control" type="text" name="title" value="{{ old('title') }}">
@@ -49,7 +49,7 @@
           @endif
 
           @include('forms._genre_selector')
-
+          
           <button class="btn btn-primary pull-right" type="submit" name="button">submit</button>
         </form>
 

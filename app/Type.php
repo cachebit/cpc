@@ -7,15 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 abstract class Type extends Model
 {
 
-  protected $fillable = [
-    'user_id',
-    'published_at',
-    'score',
-    'scored',
-    'title',
-    'genre',
-  ];
-
   public function user()
   {
       return $this->belongsTo('App\User');

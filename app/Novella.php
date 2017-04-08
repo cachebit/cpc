@@ -7,5 +7,13 @@ class Novella extends Type implements Publishable
 {
   protected $table = 'novellas';
 
-  array_push($fillable, 'section');
+  protected $fillable = [
+    'user_id',
+    'published_at',
+    'score',
+    'scored',
+    'title',
+    'section',
+    'genre',
+  ];
 }
