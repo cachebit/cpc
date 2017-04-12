@@ -8,6 +8,7 @@ class SingleFrame extends Picture
   protected $table = 'single_frames';
 
   protected $fillable = [
+    'path',
     'score',
     'scored',
   ];

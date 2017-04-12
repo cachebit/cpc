@@ -15,8 +15,8 @@ class WebtoonsController extends Controller
   public function edit($id)
   {
     $genre = Webtoon::findOrFail($id);
-
-    return view('works.genre_edit',compact('genre'));
+    $user = $genre->user;
+    return view('works.genre_edit',compact('genre', 'user'));
   }
 
   public function update(Request $request)
@@ -80,6 +80,7 @@ class WebtoonsController extends Controller
   public function show($id)
   {
     $genre = Webtoon::findOrFail($id);
-    return view('works.genre_show',compact('genre'));
+    $user = $genre->user;
+    return view('works.genre_show',compact('genre', 'user'));
   }
 }

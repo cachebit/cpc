@@ -15,8 +15,8 @@ class ScenariosController extends Controller
   public function edit($id)
   {
     $genre = Scenario::findOrFail($id);
-
-    return view('works.genre_edit',compact('genre'));
+    $user = $genre->user;
+    return view('works.genre_edit',compact('genre', 'user'));
   }
 
   public function update(Request $request)
@@ -38,6 +38,7 @@ class ScenariosController extends Controller
   public function show($id)
   {
     $genre = Scenario::findOrFail($id);
-    return view('works.genre_show',compact('genre'));
+    $user = $genre->user;
+    return view('works.genre_show',compact('genre', 'user'));
   }
 }

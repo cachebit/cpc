@@ -13,6 +13,7 @@ use App\SingleFrame;
 use App\MultipleFrame;
 use App\Scenario;
 use App\Publishable;
+use App\User;
 
 class WorksController extends Controller
 {
@@ -33,11 +34,12 @@ class WorksController extends Controller
 
     public function webtoons(Publishable $work)
     {
-      $webtoon = new Webtoon([
-        'user_id' => $work->user_id,
+      $webtoon = Webtoon::create([
         'path' => 'image path',
       ]);
 
+      $user = User::findOrFail($work->user_id);
+      $user->webtoons()->save($webtoon);
       $work->webtoons()->save($webtoon);
 
       return redirect()->route('webtoons.edit', $webtoon->id);
@@ -45,11 +47,12 @@ class WorksController extends Controller
 
     public function single_frames(Publishable $work)
     {
-      $single_frame = new SingleFrame([
-        'user_id' => $work->user_id,
+      $single_frame = SingleFrame::create([
         'path' => 'image path',
       ]);
 
+      $user = User::findOrFail($work->user_id);
+      $user->single_frames()->save($single_frame);
       $work->single_frames()->save($single_frame);
 
       return redirect()->route('single_frames.edit', $single_frame->id);
@@ -57,11 +60,12 @@ class WorksController extends Controller
 
     public function multiple_frames(Publishable $work)
     {
-      $multiple_frame = new MultipleFrame([
-        'user_id' => $work->user_id,
+      $multiple_frame = MultipleFrame::create([
         'path' => 'image path',
       ]);
 
+      $user = User::findOrFail($work->user_id);
+      $user->multiple_frames()->save($multiple_frame);
       $work->multiple_frames()->save($multiple_frame);
 
       return redirect()->route('multiple_frames.edit', $multiple_frame->id);
@@ -69,11 +73,12 @@ class WorksController extends Controller
 
     public function scenarios(Publishable $work)
     {
-      $scenario = new Scenario([
-        'user_id' => $work->user_id,
+      $scenario = Scenario::create([
         'content' => 'add contents',
       ]);
 
+      $user = User::findOrFail($work->user_id);
+      $user->scenarios()->save($scenario);
       $work->scenarios()->save($scenario);
 
       return redirect()->route('scenarios.edit', $scenario->id);

@@ -16,8 +16,8 @@ class SingleFramesController extends Controller
   public function edit($id)
   {
     $genre = SingleFrame::findOrFail($id);
-
-    return view('works.genre_edit',compact('genre'));
+    $user = $genre->user;
+    return view('works.genre_edit',compact('genre', 'user'));
   }
 
   public function update(Request $request)
@@ -80,7 +80,8 @@ class SingleFramesController extends Controller
   public function show($id)
   {
     $genre = SingleFrame::findOrFail($id);
-    return view('works.genre_show',compact('genre'));
+    $user = $genre->user;
+    return view('works.genre_show',compact('genre', 'user'));
   }
 
 }
