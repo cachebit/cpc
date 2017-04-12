@@ -20,7 +20,7 @@
   </div>
   <div class="panel-footer">
     <ul class="nav nav-pills">
-      <li><a href="#">works</a></li>
+      <li><a href="{{ route('users.works',$user->id) }}">works</a></li>
       <li><a href="#">friends</a></li>
       <li><a href="#">fans</a></li>
       <li><a href="{{ route('users.edit', Auth::user()->id) }}">change user's info</a></li>

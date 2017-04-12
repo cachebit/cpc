@@ -2,18 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class MultipleFrame extends Model
+class MultipleFrame extends Picture
 {
   protected $table = 'multiple_frames';
-
-  protected $fillable = [
-    'user_id',
-    'path',
-    'imageable_id',
-    'imageable_type',
-  ];
 
   public function user()
   {

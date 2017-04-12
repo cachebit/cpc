@@ -20,7 +20,7 @@ class MultipleFramesController extends Controller
     return view('works.genre_edit',compact('genre'));
   }
 
-  public function upload(Request $request)
+  public function update(Request $request)
   {
     $this->validate($request,[
       'id' => 'required',

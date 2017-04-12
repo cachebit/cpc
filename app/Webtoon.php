@@ -2,18 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Webtoon extends Model
+class Webtoon extends Picture
 {
   protected $table = 'webtoons';
-
-  protected $fillable = [
-    'user_id',
-    'path',
-    'imageable_id',
-    'imageable_type',
-  ];
 
   public function user()
   {

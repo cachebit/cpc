@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Auth;
 use Mail;
+use App\Type;
 
 class UsersController extends Controller
 {
@@ -22,6 +23,14 @@ class UsersController extends Controller
       $this->middleware('guest', [
             'only' => ['create', 'store']
       ]);
+    }
+
+    public function works($id)
+    {
+      $opuscules = new Type;
+      $opuscules->getTypes($id,'opuscules','30');
+      dd($opuscules);
+      return view('users.works', ['opuscules' => $opuscules]);
     }
 
     public function create()

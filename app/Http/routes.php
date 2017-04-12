@@ -20,6 +20,7 @@ Route::get('kuolie','StaticPagesController@kuolie')->name('kuolie');
 
 //users
 Route::get('signup', 'UsersController@create')->name('signup');
+Route::get('users/{id}/works', 'UsersController@works')->name('users.works');
 Route::resource('users', 'UsersController');
 Route::get('signup/confirm/{token}', 'UsersController@confirmEmail')->name('confirm_email');
 

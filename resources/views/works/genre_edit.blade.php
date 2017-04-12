@@ -43,8 +43,9 @@
 
           <button class="btn btn-primary pull-right" type="submit" name="button">submit</button>
         </form>
-        @else<form method="post" action="{{ route($genre->imageable->genre.'.upload') }}"  enctype="multipart/form-data">
+        @else<form method="post" action="{{ route($genre->imageable->genre.'.update') }}"  enctype="multipart/form-data">
           {{ csrf_field() }}
+          {{ method_field('PATCH') }}
 
           <input type="hidden" name="id" value="{{ $genre->id }}">
 
