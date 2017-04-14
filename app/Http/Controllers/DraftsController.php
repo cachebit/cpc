@@ -12,6 +12,22 @@ use App\Draft;
 
 class DraftsController extends WorksController
 {
+
+  public function index()
+  {
+    $works = Draft::orderBy('created_at', 'desc')
+                          ->paginate(10);
+    $type = 'drafts';
+    return view('works.index',compact('works', 'type'));
+  }
+
+  public function show($id)
+  {
+    $works = Draft::findOrFail($id);
+    $type = 'drafts';
+    return view('works.show',compact('works', 'type'));
+  }
+
   public function create()
   {
     return view('works.create',['type' => 'drafts']);

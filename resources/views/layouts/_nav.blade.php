@@ -14,10 +14,13 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><a href="/">home</a></li>
-        <li><a href="{{ route('painter') }}">painter</a></li>
-        <li><a href="{{ route('writer') }}">writer</a></li>
-        <li><a href="{{ route('works') }}">works</a></li>
-        <li><a href="{{ route('kuolie') }}">kuolie</a></li>
+        <li><a href="{{ route('opuscules.index') }}">opuscules</a></li>
+        <li><a href="{{ route('novellas.index') }}">novellas</a></li>
+        <li><a href="{{ route('novels.index') }}">novels</a></li>
+        <li><a href="{{ route('posters.index') }}">posters</a></li>
+        <li><a href="{{ route('sketches.index') }}">sketches</a></li>
+        <li><a href="{{ route('drafts.index') }}">drafts</a></li>
+        <li><a href="{{ route('settings.index') }}">settings</a></li>
       </ul>
       <form class="navbar-form navbar-right">
         <div class="form-group">

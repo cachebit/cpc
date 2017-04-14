@@ -12,6 +12,19 @@ use App\Opuscule;
 
 class OpusculesController extends WorksController
 {
+  public function index()
+  {
+    $works = Opuscule::orderBy('created_at', 'desc')
+                          ->paginate(10);
+    $type = 'opuscules';
+    return view('works.index',compact('works', 'type'));
+  }
+
+  public function show($id)
+  {
+    $works = Opuscule::findOrFail($id);
+    return view('works.show',compact('works'));
+  }
 
   public function create()
   {
@@ -37,6 +50,5 @@ class OpusculesController extends WorksController
 
     return parent::$function($opuscule);
   }
-
 
 }

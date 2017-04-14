@@ -12,6 +12,22 @@ use App\Setting;
 
 class SettingsController extends WorksController
 {
+
+  public function index()
+  {
+    $works = Setting::orderBy('created_at', 'desc')
+                          ->paginate(10);
+    $type = 'settings';
+    return view('works.index',compact('works', 'type'));
+  }
+
+  public function show($id)
+  {
+    $works = Setting::findOrFail($id);
+    $type = 'settings';
+    return view('works.show',compact('works', 'type'));
+  }
+
   public function create()
   {
     return view('works.create',['type' => 'settings']);

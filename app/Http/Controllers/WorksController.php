@@ -14,6 +14,7 @@ use App\MultipleFrame;
 use App\Scenario;
 use App\Publishable;
 use App\User;
+use App\Opuscule;
 
 class WorksController extends Controller
 {
@@ -31,6 +32,7 @@ class WorksController extends Controller
 
       return redirect()->route($request->type.'.create');
     }
+    
 
     public function webtoons(Publishable $work)
     {

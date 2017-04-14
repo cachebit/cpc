@@ -12,6 +12,22 @@ use App\Novella;
 
 class NovellasController extends WorksController
 {
+
+  public function index()
+  {
+    $works = Novella::orderBy('created_at', 'desc')
+                          ->paginate(10);
+    $type = 'novellas';
+    return view('works.index',compact('works', 'type'));
+  }
+
+  public function show($id)
+  {
+    $works = Novella::findOrFail($id);
+    $type = 'novellas';
+    return view('works.show',compact('works', 'type'));
+  }
+
   public function create()
   {
     return view('works.create',['type' => 'novellas']);

@@ -12,6 +12,21 @@ use App\Sketch;
 
 class SketchesController extends WorksController
 {
+
+  public function index()
+  {
+    $works = Sketch::orderBy('created_at', 'desc')
+                          ->paginate(10);
+    $type = 'sketches';
+    return view('works.index',compact('works', 'type'));
+  }
+
+  public function show($id)
+  {
+    $works = Sketch::findOrFail($id);
+    return view('works.show',compact('works'));
+  }
+
   public function create()
   {
     return view('works.create',['type' => 'sketches']);

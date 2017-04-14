@@ -12,6 +12,22 @@ use App\Poster;
 
 class PostersController extends WorksController
 {
+
+  public function index()
+  {
+    $works = Poster::orderBy('created_at', 'desc')
+                          ->paginate(10);
+    $type = 'posters';
+    return view('works.index',compact('works', 'type'));
+  }
+
+  public function show($id)
+  {
+    $works = Poster::findOrFail($id);
+    $type = 'posters';
+    return view('works.show',compact('works', 'type'));
+  }
+
   public function create()
   {
     return view('works.create',['type' => 'posters']);

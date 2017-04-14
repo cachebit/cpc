@@ -12,6 +12,22 @@ use App\Novel;
 
 class NovelsController extends WorksController
 {
+
+  public function index()
+  {
+    $works = Novel::orderBy('created_at', 'desc')
+                          ->paginate(10);
+    $type = 'novels';
+    return view('works.index',compact('works', 'type'));
+  }
+
+  public function show($id)
+  {
+    $works = Novel::findOrFail($id);
+    $type = 'novels';
+    return view('works.show',compact('works', 'type'));
+  }
+
   public function create()
   {
     return view('works.create',['type' => 'novels']);
