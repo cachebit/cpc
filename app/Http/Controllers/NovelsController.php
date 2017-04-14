@@ -57,4 +57,41 @@ class NovelsController extends WorksController
     return parent::$function($novel);
   }
 
+  public function edit($id)
+  {
+    $work = Novel::findOrFail($id);
+    $type = 'novels';
+    return view('works.edit',compact('work', 'type'));
+  }
+
+  public function update($id, Request $request)
+  {
+    $this->validate($request, [
+      'title' => 'required',
+      'volum' => 'required',
+      'section' => 'required',
+    ]);
+
+    $work = Novel::findOrFail($id);
+    $work->update([
+        'title' => $request->title,
+        'volum' => $request->volum,
+        'section' => $request->section,
+    ]);
+
+    return redirect()->route('novels.show', $id);
+  }
+
+  public function destroy($id)
+  {
+      $work = Novel::findOrFail($id);
+      $genres = $work->genre;
+      foreach($work->$genres as $genre)
+      {
+        $genre->delete();
+      }
+      $work->delete();
+      return back();
+  }
+
 }

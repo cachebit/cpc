@@ -8,6 +8,8 @@
     <h5>Edit User's info.</h5>
   </div>
   <div class="panel-body">
+    @include('shared.errors')
+
     <span class="col-sm-4">
       <img class="img-responsive" src="{{ $user->portrait_path }}" alt="{{ $user->name }}">
     </span>

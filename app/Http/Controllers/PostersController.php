@@ -53,4 +53,37 @@ class PostersController extends WorksController
     return parent::$function($poster);
   }
 
+  public function edit($id)
+  {
+    $work = Poster::findOrFail($id);
+    $type = 'posters';
+    return view('works.edit',compact('work', 'type'));
+  }
+
+  public function update($id, Request $request)
+  {
+    $this->validate($request, [
+      'title' => 'required',
+    ]);
+
+    $work = Poster::findOrFail($id);
+    $work->update([
+        'title' => $request->title,
+    ]);
+
+    return redirect()->route('posters.show', $id);
+  }
+
+  public function destroy($id)
+  {
+      $work = Poster::findOrFail($id);
+      $genres = $work->genre;
+      foreach($work->$genres as $genre)
+      {
+        $genre->delete();
+      }
+      $work->delete();
+      return back();
+  }
+
 }

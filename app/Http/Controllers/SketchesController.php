@@ -52,4 +52,37 @@ class SketchesController extends WorksController
     return parent::$function($sketch);
   }
 
+  public function edit($id)
+  {
+    $work = Sketch::findOrFail($id);
+    $type = 'sketches';
+    return view('works.edit',compact('work', 'type'));
+  }
+
+  public function update($id, Request $request)
+  {
+    $this->validate($request, [
+      'title' => 'required',
+    ]);
+
+    $work = Sketch::findOrFail($id);
+    $work->update([
+        'title' => $request->title,
+    ]);
+
+    return redirect()->route('sketches.show', $id);
+  }
+
+  public function destroy($id)
+  {
+      $work = Sketch::findOrFail($id);
+      $genres = $work->genre;
+      foreach($work->$genres as $genre)
+      {
+        $genre->delete();
+      }
+      $work->delete();
+      return back();
+  }
+
 }

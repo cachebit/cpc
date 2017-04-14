@@ -23,7 +23,8 @@ class OpusculesController extends WorksController
   public function show($id)
   {
     $works = Opuscule::findOrFail($id);
-    return view('works.show',compact('works'));
+    $type = 'opuscules';
+    return view('works.show',compact('works', 'type'));
   }
 
   public function create()
@@ -49,6 +50,39 @@ class OpusculesController extends WorksController
     $function = $opuscule->genre;
 
     return parent::$function($opuscule);
+  }
+
+  public function edit($id)
+  {
+    $work = Opuscule::findOrFail($id);
+    $type = 'opuscules';
+    return view('works.edit',compact('work', 'type'));
+  }
+
+  public function update($id, Request $request)
+  {
+    $this->validate($request, [
+      'title' => 'required',
+    ]);
+
+    $opuscule = Opuscule::findOrFail($id);
+    $opuscule->update([
+        'title' => $request->title,
+    ]);
+
+    return redirect()->route('opuscules.show', $id);
+  }
+
+  public function destroy($id)
+  {
+    $work = Opuscule::findOrFail($id);
+    $genres = $work->genre;
+    foreach($work->$genres as $genre)
+    {
+      $genre->delete();
+    }
+    $work->delete();
+    return back();
   }
 
 }

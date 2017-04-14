@@ -53,4 +53,37 @@ class SettingsController extends WorksController
     return parent::$function($setting);
   }
 
+  public function edit($id)
+  {
+    $work = Setting::findOrFail($id);
+    $type = 'settings';
+    return view('works.edit',compact('work', 'type'));
+  }
+
+  public function update($id, Request $request)
+  {
+    $this->validate($request, [
+      'title' => 'required',
+    ]);
+
+    $work = Setting::findOrFail($id);
+    $work->update([
+        'title' => $request->title,
+    ]);
+
+    return redirect()->route('settings.show', $id);
+  }
+
+  public function destroy($id)
+  {
+      $work = Setting::findOrFail($id);
+      $genres = $work->genre;
+      foreach($work->$genres as $genre)
+      {
+        $genre->delete();
+      }
+      $work->delete();
+      return back();
+  }
+
 }

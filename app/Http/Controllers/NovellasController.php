@@ -55,5 +55,40 @@ class NovellasController extends WorksController
     return parent::$function($novella);
   }
 
+  public function edit($id)
+  {
+    $work = Novella::findOrFail($id);
+    $type = 'novellas';
+    return view('works.edit',compact('work', 'type'));
+  }
+
+  public function update($id, Request $request)
+  {
+    $this->validate($request, [
+      'title' => 'required',
+      'section' => 'required',
+    ]);
+
+    $work = Novella::findOrFail($id);
+    $work->update([
+        'title' => $request->title,
+        'section' => $request->section,
+    ]);
+
+    return redirect()->route('novellas.show', $id);
+  }
+
+  public function destroy($id)
+  {
+      $work = Novella::findOrFail($id);
+      $genres = $work->genre;
+      foreach($work->$genres as $genre)
+      {
+        $genre->delete();
+      }
+      $work->delete();
+      return back();
+  }
+
 
 }

@@ -3,11 +3,10 @@
 
 @section('content')
 <div class="row">
-  <div class="col-sm-4">
-    {{ gettype($genre) }}
-    {{ gettype($user) }}
+  <div class="col-sm-3">
+
   </div>
-  <div class="col-sm-8">
+  <div class="col-sm-9">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h5>{{ 'generator' }}</h5>

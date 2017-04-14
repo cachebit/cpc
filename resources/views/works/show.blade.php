@@ -3,13 +3,36 @@
 
 @section('content')
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-3">
 
   </div>
-  <div class="col-sm-8">
-      <h5>{{ $works->title }}</h5>
-      <h5>{{ $works->genre }}</h5>
+  <div class="col-sm-9">
+    <div class="text-center">
+      <h2>{{ $works->title }}</h2>
+      @if($works->volum)
+      <h3>{{ $works->volum }}</h3>
+      @endif
+      @if($works->section)
+      <h4>{{ $works->section }}</h4>
+      @endif
+
+      <i>By <a href="{{ route('users.show', $works->user_id) }}">{{ $works->user->name }}</a></i>
+
+      <br>
+
+      <i>{{ $works->created_at }}</i>
+
+      <br>
+
+      @if(Auth::user()->id === $works->user_id)
+        <a href="{{ route($type.'.edit', $works->id) }}">eidt</a>
+      @endif
+
+    </div>
+
+
       <hr>
+
       @if($works->genre === 'scenarios')
         @foreach( $works->scenarios as $scenario)
           <p>{{ $scenario->content }}</p>

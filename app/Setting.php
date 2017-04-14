@@ -7,6 +7,15 @@ class Setting extends Type implements Publishable
 {
   protected $table = 'settings';
 
+  protected $fillable = [
+    'user_id',
+    'published_at',
+    'score',
+    'scored',
+    'title',
+    'genre',
+  ];
+
   public function user()
   {
       return $this->belongsTo('App\User');
