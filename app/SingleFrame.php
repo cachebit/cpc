@@ -9,8 +9,6 @@ class SingleFrame extends Picture
 
   protected $fillable = [
     'path',
-    'score',
-    'scored',
   ];
 
   public function user()

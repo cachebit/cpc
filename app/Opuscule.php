@@ -9,13 +9,20 @@ class Opuscule extends Type implements Publishable
   protected $table = 'opuscules';
 
   protected $fillable = [
-    'user_id',
     'published_at',
-    'score',
-    'scored',
     'title',
-    'genre',
   ];
+
+  protected $datas = ['published_at'];
+
+  /**
+  * type->published();
+  *
+  **/
+  public function scopePublished($query)
+  {
+    $query->where('published_at', '<=', 'Carbon::now()');
+  }
 
   public function user()
   {
