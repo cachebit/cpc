@@ -45,4 +45,49 @@ class User extends Model implements AuthenticatableContract,
         $user->activation_token = str_random(30);
       });
     }
+
+    public function stories()
+    {
+      return $this->hasMany('App\Story');
+    }
+
+    public function posters()
+    {
+      return $this->hasMany('App\Poster');
+    }
+
+    public function settings()
+    {
+      return $this->hasMany('App\Setting');
+    }
+
+    public function sketches()
+    {
+      return $this->hasMany('App\Sketch');
+    }
+
+    public function drafts()
+    {
+      return $this->hasMany('App\Draft');
+    }
+
+    public function sections()
+    {
+      return $this->hasMany('App\Section');
+    }
+
+    public function texts()
+    {
+      return $this->hasMany('App\Text');
+    }
+
+    public function webtoons()
+    {
+      return $this->hasMany('App\Webtoon');
+    }
+
+    public function multiple_frames()
+    {
+      return $this->hasMany('App\MultipleFrame');
+    }
 }
