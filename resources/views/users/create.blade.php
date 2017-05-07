@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('app')
 @section('title', 'Sign Up.')
 
 @section('content')

@@ -17,6 +17,7 @@ class CreateStoriesTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->string('title', 100);
             $table->string('description', 420);
+            $table->smallInteger('current_volum')->unsigned();
             $table->timestamps();
         });
     }

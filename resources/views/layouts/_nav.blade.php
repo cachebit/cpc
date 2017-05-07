@@ -13,11 +13,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="/">home</a></li>
-        <li><a href="{{ route('painter') }}">painter</a></li>
-        <li><a href="{{ route('writer') }}">writer</a></li>
-        <li><a href="{{ route('works') }}">works</a></li>
-        <li><a href="{{ route('kuolie') }}">kuolie</a></li>
+        <li><a href="/">首页</a></li>
+        <li><a href="{{ route('stories.index') }}">作品</a></li>
       </ul>
       <form class="navbar-form navbar-right">
         <div class="form-group">

@@ -35,9 +35,8 @@ class UsersController extends Controller
       return view('users.index', compact('users'));
     }
 
-    public function show($id)
+    public function show(User $user)
     {
-      $user = User::findOrFail($id);
       return view('users.show', compact('user'));
     }
 
@@ -88,17 +87,16 @@ class UsersController extends Controller
 
       Auth::login($user);
       session()->flash('success', '恭喜你，激活成功！');
-      return redirect()->route('users.show', [$user]);
+      return redirect()->route('users.show', $user->id);
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
-      $user = User::findOrFail($id);
       $this->authorize('update', $user);
       return view('users.edit', compact('user'));
     }
 
-    public function update($id, Request $request)
+    public function update(User $user, Request $request)
     {
       $this->validate($request, [
         'name' => 'required|max:50',
@@ -106,7 +104,6 @@ class UsersController extends Controller
         'password' => 'confirmed|min:6',
       ]);
 
-      $user = User::findOrFail($id);
       $this->authorize('update', $user);
 
       $credentials = [
@@ -131,13 +128,12 @@ class UsersController extends Controller
       }
     }
 
-    public function destroy($id, Request $request)
+    public function destroy(User $user, Request $request)
     {
       $this->validate($request, [
         'password' => 'required',
       ]);
 
-      $user = User::findOrFail($id);
       $this->authorize('update', $user);
 
       $credentials = [

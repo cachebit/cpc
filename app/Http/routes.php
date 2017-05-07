@@ -13,10 +13,7 @@
 
 //navs
 Route::get('/','StaticPagesController@home')->name('home');
-Route::get('painter','StaticPagesController@painter')->name('painter');
-Route::get('writer','StaticPagesController@writer')->name('writer');
-Route::get('works','StaticPagesController@works')->name('works');
-Route::get('kuolie','StaticPagesController@kuolie')->name('kuolie');
+Route::get('/create','StaticPagesController@create')->name('create');
 
 //users
 Route::get('signup', 'UsersController@create')->name('signup');
@@ -34,3 +31,7 @@ Route::get('password/email', 'Auth\PasswordController@getEmail')->name('password
 Route::post('password/email', 'Auth\PasswordController@postEmail')->name('password.reset');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset')->name('password.edit');
 Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.update');
+
+//story
+Route::get('users/{users}/stories', 'StoriesController@stories')->name('users.stories');
+Route::resource('stories', 'StoriesController');

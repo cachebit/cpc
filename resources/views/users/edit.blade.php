@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('app')
 @section('title', 'Edit User\'s File')
 
 @section('content')

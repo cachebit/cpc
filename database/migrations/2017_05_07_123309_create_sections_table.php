@@ -16,6 +16,7 @@ class CreateSectionsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->integer('story_id')->unsigned();
+            $table->smallInteger('volum')->unsigned();
             $table->string('title', 100);
             $table->string('description', 420);
             $table->timestamps();

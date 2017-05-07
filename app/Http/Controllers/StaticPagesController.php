@@ -14,23 +14,8 @@ class StaticPagesController extends Controller
       return view('static_pages.home');
     }
 
-    public function painter()
+    public function create()
     {
-      return view('static_pages.painter');
-    }
-
-    public function writer()
-    {
-      return view('static_pages.writer');
-    }
-
-    public function works()
-    {
-      return view('static_pages.works');
-    }
-
-    public function kuolie()
-    {
-      return view('static_pages.kuolie');
+      return view('static_pages.create');
     }
 }
