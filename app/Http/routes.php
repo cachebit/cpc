@@ -41,4 +41,14 @@ Route::post('stories/{stories}/add/section', 'StoriesController@save_section')->
 Route::resource('stories', 'StoriesController');
 
 //section
+Route::get('sections/{sections}/add/webtoons', 'SectionsController@webtoons')->name('sections.webtoons');
+Route::get('sections/{sections}/add/multiple_frames', 'SectionsController@multiple_frames')->name('sections.multiple_frames');
+Route::get('sections/{sections}/add/texts', 'SectionsController@texts')->name('sections.texts');
+Route::post('sections/{sections}/add/webtoons', 'SectionsController@save_webtoons')->name('sections.save_webtoons');
+Route::post('sections/{sections}/add/multiple_frames', 'SectionsController@save_multiple_frames')->name('sections.save_multiple_frames');
+Route::post('sections/{sections}/add/texts', 'SectionsController@save_texts')->name('sections.save_texts');
+Route::get('sections/{sections}/add', 'SectionsController@add')->name('sections.add');
 Route::resource('sections', 'SectionsController');
+
+//webtoons
+Route::resource('webtoons', 'WebtoonsController');

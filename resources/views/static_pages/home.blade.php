@@ -2,5 +2,15 @@
 @section('title', 'home')
 
 @section('content')
-  <h1>home</h1>
+  <div class="col-md-3">
+
+  </div>
+  <div class="col-md-6">
+
+  </div>
+  <div class="col-sm-3">
+    @if (Auth::check())
+      @include('layouts._right_column')
+    @endif
+  </div>
 @stop

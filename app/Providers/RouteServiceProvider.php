@@ -28,9 +28,10 @@ class RouteServiceProvider extends ServiceProvider
 
         parent::boot($router);
 
+        $router->model('users', 'App\User');
         $router->model('stories', 'App\Story');
         $router->model('sections', 'App\Section');
-        $router->model('users', 'App\User');
+        $router->model('webtoons', 'App\Webtoon');
     }
 
     /**

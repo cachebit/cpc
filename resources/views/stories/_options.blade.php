@@ -2,6 +2,7 @@
 <ul class="list-inline">
   <li><a class="btn btn-danger btn-xs" href="{{ route('stories.go_delete', $story->id) }}">删除作品</a></li>
   <li><a class="btn btn-warning btn-xs" href="{{ route('stories.edit', $story->id) }}">编辑标题或描述</a></li>
-  <li><a class="btn btn-success btn-xs" href="{{ route('stories.add', $story->id) }}">添加</a></li>
+  <li><a class="btn btn-success btn-xs" href="{{ route('stories.add', $story->id) }}">添加周边</a></li>
+  <li><a class="btn btn-success btn-xs" href="{{ route('stories.add_section', $story->id) }}">添加章节</a></li>
 </ul>
 @endif

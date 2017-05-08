@@ -3,10 +3,10 @@
 
 @section('content')
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-3">
 
   </div>
-  <div class="col-sm-8">
+  <div class="col-sm-6">
     <h3>作品</h3>
     @include('static_pages._story_table')
     <hr>

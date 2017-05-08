@@ -3,6 +3,7 @@
 
 @section('content')
   @include('stories._title_description')
+  @include('shared.errors')
   <form action="{{ route('stories.save_section', $story->id) }}" method="post">
     {{ csrf_field() }}
 

@@ -16,14 +16,7 @@
       @include('layouts._nav')
       <div class="row">
         @include('shared.messages')
-        <div class="col-sm-9">
-          @yield('content')
-        </div>
-        <div class="col-sm-3">
-          @if (Auth::check())
-            @include('layouts._right_column')
-          @endif
-        </div>
+        @yield('content')
       </div>
       @include('layouts._footer')
     </div>

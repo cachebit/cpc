@@ -2,6 +2,7 @@
 @section('title', '编辑')
 
 @section('content')
+@include('shared.errors')
 <form action="{{ route('stories.update', $story->id) }}" method="post">
   {{ csrf_field() }}
   {{ method_field('PATCH') }}
