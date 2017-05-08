@@ -26,7 +26,7 @@ class StoriesController extends Controller
     public function stories(\App\User $user)
     {
       $stories = $user->stories;
-      return view('stories.index', compact('stories'));
+      return view('stories.stories', compact('stories'));
     }
 
 
@@ -49,8 +49,8 @@ class StoriesController extends Controller
     public function store(Request $request)
     {
       $this->validate($request, [
-        'title' => 'required',
-        'description' => 'required',
+        'title' => 'required|max:100',
+        'description' => 'required|max:420',
       ]);
 
       $story = new Story($request->all());
@@ -77,9 +77,9 @@ class StoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Story $story)
     {
-        //
+      return view('stories.edit', compact('story'));
     }
 
     /**
@@ -89,9 +89,21 @@ class StoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Story $story)
     {
-        //
+      $this->validate($request,[
+        'title' => 'required|max:100',
+        'description' => 'required|max:420',
+      ]);
+
+      $story->update($request->all());
+
+      return view('stories.show', compact('story'));
+    }
+
+    public function add(Story $story)
+    {
+      return view('stories.add', compact('story'));
     }
 
     /**
@@ -100,8 +112,34 @@ class StoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Story $story)
     {
-        //
+      $story->delete();
+      session()->flash('success', '成功删除作品！');
+      return redirect()->route('stories.index');
+    }
+
+    public function go_delete(Story $story)
+    {
+      return view('stories.delete', compact('story'));
+    }
+
+    public function add_section(Story $story)
+    {
+      return view('stories.add_section', compact('story'));
+    }
+
+    public function save_section(Story $story, Request $request)
+    {
+      $this->validate($request,[
+        'title' => 'required|max:100',
+        'description' => 'required|max:420',
+      ]);
+
+      $section = new \App\Section($request->all());
+
+      $story->sections()->save($section);
+
+      return redirect()->route('sections.show', $section->id);
     }
 }

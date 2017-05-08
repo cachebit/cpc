@@ -8,10 +8,7 @@ class Section extends Model
 {
   protected $table = 'sections';
 
-  public function user()
-  {
-    return $this->belongsTo('App\User');
-  }
+  protected $fillable = ['title', 'description', 'volum'];
 
   public function story()
   {

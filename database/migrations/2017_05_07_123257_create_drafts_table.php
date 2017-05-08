@@ -14,7 +14,6 @@ class CreateDraftsTable extends Migration
     {
         Schema::create('drafts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->index();
             $table->integer('story_id')->unsigned();
             $table->string('title', 100);
             $table->string('description', 420);

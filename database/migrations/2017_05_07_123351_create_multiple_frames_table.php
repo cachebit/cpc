@@ -14,7 +14,6 @@ class CreateMultipleFramesTable extends Migration
     {
         Schema::create('multiple_frames', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->index();
             $table->integer('section_id')->unsigned();
             $table->string('path',255);
             $table->timestamps();

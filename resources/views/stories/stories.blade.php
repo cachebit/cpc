@@ -1,5 +1,5 @@
 @extends('app')
-@section('title', '所有作品')
+@section('title', '已发布作品')
 
 @section('content')
 @if(count($stories))
@@ -8,7 +8,7 @@
     <th>标题</th>
     <th>描述</th>
     <th>作者</th>
-    <th>发布于</th>
+    <th>操作</th>
   </thead>
   <tbody>
     @foreach($stories as $story)
@@ -17,7 +17,7 @@
       <td><p class="text-muted">{{ $story->description }}</p></td>
       <td><a href="{{ route('users.show', $story->user->id) }}">{{ $story->user->name }}</a></td>
       <td>
-        {{ $story->created_at->diffForHumans() }}
+        @include('stories._options')
       </td>
     </tr>
     @endforeach

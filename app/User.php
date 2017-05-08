@@ -53,41 +53,41 @@ class User extends Model implements AuthenticatableContract,
 
     public function posters()
     {
-      return $this->hasMany('App\Poster');
+      return $this->hasManyThrough('App\Poster', 'App\Story');
     }
 
     public function settings()
     {
-      return $this->hasMany('App\Setting');
+      return $this->hasManyThrough('App\Setting', 'App\Story');
     }
 
     public function sketches()
     {
-      return $this->hasMany('App\Sketch');
+      return $this->hasManyThrough('App\Sketch', 'App\Story');
     }
 
     public function drafts()
     {
-      return $this->hasMany('App\Draft');
+      return $this->hasManyThrough('App\Draft', 'App\Story');
     }
 
     public function sections()
     {
-      return $this->hasMany('App\Section');
+      return $this->hasManyThrough('App\Section', 'App\Story');
     }
 
     public function texts()
     {
-      return $this->hasMany('App\Text');
+      return $this->hasManyThrough('App\Text', 'App\Story');
     }
 
     public function webtoons()
     {
-      return $this->hasMany('App\Webtoon');
+      return $this->hasManyThrough('App\Webtoon', 'App\Story');
     }
 
     public function multiple_frames()
     {
-      return $this->hasMany('App\MultipleFrame');
+      return $this->hasManyThrough('App\MultipleFrame', 'App\Story');
     }
 }

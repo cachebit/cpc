@@ -14,7 +14,6 @@ class CreateVolumsTable extends Migration
     {
         Schema::create('volums', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->index();
             $table->integer('story_id')->unsigned();
             $table->string('title', 100);
             $table->string('description', 420);

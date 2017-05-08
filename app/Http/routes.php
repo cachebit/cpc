@@ -34,4 +34,11 @@ Route::post('password/reset', 'Auth\PasswordController@postReset')->name('passwo
 
 //story
 Route::get('users/{users}/stories', 'StoriesController@stories')->name('users.stories');
+Route::get('stories/{stories}/add', 'StoriesController@add')->name('stories.add');
+Route::get('stories/{stories}/delete', 'StoriesController@go_delete')->name('stories.go_delete');
+Route::get('stories/{stories}/add/section', 'StoriesController@add_section')->name('stories.add_section');
+Route::post('stories/{stories}/add/section', 'StoriesController@save_section')->name('stories.save_section');
 Route::resource('stories', 'StoriesController');
+
+//section
+Route::resource('sections', 'SectionsController');
