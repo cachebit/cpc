@@ -1,5 +1,20 @@
-<ul class="list-inline">
-  <li><h3>{{ $story->title }}</h3></li>
-  <li><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <i>{{ $story->type }}</i></li>
+<ul class="list-unstyled">
+  <li>
+    <ul class="list-inline">
+      <li><h3>{{ $story->title }}</h3></li>
+      @unless($story->type === '')
+      <li><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <a href="#">{{ $story->type }}</a></li>
+      @endunless
+    </ul>
+  </li>
+
+  <li>
+    <ul class="list-inline">
+      <li>作者：<a href="{{ route('users.show', $story->user->id) }}">{{ $story->user->name }}</a></li>
+      <li>@include('stories._options')</li>
+    </ul>
+  </li>
+
+  <li><img class="img-responsive thumbnail" src="{{ $story->cover }}" alt="《{{ $story->title }}》的封面"></li>
+  <li><p>{{ $story->description }}</p></li>
 </ul>
-<p class="well">{{ $story->description }}</p>

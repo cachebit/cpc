@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Story;
 use Auth;
+use File;
 
 class StoriesController extends Controller
 {
@@ -51,13 +52,49 @@ class StoriesController extends Controller
       $this->validate($request, [
         'title' => 'required|max:100',
         'description' => 'required|max:420',
+        'image' => 'required|image',
       ]);
 
+      $img = $request->file('image');
+
+      $directory = $this->make_dir(Auth::id());
+
+      $path = $this->save_img($img, $directory);
+
       $story = new Story($request->all());
+
+      $story->cover = $path;
 
       Auth::user()->stories()->save($story);
 
       return redirect()->route('stories.show', $story->id);
+    }
+
+    protected function make_dir($user_id)
+    {
+      $directory = 'images/'.$user_id.'/stories/cover/';
+
+      if(!File::isDirectory($directory)){
+        File::makeDirectory($directory,  $mode = 0755, $recursive = true);
+      }
+
+      return $directory;
+    }
+
+    protected function save_img($img, $directory)
+    {
+      $extension = $img->getClientOriginalExtension();
+
+      if($extension === 'jepg')
+      {
+        $extension = 'jpg';
+      }
+
+      $img_name = str_random(30).'.'.$extension;
+
+      $img->move($directory, $img_name);
+
+      return '/'.$directory.$img_name;
     }
 
     /**
@@ -94,9 +131,25 @@ class StoriesController extends Controller
       $this->validate($request,[
         'title' => 'required|max:100',
         'description' => 'required|max:420',
+        'image' => 'image',
       ]);
 
-      $story->update($request->all());
+      $img = $request->file('image');
+
+      if($img)
+      {
+        $directory = $this->make_dir(Auth::id());
+
+        $path = $this->save_img($img, $directory);
+
+        $story->cover = $path;
+      }
+
+      $story->title = $request->title;
+
+      $story->description = $request->description;
+
+      $story->save();
 
       return view('stories.show', compact('story'));
     }

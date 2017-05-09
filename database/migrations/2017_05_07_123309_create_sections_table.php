@@ -18,6 +18,9 @@ class CreateSectionsTable extends Migration
             $table->smallInteger('volum')->unsigned();
             $table->string('title', 100);
             $table->string('description', 420);
+            $table->string('cover',255);
+            $table->string('cover_m',255);
+            $table->string('cover_s',255);
             $table->timestamps();
         });
     }

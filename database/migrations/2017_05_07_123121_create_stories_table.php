@@ -18,6 +18,9 @@ class CreateStoriesTable extends Migration
             $table->string('title', 100);
             $table->string('description', 420);
             $table->string('type', 24);//tables name
+            $table->string('cover',255);
+            $table->string('cover_m',255);
+            $table->string('cover_s',255);
             $table->smallInteger('current_volum')->unsigned();
             $table->timestamps();
         });

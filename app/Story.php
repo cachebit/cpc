@@ -9,7 +9,7 @@ class Story extends Model
 
   protected $table = 'stories';
 
-  protected $fillable = ['title', 'description'];
+  protected $fillable = ['title', 'description', 'cover'];
 
   public function user()
   {

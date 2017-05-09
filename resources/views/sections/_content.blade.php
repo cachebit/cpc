@@ -36,4 +36,11 @@
 
 @elseif($section->story->type === '剧本')
 
+@elseif($section->story->type === '')
+<p class="well">
+  还没有更新任何内容。
+  @if(Auth::check() and Auth::user()->id === $section->story->user->id)
+  <a class="btn btn-success btn-xs" href="{{ route('sections.add', $section->id) }}">立即更新</a>
+  @endif
+</p>
 @endif

@@ -7,26 +7,14 @@
 
 </div>
 <div class="col-md-9">
-  <table class="table">
-    <thead>
-      <th>标题</th>
-      <th>描述</th>
-      <th>作者</th>
-      <th>发布于</th>
-    </thead>
-    <tbody>
-      @foreach($stories as $story)
-      <tr>
-        <td><a href="{{ route('stories.show', $story->id) }}">{{ $story->title }}</a></td>
-        <td><p class="text-muted">{{ $story->description }}</p></td>
-        <td><a href="{{ route('users.show', $story->user->id) }}">{{ $story->user->name }}</a></td>
-        <td>
-          {{ $story->created_at->diffForHumans() }}
-        </td>
-      </tr>
-      @endforeach
-    </tbody>
-  </table>
+  @foreach($stories as $story)
+  <ul class="list-inline">
+    <li><a href="{{ route('stories.show', $story->id) }}">{{ $story->title }}</a></li>
+    <li>作者：<a href="{{ route('users.show', $story->user->id) }}">{{ $story->user->name }}</a></li>
+    <li>发表于：{{ $story->created_at->diffForHumans() }}</li>
+    <li><p class="text-muted">{{ $story->description }}</p></li>
+  </ul>
+  @endforeach
 </div>
 @endif
 @stop
