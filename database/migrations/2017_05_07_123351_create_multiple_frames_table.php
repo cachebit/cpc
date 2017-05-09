@@ -16,6 +16,7 @@ class CreateMultipleFramesTable extends Migration
             $table->increments('id');
             $table->integer('section_id')->unsigned();
             $table->string('path',255);
+            $table->string('path_s',255);
             $table->timestamps();
         });
     }

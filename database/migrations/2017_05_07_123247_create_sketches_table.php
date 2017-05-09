@@ -18,6 +18,7 @@ class CreateSketchesTable extends Migration
             $table->string('title', 100);
             $table->string('description', 420);
             $table->string('path',255);
+            $table->string('path_s',255);
             $table->timestamps();
         });
     }
