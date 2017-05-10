@@ -94,18 +94,14 @@ class SectionsController extends Controller
       ]);
 
       $imgs = $request->file('image');
+
       foreach($imgs as $img)
       {
-        if($this->is_image($img))
-        {
-          $directory = $this->make_dir(Auth::id());
+        $webtoon = new \App\Webtoon();
 
-          $path = $this->save_img($img, $directory);
+        $webtoon->make($img);
 
-          $webtoon = new \App\Webtoon(['path' => $path]);
-
-          $section->webtoons()->save($webtoon);
-        }
+        $section->webtoons()->save($webtoon);
       }
 
       $story = $section->story;
@@ -115,39 +111,7 @@ class SectionsController extends Controller
       return redirect()->route('sections.show', $section->id);
     }
 
-    protected function is_image($img)
-    {
-      return $img->getClientOriginalExtension() === 'jpg' || $img->getClientOriginalExtension() === 'png' ||  $img->getClientOriginalExtension() === 'jepg';
-    }
-
-    protected function make_dir($user_id)
-    {
-      $directory = 'images/'.$user_id.'/webtoons/';
-
-      if(!File::isDirectory($directory)){
-        File::makeDirectory($directory,  $mode = 0755, $recursive = true);
-      }
-
-      return $directory;
-    }
-
-    protected function save_img($img, $directory)
-    {
-      $extension = $img->getClientOriginalExtension();
-
-      if($extension === 'jepg')
-      {
-        $extension = 'jpg';
-      }
-
-      $img_name = str_random(30).'.'.$extension;
-
-      $img->move($directory, $img_name);
-
-      return '/'.$directory.$img_name;
-    }
-
-    /**
+        /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
