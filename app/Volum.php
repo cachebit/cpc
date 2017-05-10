@@ -12,4 +12,9 @@ class Volum extends Model
   {
     return $this->belongsTo('App\Story');
   }
+
+  public function covers()
+  {
+      return $this->morphMany('App\Cover', 'imageable');
+  }
 }

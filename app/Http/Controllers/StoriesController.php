@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Story;
 use Auth;
 use File;
+use App\Cover;
 
 class StoriesController extends Controller
 {
@@ -55,46 +56,28 @@ class StoriesController extends Controller
         'image' => 'required|image',
       ]);
 
-      $img = $request->file('image');
-
-      $directory = $this->make_dir(Auth::id());
-
-      $path = $this->save_img($img, $directory);
-
       $story = new Story($request->all());
 
-      $story->cover = $path;
-
       Auth::user()->stories()->save($story);
+
+      $img = $request->file('image');
+
+      $cover = $this->save_cover($img);
+
+      $story->covers()->save($cover);
 
       return redirect()->route('stories.show', $story->id);
     }
 
-    protected function make_dir($user_id)
+    public function save_cover($img)
     {
-      $directory = 'images/'.$user_id.'/stories/cover/';
+      $cover = new Cover();
 
-      if(!File::isDirectory($directory)){
-        File::makeDirectory($directory,  $mode = 0755, $recursive = true);
-      }
+      $path_array = $cover->save_img($img);
 
-      return $directory;
-    }
+      $cover->fill($path_array);
 
-    protected function save_img($img, $directory)
-    {
-      $extension = $img->getClientOriginalExtension();
-
-      if($extension === 'jepg')
-      {
-        $extension = 'jpg';
-      }
-
-      $img_name = str_random(30).'.'.$extension;
-
-      $img->move($directory, $img_name);
-
-      return '/'.$directory.$img_name;
+      return $cover;
     }
 
     /**
@@ -136,22 +119,32 @@ class StoriesController extends Controller
 
       $img = $request->file('image');
 
-      if($img)
-      {
-        $directory = $this->make_dir(Auth::id());
-
-        $path = $this->save_img($img, $directory);
-
-        $story->cover = $path;
-      }
+      $this->update_cover($img, $story);
 
       $story->title = $request->title;
-
       $story->description = $request->description;
-
       $story->save();
 
       return view('stories.show', compact('story'));
+    }
+
+    public function update_cover($img, Story $story)
+    {
+      if($img)
+      {
+        $cover = $story->covers()->first();
+        $path_array = $cover->save_img($img);
+
+        $cover->cover = $path_array['cover'];
+        $cover->cover_m = $path_array['cover_m'];
+        $cover->cover_s = $path_array['cover_s'];
+
+        $cover->save();
+
+        return true;
+      }
+
+      return false;
     }
 
     public function add(Story $story)

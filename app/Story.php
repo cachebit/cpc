@@ -9,7 +9,7 @@ class Story extends Model
 
   protected $table = 'stories';
 
-  protected $fillable = ['title', 'description', 'cover'];
+  protected $fillable = ['title', 'description'];
 
   public function user()
   {
@@ -39,5 +39,10 @@ class Story extends Model
   public function sections()
   {
     return $this->hasMany('App\Section');
+  }
+
+  public function covers()
+  {
+      return $this->morphMany('App\Cover', 'imageable');
   }
 }

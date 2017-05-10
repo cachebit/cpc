@@ -99,14 +99,18 @@ class SectionsController extends Controller
       {
         $webtoon = new \App\Webtoon();
 
-        $webtoon->make($img);
+        $path_array = $webtoon->save_img($img);
+
+        $webtoon->fill($path_array);
 
         $section->webtoons()->save($webtoon);
       }
 
-      $story = $section->story;
-      $story->type = '条漫';
-      $story->save();
+      if($section->story->type === '')
+      {
+        $section->story->type = '条漫';
+        $section->story->save();
+      }
 
       return redirect()->route('sections.show', $section->id);
     }

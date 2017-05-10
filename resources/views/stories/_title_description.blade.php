@@ -15,6 +15,6 @@
     </ul>
   </li>
 
-  <li><img class="img-responsive thumbnail" src="{{ $story->cover }}" alt="《{{ $story->title }}》的封面"></li>
+  <li><img class="img-responsive thumbnail" src="{{ $story->covers()->first()->cover_m }}" alt="《{{ $story->title }}》的封面"></li>
   <li><p>{{ $story->description }}</p></li>
 </ul>

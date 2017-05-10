@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-use File;
-use Auth;
 use Image;
+use Auth;
+use File;
 
-class Webtoon extends Model
+class Cover extends Model
 {
-  protected $table = 'webtoons';
+  protected $table = 'covers';
 
-  protected $fillable = ['path', 'path_s'];
+  protected $fillable = ['cover', 'cover_m', 'cover_s'];
 
   public function save_img($img)
   {
@@ -33,7 +33,6 @@ class Webtoon extends Model
     return $extension === 'jpg' || $extension === 'png' ||  $extension === 'jpeg';
   }
 
-  //return path_array of path and path_s of Webtoon
   protected function move_img($img)
   {
     $directory = $this->make_dir(Auth::id());
@@ -47,25 +46,30 @@ class Webtoon extends Model
 
     $img_name = str_random(30);
 
-    $path_array['path'] = $directory.$img_name.'.'.$extension;
+    $path_array['cover'] = $directory.$img_name.'.'.$extension;
+    $path_array['cover_m'] = $directory.$img_name.'_m.'.$extension;
+    $path_array['cover_s'] = $directory.$img_name.'_s.'.$extension;
 
-    $path_array['path_s'] = $directory.$img_name.'_s.'.$extension;
-
-    Image::make($img)->save($path_array['path']);
-
-    Image::make($img)->resize(160, null, function ($constraint) {
+    Image::make($img)->resize(1024, null, function ($constraint) {
       $constraint->aspectRatio();
-    })->save($path_array['path_s']);
+    })->save($path_array['cover']);
 
-    $path_array['path'] = '/'.$path_array['path'];
-    $path_array['path_s'] = '/'.$path_array['path_s'];
+    Image::make($img)->resize(320, null, function ($constraint) {
+      $constraint->aspectRatio();
+    })->save($path_array['cover_m']);
+
+    Image::make($img)->fit(100)->save($path_array['cover_s']);
+
+    $path_array['cover'] = '/'.$path_array['cover'];
+    $path_array['cover_m'] = '/'.$path_array['cover_m'];
+    $path_array['cover_s'] = '/'.$path_array['cover_s'];
 
     return $path_array;
   }
 
   protected function make_dir($user_id)
   {
-    $directory = 'images/'.$user_id.'/webtoons/';
+    $directory = 'images/'.$user_id.'/stories/covers/';
 
     if(!File::isDirectory($directory)){
       File::makeDirectory($directory,  $mode = 0755, $recursive = true);
@@ -74,9 +78,8 @@ class Webtoon extends Model
     return $directory;
   }
 
-  //eloquents relations function
-  public function section()
+  public function imageable()
   {
-    return $this->belongsTo('App\Section');
+    return $this->morphTo();
   }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVolumsTable extends Migration
+class CreateCoversTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,13 @@ class CreateVolumsTable extends Migration
      */
     public function up()
     {
-        Schema::create('volums', function (Blueprint $table) {
+        Schema::create('covers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('story_id')->unsigned();
-            $table->string('title', 100);
-            $table->string('description', 420);
-            $table->smallInteger('volum')->unsigned();
+            $table->string('cover',255);
+            $table->string('cover_m',255);
+            $table->string('cover_s',255);
+            $table->integer('imageable_id')->unsigned();
+            $table->string('imageable_type');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateVolumsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('volums');
+        Schema::drop('covers');
     }
 }

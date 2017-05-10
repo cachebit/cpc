@@ -29,4 +29,9 @@ class Section extends Model
   {
     return $this->hasMany('App\MultipleFrame');
   }
+
+  public function covers()
+  {
+      return $this->morphMany('App\Cover', 'imageable');
+  }
 }
