@@ -40,7 +40,8 @@
 <p class="well">
   还没有更新任何内容。
   @if(Auth::check() and Auth::user()->id === $section->story->user->id)
-  <a class="btn btn-success btn-xs" href="{{ route('sections.add', $section->id) }}">立即更新</a>
+  <h4>添加内容</h4>
+  @include('sections._types_table')
   @endif
 </p>
 @endif

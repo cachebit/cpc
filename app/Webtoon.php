@@ -51,7 +51,7 @@ class Webtoon extends Model
 
     $path_array['path_s'] = $directory.$img_name.'_s.'.$extension;
 
-    Image::make($img)->save($path_array['path']);
+    Image::make($img)->resize(1024)->save($path_array['path']);
 
     Image::make($img)->resize(160, null, function ($constraint) {
       $constraint->aspectRatio();
