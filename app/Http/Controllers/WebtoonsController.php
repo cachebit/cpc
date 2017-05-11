@@ -87,6 +87,11 @@ class WebtoonsController extends Controller
       $section = $webtoon->section;
       $section->webtoons()->where('id', $webtoon->id)->delete();
 
+      if(count($section->webtoons) === 0){
+        $section->story->type = '';
+        $section->story->save();
+      }
+
       return redirect()->route('sections.show', $section->id);
     }
 }

@@ -15,9 +15,7 @@
     @elseif($section->story->type === '剧本')
     <a href="{{ route('sections.texts', $section->id) }}">添加剧本</a>
     @endif
-
-    <li><a href="{{ route('sections.edit', $section->id) }}">编辑标题或描述</a></li>
-
+    
     <li><a href="{{ route('sections.edit', $section->id) }}">编辑标题或描述</a></li>
 
     <li class="divider"></li>

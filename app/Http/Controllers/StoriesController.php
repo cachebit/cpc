@@ -125,7 +125,7 @@ class StoriesController extends Controller
       $story->description = $request->description;
       $story->save();
 
-      return view('stories.show', compact('story'));
+      return redirect()->route('stories.show', $story->id);
     }
 
     public function update_cover($img, Story $story)
