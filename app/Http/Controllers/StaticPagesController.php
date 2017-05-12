@@ -16,6 +16,6 @@ class StaticPagesController extends Controller
 
     public function create()
     {
-      return view('static_pages.create');
+      return view('create.create');
     }
 }
