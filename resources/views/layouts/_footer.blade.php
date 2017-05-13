@@ -1,6 +1,6 @@
 <hr>
 <div class="row">
   <div class="col-sm-12">
-    <a href="#">(C)2017 All Right Reversed.</a>
+    <a href="#">Copyright (c) 2017 cpcomic.com All Rights Reserved.</a>
   </div>
 </div>

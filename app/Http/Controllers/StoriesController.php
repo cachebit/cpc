@@ -22,7 +22,7 @@ class StoriesController extends Controller
     public function index()
     {
       $stories = Story::orderBy('created_at', 'desc')->paginate(30);
-      return view('stories.index', compact('stories'));
+      return view('index.story', compact('stories'));
     }
 
     public function stories(\App\User $user)
@@ -39,7 +39,7 @@ class StoriesController extends Controller
      */
     public function create()
     {
-      return view('stories.create');
+      return view('create.story');
     }
 
     /**
@@ -66,7 +66,7 @@ class StoriesController extends Controller
 
       $story->covers()->save($cover);
 
-      return redirect()->route('stories.show', $story->id);
+      return redirect()->route('stories.add', $story->id);
     }
 
     public function save_cover($img)
@@ -88,7 +88,7 @@ class StoriesController extends Controller
      */
     public function show(Story $story)
     {
-      return view('stories.show', compact('story'));
+      return view('show.story', compact('story'));
     }
 
     /**
@@ -99,7 +99,7 @@ class StoriesController extends Controller
      */
     public function edit(Story $story)
     {
-      return view('stories.edit', compact('story'));
+      return view('edit.story', compact('story'));
     }
 
     /**
@@ -149,7 +149,7 @@ class StoriesController extends Controller
 
     public function add(Story $story)
     {
-      return view('stories.add', compact('story'));
+      return view('add.add', compact('story'));
     }
 
     /**
@@ -172,7 +172,7 @@ class StoriesController extends Controller
 
     public function add_section(Story $story)
     {
-      return view('stories.add_section', compact('story'));
+      return view('add.section', compact('story'));
     }
 
     public function save_section(Story $story, Request $request)
@@ -180,9 +180,24 @@ class StoriesController extends Controller
       $this->validate($request,[
         'title' => 'required|max:100',
         'description' => 'required|max:420',
+        'volum_title' => 'max:100',
+        'volum_description' => 'max:420',
       ]);
 
       $section = new \App\Section($request->all());
+
+      if($request->volum_title){
+        $volum = new \App\Volum();
+        $story->current_volum++;
+        $volum->fill([
+          'title' => $request->volum_title,
+          'description' => $request->volum_description,
+          'volum' => $story->current_volum,
+        ]);
+        $story->volums()->save($volum);
+        $story->save();
+      }
+      $section->fill(['volum' => $story->current_volum]);
 
       $story->sections()->save($section);
 

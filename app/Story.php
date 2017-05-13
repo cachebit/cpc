@@ -11,6 +11,16 @@ class Story extends Model
 
   protected $fillable = ['title', 'description'];
 
+  public function setTitleAttribute($title)
+  {
+    if(starts_with($title, '《') && str_finish($title, '》')){
+
+    }else{
+      $this->attributes['title'] = '《'.$title.'》';
+    }
+
+  }
+
   public function user()
   {
     return $this->belongsTo('App\User');
@@ -39,6 +49,11 @@ class Story extends Model
   public function sections()
   {
     return $this->hasMany('App\Section');
+  }
+
+  public function volums()
+  {
+    return $this->hasMany('App\Volum');
   }
 
   public function covers()

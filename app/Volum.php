@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Volum extends Model
 {
 
+  protected $table = 'volums';
+
+  protected $fillable = ['title', 'description', 'volum'];
+
+  public function setTitleAttribute($title)
+  {
+    $this->attributes['title'] = '《'.$title.'》';
+  }
 
   public function story()
   {

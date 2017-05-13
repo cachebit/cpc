@@ -6,7 +6,7 @@
 <div class="col-md-9">
   <div class="row">
     <div class="col-sm-4">
-      <img class="img-responsive thumbnail" src="{{ $story->cover }}" alt="《{{ $story->title }}》的封面">
+      <img class="img-responsive thumbnail" src="{{ $story->covers()->first()->cover_m }}" alt="《{{ $story->title }}》的封面">
     </div>
     <div class="col-sm-8">
       <form action="{{ route('stories.update', $story->id) }}" method="post" enctype="multipart/form-data">
@@ -18,7 +18,7 @@
           <input class="form-control" type="file" name="image">
         </div>
 
-        @include('stories._title_description_form', [
+        @include('add._title_description_form', [
           'title' => $story->title,
           'description' => $story->description,
           ])

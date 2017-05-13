@@ -53,17 +53,15 @@ class SectionsController extends Controller
      */
     public function show(Section $section)
     {
-      if($section->story->type === '条漫'){
-
+      if($section->story->type === '条漫' && count($section->webtoons)){
         $webtoons = $section->webtoons()->orderBy('created_at','asc')->get();
 
         return view('show.webtoons', compact('webtoons'));
-
       }elseif($section->story->type === '多格漫画'){
 
       }elseif($section->story->type === '剧本'){
 
-      }elseif($section->story->type === ''){
+      }else{
         return view('show.section_no_content', compact('section'));
       }
     }

@@ -1,7 +1,7 @@
 <ul class="list-unstyled">
   <li>
     <ul class="list-inline">
-      <li><h3>{{ $story->title }}</h3></li>
+      <li><a href="{{ route('stories.show', $story->id) }}"><h3>{{ $story->title }}</h3></a></li>
       @unless($story->type === '')
       <li><span class="glyphicon glyphicon-tags" aria-hidden="true"></span> <a href="#">{{ $story->type }}</a></li>
       @endunless

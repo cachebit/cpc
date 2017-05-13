@@ -54,9 +54,7 @@ class Cover extends Model
       $constraint->aspectRatio();
     })->save($path_array['cover']);
 
-    Image::make($img)->resize(320, null, function ($constraint) {
-      $constraint->aspectRatio();
-    })->save($path_array['cover_m']);
+    Image::make($img)->fit(360, 240)->save($path_array['cover_m']);
 
     Image::make($img)->fit(100)->save($path_array['cover_s']);
 
