@@ -6,6 +6,6 @@
   @include('stories._title_description')
 </div>
 <div class="col-md-9">
-  @include('add._add_story_derivative')
+  @include('stories._add_derivative')
 </div>
 @stop

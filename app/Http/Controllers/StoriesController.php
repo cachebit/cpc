@@ -11,6 +11,7 @@ use App\Story;
 use Auth;
 use File;
 use App\Cover;
+use Image;
 
 class StoriesController extends Controller
 {
@@ -182,6 +183,7 @@ class StoriesController extends Controller
         'description' => 'required|max:420',
         'volum_title' => 'max:100',
         'volum_description' => 'max:420',
+        'volum_cover' => 'image'
       ]);
 
       $section = new \App\Section($request->all());
@@ -196,6 +198,23 @@ class StoriesController extends Controller
         ]);
         $story->volums()->save($volum);
         $story->save();
+
+        $img = $request->file('volum_cover');
+
+        if($img){
+
+          $cover = $this->save_cover($img);
+
+          $volum->covers()->save($cover);
+
+        }else{
+          $img = Image::make('img/site/default_cover.jpg');
+
+          $cover = $this->save_cover($img);
+
+          $volum->covers()->save($cover);
+        }
+
       }
       $section->fill(['volum' => $story->current_volum]);
 

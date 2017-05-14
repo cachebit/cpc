@@ -6,7 +6,7 @@
   @unless($section->story->current_volum === 0)
   @if($section->volum)
   @include('stories.volum',[
-    'volum' => $section->story->volums()->where('volum', '1')->first()
+    'volum' => $section->story->volums()->where('volum', $section->volum)->first()
   ])
   @else
   <ul class="list-inline">

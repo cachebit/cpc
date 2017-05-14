@@ -52,3 +52,7 @@ Route::resource('sections', 'SectionsController');
 
 //webtoons
 Route::resource('webtoons', 'WebtoonsController');
+
+//volum
+Route::patch('sections/{sections}/change/volum', 'VolumsController@change')->name('change.volum');
+Route::resource('volums', 'VolumsController');
