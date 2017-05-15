@@ -28,6 +28,10 @@ class Webtoon extends Model
 
   protected function is_image($img)
   {
+    if($img === null){
+      return false;
+    }
+
     $extension = $img->getClientOriginalExtension();
 
     return $extension === 'jpg' || $extension === 'png' ||  $extension === 'jpeg';
@@ -55,7 +59,7 @@ class Webtoon extends Model
       $constraint->aspectRatio();
     })->save($path_array['path']);
 
-    Image::make($img)->resize(160, null, function ($constraint) {
+    Image::make($img)->resize(200, null, function ($constraint) {
       $constraint->aspectRatio();
     })->save($path_array['path_s']);
 

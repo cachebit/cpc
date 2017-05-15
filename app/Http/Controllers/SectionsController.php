@@ -99,9 +99,6 @@ class SectionsController extends Controller
 
     public function save_webtoons(Request $request, Section $section)
     {
-      $this->validate($request, [
-        'image' => 'required',
-      ]);
 
       $imgs = $request->file('image');
 

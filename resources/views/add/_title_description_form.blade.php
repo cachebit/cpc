@@ -1,5 +1,5 @@
 <div class="form-group">
-  <label for="title">名称：</label>
+  <label for="title">标题：</label>
   <input class="form-control" type="text" name="title" value="{{ $title }}">
 </div>
 

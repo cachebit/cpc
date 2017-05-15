@@ -33,11 +33,14 @@ Route::get('password/reset/{token}', 'Auth\PasswordController@getReset')->name('
 Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.update');
 
 //story
-Route::get('users/{users}/stories', 'StoriesController@stories')->name('users.stories');
+Route::get('users/{users}/stories', 'StoriesController@user_stories')->name('user.stories');
+Route::get('stories/{tags}', 'StoriesController@tag_stories')->name('tag.stories');
+//待修改
 Route::get('stories/{stories}/add', 'StoriesController@add')->name('stories.add');
 Route::get('stories/{stories}/delete', 'StoriesController@go_delete')->name('stories.go_delete');
 Route::get('stories/{stories}/add/section', 'StoriesController@add_section')->name('stories.add_section');
 Route::post('stories/{stories}/add/section', 'StoriesController@save_section')->name('stories.save_section');
+//资源路由器
 Route::resource('stories', 'StoriesController');
 
 //section
@@ -56,3 +59,6 @@ Route::resource('webtoons', 'WebtoonsController');
 //volum
 Route::patch('sections/{sections}/change/volum', 'VolumsController@change')->name('change.volum');
 Route::resource('volums', 'VolumsController');
+
+//poster
+Route::resource('posters', 'PostersController');

@@ -26,12 +26,18 @@ class StoriesController extends Controller
       return view('index.story', compact('stories'));
     }
 
-    public function stories(\App\User $user)
+    //显示某用户的所有故事/专辑
+    public function user_stories(\App\User $user)
     {
-      $stories = $user->stories;
-      return view('stories.stories', compact('stories'));
+      $stories = $user->stories()->orderBy('created_at', 'desc')->paginate(30);
+      return view('index.story', compact('stories'));
     }
 
+    //显示某标签下的所有故事/专辑
+    public function tag_stories()
+    {
+      return 'tag_stories';
+    }
 
     /**
      * Show the form for creating a new resource.

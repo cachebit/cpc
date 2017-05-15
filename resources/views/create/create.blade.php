@@ -8,7 +8,7 @@
 </div>
 
 <div class="col-xs-6 col-sm-4 col-md-3">
-  <a class="btn btn-primary btn-block" href="#">
+  <a class="btn btn-primary btn-block" href="{{ route('posters.create') }}">
     <dl>
       <dt><h3><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> 海报</h3></dt>
       <dd><p>完整的作品</p></dd>

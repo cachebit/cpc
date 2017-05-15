@@ -7,6 +7,7 @@
 
 </div>
 <div class="col-md-6">
+  @include('shared.errors')
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3>新故事/新专辑</h3>
