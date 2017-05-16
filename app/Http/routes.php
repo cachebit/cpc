@@ -13,7 +13,7 @@
 
 //navs
 Route::get('/','StaticPagesController@home')->name('home');
-Route::get('/create','StaticPagesController@create')->name('create');
+Route::get('create','StaticPagesController@create')->name('create');
 
 //users
 Route::get('signup', 'UsersController@create')->name('signup');
@@ -41,7 +41,13 @@ Route::get('stories/{stories}/delete', 'StoriesController@go_delete')->name('sto
 Route::get('stories/{stories}/add/section', 'StoriesController@add_section')->name('stories.add_section');
 Route::post('stories/{stories}/add/section', 'StoriesController@save_section')->name('stories.save_section');
 //资源路由器
-Route::resource('stories', 'StoriesController');
+Route::get('stories', 'StoriesController@index')->name('stories.index');
+Route::get('stories/{stories}', 'StoriesController@show')->name('stories.show');
+Route::get('stories/create', 'StoriesController@create')->name('stories.create');
+Route::post('stories', 'StoriesController@store')->name('stories.store');
+Route::get('stories/{stories}/edit', 'StoriesController@edit')->name('stories.edit');
+Route::patch('stories/{stories}', 'StoriesController@update')->name('stories.update');
+Route::delete('stories/{stories}', 'StoriesController@destroy')->name('stories.destroy');
 
 //section
 Route::get('sections/{sections}/add/webtoons', 'SectionsController@webtoons')->name('sections.webtoons');
@@ -54,11 +60,29 @@ Route::get('sections/{sections}/add', 'SectionsController@add')->name('sections.
 Route::resource('sections', 'SectionsController');
 
 //webtoons
-Route::resource('webtoons', 'WebtoonsController');
+Route::get('webtoons', 'WebtoonsController@index')->name('webtoons.index');
+Route::get('webtoons/{webtoons}', 'WebtoonsController@show')->name('webtoons.show');
+Route::get('webtoons/create', 'WebtoonsController@create')->name('webtoons.create');
+Route::post('webtoons', 'WebtoonsController@store')->name('webtoons.store');
+Route::get('webtoons/{webtoons}/edit', 'WebtoonsController@edit')->name('webtoons.edit');
+Route::patch('webtoons/{webtoons}', 'WebtoonsController@update')->name('webtoons.update');
+Route::delete('webtoons/{webtoons}', 'WebtoonsController@destroy')->name('webtoons.destroy');
 
 //volum
 Route::patch('sections/{sections}/change/volum', 'VolumsController@change')->name('change.volum');
-Route::resource('volums', 'VolumsController');
+Route::get('volums', 'VolumsController@index')->name('volums.index');
+Route::get('volums/{volums}', 'VolumsController@show')->name('volums.show');
+Route::get('volums/create', 'VolumsController@create')->name('volums.create');
+Route::post('volums', 'VolumsController@store')->name('volums.store');
+Route::get('volums/{volums}/edit', 'VolumsController@edit')->name('volums.edit');
+Route::patch('volums/{volums}', 'VolumsController@update')->name('volums.update');
+Route::delete('volums/{volums}', 'VolumsController@destroy')->name('volums.destroy');
 
 //poster
-Route::resource('posters', 'PostersController');
+Route::get('posters', 'PostersController@index')->name('posters.index');
+Route::get('posters/{posters}', 'PostersController@show')->name('posters.show');
+Route::get('posters/create', 'PostersController@create')->name('posters.create');
+Route::post('posters', 'PostersController@store')->name('posters.store');
+Route::get('posters/{posters}/edit', 'PostersController@edit')->name('posters.edit');
+Route::patch('posters/{posters}', 'PostersController@update')->name('posters.update');
+Route::delete('posters/{posters}', 'PostersController@destroy')->name('posters.destroy');

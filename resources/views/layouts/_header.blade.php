@@ -9,8 +9,8 @@
             {{ Auth::user()->name }}<b class="caret"></b>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="{{ route('users.show', Auth::user()->id) }}">个人信息</a></li>
-            <li><a href="{{ route('users.stories', Auth::id()) }}">作品管理</a></li>
+            <li><a href="{{ route('users.show', Auth::id()) }}">个人信息</a></li>
+            <li><a href="{{ route('user.stories', Auth::id()) }}">作品管理</a></li>
             <li class="divider"></li>
             <li>
               <a href="#">
