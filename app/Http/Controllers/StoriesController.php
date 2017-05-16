@@ -8,9 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Story;
-use Auth;
-use File;
 use App\Cover;
+use Auth;
 use Image;
 
 class StoriesController extends Controller
@@ -23,7 +22,7 @@ class StoriesController extends Controller
     public function index()
     {
       $stories = Story::orderBy('created_at', 'desc')->paginate(24);
-      
+
       return view('index.story', compact('stories'));
     }
 
@@ -66,11 +65,15 @@ class StoriesController extends Controller
 
       $story = new Story($request->all());
 
-      Auth::user()->stories()->save($story);
-
       $img = $request->file('image');
 
-      $cover = \App\Cover::save_cover($img);
+      $directory = $story->make_covers_dir(Auth::id());
+
+      $path = $story->save_covers($img, $directory);
+
+      $cover = new Cover($path);
+
+      Auth::user()->stories()->save($story);
 
       $story->covers()->save($cover);
 
@@ -116,7 +119,9 @@ class StoriesController extends Controller
 
       $img = $request->file('image');
 
-      \App\Cover::update_cover($img, $story);
+      $directory = $story->make_covers_dir(Auth::id());
+      $path = $story->update_covers($img, $directory);
+      $story->covers()->first()->update($path);
 
       $story->title = $request->title;
       $story->description = $request->description;
@@ -124,8 +129,6 @@ class StoriesController extends Controller
 
       return redirect()->route('stories.show', $story->id);
     }
-
-
 
     public function add(Story $story)
     {
@@ -148,57 +151,5 @@ class StoriesController extends Controller
     public function go_delete(Story $story)
     {
       return view('stories.delete', compact('story'));
-    }
-
-    public function add_section(Story $story)
-    {
-      return view('add.section', compact('story'));
-    }
-
-    public function save_section(Story $story, Request $request)
-    {
-      $this->validate($request,[
-        'title' => 'required|max:100',
-        'description' => 'required|max:420',
-        'volum_title' => 'max:100',
-        'volum_description' => 'max:420',
-        'volum_cover' => 'image'
-      ]);
-
-      $section = new \App\Section($request->all());
-
-      if($request->volum_title){
-        $volum = new \App\Volum();
-        $story->current_volum++;
-        $volum->fill([
-          'title' => $request->volum_title,
-          'description' => $request->volum_description,
-          'volum' => $story->current_volum,
-        ]);
-        $story->volums()->save($volum);
-        $story->save();
-
-        $img = $request->file('volum_cover');
-
-        if($img){
-
-          $cover = $this->save_cover($img);
-
-          $volum->covers()->save($cover);
-
-        }else{
-          $img = Image::make('img/site/default_cover.jpg');
-
-          $cover = $this->save_cover($img);
-
-          $volum->covers()->save($cover);
-        }
-
-      }
-      $section->fill(['volum' => $story->current_volum]);
-
-      $story->sections()->save($section);
-
-      return redirect()->route('sections.show', $section->id);
     }
 }

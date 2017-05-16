@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Section;
+use App\Story;
 use File;
 use Auth;
 
@@ -29,9 +30,9 @@ class SectionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Story $story)
     {
-      return view('sections.create');
+      return view('create.section', compact('story'));
     }
 
     /**
@@ -40,9 +41,51 @@ class SectionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Story $story, Request $request)
     {
-        //
+      $this->validate($request,[
+        'title' => 'required|max:100',
+        'description' => 'required|max:420',
+        'volum_title' => 'max:100',
+        'volum_description' => 'max:420',
+        'volum_cover' => 'image'
+      ]);
+
+      $section = new \App\Section($request->all());
+
+      if($request->volum_title){
+        $volum = new \App\Volum();
+        $story->current_volum++;
+        $volum->fill([
+          'title' => $request->volum_title,
+          'description' => $request->volum_description,
+          'volum' => $story->current_volum,
+        ]);
+        $story->volums()->save($volum);
+        $story->save();
+
+        $img = $request->file('volum_cover');
+
+        if($img){
+
+          $cover = $this->save_cover($img);
+
+          $volum->covers()->save($cover);
+
+        }else{
+          $img = Image::make('img/site/default_cover.jpg');
+
+          $cover = $this->save_cover($img);
+
+          $volum->covers()->save($cover);
+        }
+
+      }
+      $section->fill(['volum' => $story->current_volum]);
+
+      $story->sections()->save($section);
+
+      return redirect()->route('sections.show', $section->id);
     }
 
     /**

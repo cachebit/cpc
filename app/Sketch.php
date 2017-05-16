@@ -2,11 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\ImageHolder;
 
-class Sketch extends Model
+class Sketch extends ImageHolder
 {
-  
+
 
   public function story()
   {

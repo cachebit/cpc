@@ -2,13 +2,13 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\ImageHolder;
 
 use File;
 use Auth;
 use Image;
 
-class Webtoon extends Model
+class Webtoon extends ImageHolder
 {
   protected $table = 'webtoons';
 

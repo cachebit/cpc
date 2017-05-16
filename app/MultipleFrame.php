@@ -2,11 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\ImageHolder;
 
-class MultipleFrame extends Model
+class MultipleFrame extends ImageHolder
 {
-  
+
 
   public function section()
   {

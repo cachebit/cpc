@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\ImageHolder;
 
-class Story extends Model
+class Story extends ImageHolder
 {
 
   protected $table = 'stories';
@@ -13,12 +13,9 @@ class Story extends Model
 
   public function setTitleAttribute($title)
   {
-    if(starts_with($title, '《') && str_finish($title, '》')){
-
-    }else{
+    if(!(starts_with($title, '《') && str_finish($title, '》'))){
       $this->attributes['title'] = '《'.$title.'》';
     }
-
   }
 
   public function user()

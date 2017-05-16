@@ -14,7 +14,8 @@
       <li>@include('stories._options')</li>
     </ul>
   </li>
-
+  @if(count($story->covers))
   <li><img class="img-responsive thumbnail" src="{{ $story->covers()->first()->cover_m }}" alt="《{{ $story->title }}》的封面"></li>
+  @endif
   <li><p>{{ $story->description }}</p></li>
 </ul>

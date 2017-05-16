@@ -2,14 +2,16 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\ImageHolder;
 
-class Volum extends Model
+class Volum extends ImageHolder
 {
 
   protected $table = 'volums';
 
   protected $fillable = ['title', 'description', 'volum'];
+
+
 
   public function setTitleAttribute($title)
   {

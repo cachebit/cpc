@@ -74,7 +74,7 @@
 </div>
 
 <div class="col-xs-6 col-md-4">
-  <a class="btn btn-warning btn-block" href="{{ route('stories.add_section', $story->id) }}">
+  <a class="btn btn-warning btn-block" href="{{ route('sections.create', $story->id) }}">
     <dl>
       <dt><h3><span class="glyphicon glyphicon-book" aria-hidden="true"></span> 添加章节</h3></dt>
       <dd>故事的章节</dd>

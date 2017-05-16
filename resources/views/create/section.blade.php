@@ -10,7 +10,7 @@
 <div class="col-md-8">
   <h3>添加新的章节故事</h3>
   <hr>
-  <form action="{{ route('stories.save_section', $story->id) }}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('sections.store', $story->id) }}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
 
     @include('stories._volum_forms',[

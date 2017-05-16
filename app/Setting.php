@@ -2,11 +2,11 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\ImageHolder;
 
-class Setting extends Model
+class Setting extends ImageHolder
 {
-  
+
 
   public function story()
   {
