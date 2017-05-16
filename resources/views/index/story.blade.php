@@ -12,7 +12,7 @@
     <div class="col-xs-6 col-md-4">
       <div class="thumbnail">
         <a href="{{ route('stories.show', $story->id) }}">
-          <img class="img-responsive" src="{{ $story->covers->first()->cover_m }}" alt="{{ $story->title }}">
+          <img class="img-responsive" src="{{ $story->covers()->first()->cover_m }}" alt="{{ $story->title }}">
         </a>
         <div class="caption">
           <ul class="list-inline">

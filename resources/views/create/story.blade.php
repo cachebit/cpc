@@ -21,7 +21,7 @@
           <input class="form-control" type="file" name="image">
         </div>
 
-        @include('stories._title_description_form', ['title' => '', 'description' => ''])
+        @include('add._title_description_form', ['title' => '', 'description' => ''])
       </form>
     </div>
   </div>

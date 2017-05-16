@@ -34,7 +34,7 @@ Route::post('password/reset', 'Auth\PasswordController@postReset')->name('passwo
 
 //story
 Route::get('users/{users}/stories', 'StoriesController@user_stories')->name('user.stories');
-Route::get('stories/{tags}', 'StoriesController@tag_stories')->name('tag.stories');
+Route::get('{tags}/stories', 'StoriesController@tag_stories')->name('tag.stories');
 //待修改
 Route::get('stories/{stories}/add', 'StoriesController@add')->name('stories.add');
 Route::get('stories/{stories}/delete', 'StoriesController@go_delete')->name('stories.go_delete');
@@ -42,8 +42,8 @@ Route::get('stories/{stories}/add/section', 'StoriesController@add_section')->na
 Route::post('stories/{stories}/add/section', 'StoriesController@save_section')->name('stories.save_section');
 //资源路由器
 Route::get('stories', 'StoriesController@index')->name('stories.index');
-Route::get('stories/{stories}', 'StoriesController@show')->name('stories.show');
 Route::get('stories/create', 'StoriesController@create')->name('stories.create');
+Route::get('stories/{stories}', 'StoriesController@show')->name('stories.show');
 Route::post('stories', 'StoriesController@store')->name('stories.store');
 Route::get('stories/{stories}/edit', 'StoriesController@edit')->name('stories.edit');
 Route::patch('stories/{stories}', 'StoriesController@update')->name('stories.update');

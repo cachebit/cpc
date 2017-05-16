@@ -22,7 +22,8 @@ class StoriesController extends Controller
      */
     public function index()
     {
-      $stories = Story::orderBy('created_at', 'desc')->paginate(30);
+      $stories = Story::orderBy('created_at', 'desc')->paginate(24);
+      
       return view('index.story', compact('stories'));
     }
 
@@ -69,22 +70,11 @@ class StoriesController extends Controller
 
       $img = $request->file('image');
 
-      $cover = $this->save_cover($img);
+      $cover = \App\Cover::save_cover($img);
 
       $story->covers()->save($cover);
 
       return redirect()->route('stories.add', $story->id);
-    }
-
-    public function save_cover($img)
-    {
-      $cover = new Cover();
-
-      $path_array = $cover->save_img($img);
-
-      $cover->fill($path_array);
-
-      return $cover;
     }
 
     /**
@@ -126,7 +116,7 @@ class StoriesController extends Controller
 
       $img = $request->file('image');
 
-      $this->update_cover($img, $story);
+      \App\Cover::update_cover($img, $story);
 
       $story->title = $request->title;
       $story->description = $request->description;
@@ -135,24 +125,7 @@ class StoriesController extends Controller
       return redirect()->route('stories.show', $story->id);
     }
 
-    public function update_cover($img, Story $story)
-    {
-      if($img)
-      {
-        $cover = $story->covers()->first();
-        $path_array = $cover->save_img($img);
 
-        $cover->cover = $path_array['cover'];
-        $cover->cover_m = $path_array['cover_m'];
-        $cover->cover_s = $path_array['cover_s'];
-
-        $cover->save();
-
-        return true;
-      }
-
-      return false;
-    }
 
     public function add(Story $story)
     {

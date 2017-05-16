@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
+
 use Image;
 use Auth;
 use File;
@@ -11,6 +13,34 @@ class Cover extends Model
   protected $table = 'covers';
 
   protected $fillable = ['cover', 'cover_m', 'cover_s'];
+
+  static public function save_cover($img)
+  {
+    $cover = new self();
+
+    $cover->fill($cover->save_img($img));
+
+    return $cover;
+  }
+
+  static public function update_cover($img, \App\Story $story)
+  {
+    if($img)
+    {
+      $cover = $story->covers()->first();
+      $path_array = $cover->save_img($img);
+
+      $cover->cover = $path_array['cover'];
+      $cover->cover_m = $path_array['cover_m'];
+      $cover->cover_s = $path_array['cover_s'];
+
+      $cover->save();
+
+      return true;
+    }
+
+    return false;
+  }
 
   public function save_img($img)
   {
