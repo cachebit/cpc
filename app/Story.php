@@ -2,9 +2,9 @@
 
 namespace App;
 
-use App\ImageHolder;
+use App\HasImage;
 
-class Story extends ImageHolder
+class Story extends HasImage
 {
 
   protected $table = 'stories';
@@ -15,6 +15,8 @@ class Story extends ImageHolder
   {
     if(!(starts_with($title, '《') && str_finish($title, '》'))){
       $this->attributes['title'] = '《'.$title.'》';
+    }else{
+      $this->attributes['title'] = $title;
     }
   }
 

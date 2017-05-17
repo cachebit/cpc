@@ -1,5 +1,5 @@
 @extends('app')
-@section('title', $story->title)
+@section('title', $story->title.' 的全部章节故事')
 
 @section('content')
 <div class="col-md-3">
@@ -47,30 +47,6 @@
       @endif
     </div>
   </div>
-
-  @endif
-
-  @if(count($story->posters))
-  <ul class="list-inline">
-    <li><h3>最新海报</h3></li>
-    <li><a class="btn btn-default btn-xs" href="#">添加</a></li>
-    <li><a href="#">查看全部</a></li>
-  </ul>
-
-  <hr>
-  <div class="row">
-    @foreach($story->posters as $poster)
-    <div class="col-xs-4 col-md-3">
-      <img class="img-responsive thumbnail" src="{{ $poster->path_s }}" alt="{{ $poster->title }}">
-    </div>
-    @endforeach
-  </div>
-  @endif
-
-
-
-  @if(Auth::check() and Auth::user()->id === $story->user->id)
-  @include('stories._add_derivative')
   @endif
 </div>
 

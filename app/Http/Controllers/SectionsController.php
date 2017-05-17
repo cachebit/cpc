@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 
 use App\Section;
 use App\Story;
+use App\Volum;
+use App\Cover;
 use File;
 use Auth;
 
@@ -19,10 +21,9 @@ class SectionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Story $story)
     {
-      $sections = Section::orderBy('created_at', 'desc')->paginate(30);
-      return view('sections.index', compact('sections'));
+      return view('index.section', compact('story'));
     }
 
     /**
@@ -51,36 +52,33 @@ class SectionsController extends Controller
         'volum_cover' => 'image'
       ]);
 
-      $section = new \App\Section($request->all());
+      $section = new Section($request->all());
 
       if($request->volum_title){
-        $volum = new \App\Volum();
-        $story->current_volum++;
+
+        $volum = new Volum();
+
+        $img = $request->file('volum_cover');
+
+        $directory = $story->make_covers_dir(Auth::id());
+
+        $path = $story->save_covers($img, $directory);
+
+        $cover = new Cover($path);
+
         $volum->fill([
           'title' => $request->volum_title,
           'description' => $request->volum_description,
           'volum' => $story->current_volum,
         ]);
-        $story->volums()->save($volum);
+
+        $story->volums()->save($volum)->covers()->save($cover);
+
+        $story->current_volum++;
+
         $story->save();
-
-        $img = $request->file('volum_cover');
-
-        if($img){
-
-          $cover = $this->save_cover($img);
-
-          $volum->covers()->save($cover);
-
-        }else{
-          $img = Image::make('img/site/default_cover.jpg');
-
-          $cover = $this->save_cover($img);
-
-          $volum->covers()->save($cover);
-        }
-
       }
+
       $section->fill(['volum' => $story->current_volum]);
 
       $story->sections()->save($section);
@@ -94,19 +92,9 @@ class SectionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Section $section)
+    public function show(Story $story, Section $section)
     {
-      if($section->story->type === '条漫' && count($section->webtoons)){
-        $webtoons = $section->webtoons()->orderBy('created_at','asc')->get();
-
-        return view('show.webtoons', compact('webtoons'));
-      }elseif($section->story->type === '多格漫画'){
-
-      }elseif($section->story->type === '剧本'){
-
-      }else{
-        return view('show.section_no_content', compact('section'));
-      }
+      return view('show.section', compact('section'));
     }
 
     /**

@@ -78,7 +78,7 @@
 </div>
 
 <div class="col-xs-6 col-sm-4 col-md-3">
-  <a class="btn btn-warning btn-block" href="#">
+  <a class="btn btn-warning btn-block" href="{{ route('sections.create') }}">
     <dl>
       <dt><h3><span class="glyphicon glyphicon-book" aria-hidden="true"></span> 章节故事</h3></dt>
       <dd>故事的章节</dd>

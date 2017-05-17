@@ -2,9 +2,9 @@
 
 namespace App;
 
-use App\ImageHolder;
+use App\HasImage;
 
-class Volum extends ImageHolder
+class Volum extends HasImage
 {
 
   protected $table = 'volums';

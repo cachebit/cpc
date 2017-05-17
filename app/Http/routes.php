@@ -57,8 +57,8 @@ Route::post('sections/{sections}/add/multiple_frames', 'SectionsController@save_
 Route::post('sections/{sections}/add/texts', 'SectionsController@save_texts')->name('sections.save_texts');
 Route::get('sections/{sections}/add', 'SectionsController@add')->name('sections.add');
 Route::resource('sections', 'SectionsController');
-Route::get('sections', 'SectionsController@index')->name('sections.index');
-Route::get('sections/{sections}', 'SectionsController@show')->name('sections.show');
+Route::get('stories/{stories}/sections', 'SectionsController@index')->name('sections.index');
+Route::get('stories/{stories}/sections/{sections}', 'SectionsController@show')->name('sections.show');
 Route::get('stories/{stories}/create/sections', 'SectionsController@create')->name('sections.create');
 Route::post('stories/{stories}/create/sections', 'SectionsController@store')->name('sections.store');
 Route::get('sections/{sections}/edit', 'SectionsController@edit')->name('sections.edit');

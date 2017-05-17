@@ -2,7 +2,6 @@
 @section('title', '发布新作品')
 
 @section('content')
-@include('shared.errors')
 <div class="col-md-3">
 
 </div>

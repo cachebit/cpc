@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use File;
 use Image;
 
-class ImageHolder extends Model
+class HasImage extends Model
 {
   public function is_img(UploadedFile $img)
   {

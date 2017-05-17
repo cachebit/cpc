@@ -15,7 +15,7 @@
       <ul class="nav navbar-nav">
         <li><a href="/">首页</a></li>
         <li><a href="{{ route('stories.index') }}">作品</a></li>
-        <li><a href="{{ route('sections.index') }}">章节</a></li>
+        <li><a href="{{ route('sections.index','1') }}">作品1的章节</a></li>
       </ul>
       <form class="navbar-form navbar-right">
         <div class="form-group">
