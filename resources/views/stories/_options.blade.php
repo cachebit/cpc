@@ -6,6 +6,7 @@
   </button>
   <ul class="dropdown-menu" aria-labelledby="story_option">
     <li><a href="{{ route('sections.create', $story->id) }}">添加章节</a></li>
+    <li><a href="{{ route('volums.create', $story->id) }}">添加卷</a></li>
     <li><a href="{{ route('stories.add', $story->id) }}">添加周边</a></li>
     <li><a href="{{ route('stories.edit', $story->id) }}">标题/描述/封面</a></li>
     <li class="divider"></li>

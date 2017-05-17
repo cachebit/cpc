@@ -20,7 +20,14 @@
           <input class="form-control" type="file" name="image">
         </div>
 
-        @include('add._title_description_form', ['title' => '', 'description' => ''])
+        @include('form._title_description_form', [
+          'title' => '故事/专辑标题',
+          'description' => '故事/专辑简介',
+          'title_value' => '',
+          'description_value' => ''
+        ])
+
+        <button class="btn btn-primary pull-right" type="submit" name="button">创建</button>
       </form>
     </div>
   </div>

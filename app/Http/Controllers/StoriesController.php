@@ -23,14 +23,14 @@ class StoriesController extends Controller
     {
       $stories = Story::orderBy('created_at', 'desc')->paginate(24);
 
-      return view('index.story', compact('stories'));
+      return view('index.stories', compact('stories'));
     }
 
     //显示某用户的所有故事/专辑
     public function user_stories(\App\User $user)
     {
       $stories = $user->stories()->orderBy('created_at', 'desc')->paginate(30);
-      return view('index.story', compact('stories'));
+      return view('index.stories', compact('stories'));
     }
 
     //显示某标签下的所有故事/专辑
@@ -63,19 +63,7 @@ class StoriesController extends Controller
         'image' => 'required|image',
       ]);
 
-      $story = new Story($request->all());
-
-      $img = $request->file('image');
-
-      $directory = $story->make_covers_dir(Auth::id());
-
-      $path = $story->save_covers($img, $directory);
-
-      $cover = new Cover($path);
-
-      Auth::user()->stories()->save($story);
-
-      $story->covers()->save($cover);
+      $story = $this->save_story($request);
 
       return redirect()->route('stories.add', $story->id);
     }
@@ -119,9 +107,12 @@ class StoriesController extends Controller
 
       $img = $request->file('image');
 
-      $directory = $story->make_covers_dir(Auth::id());
-      $path = $story->update_covers($img, $directory);
-      $story->covers()->first()->update($path);
+      if($img)
+      {
+        $directory = $story->make_covers_dir(Auth::id());
+        $path = $story->update_covers($img, $directory);
+        $story->covers()->first()->update($path);
+      }
 
       $story->title = $request->title;
       $story->description = $request->description;
@@ -151,5 +142,21 @@ class StoriesController extends Controller
     public function go_delete(Story $story)
     {
       return view('stories.delete', compact('story'));
+    }
+
+    public function save_story(Request $request)
+    {
+      $story = new Story($request->all());
+
+      $path = $story->save_covers($request->file('image'), $story->make_covers_dir(Auth::id()));
+
+      $cover = new Cover($path);
+
+
+      Auth::user()->stories()->save($story);
+
+      $story->covers()->save($cover);
+
+      return $story;
     }
 }

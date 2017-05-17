@@ -76,9 +76,9 @@ Route::delete('webtoons/{webtoons}', 'WebtoonsController@destroy')->name('webtoo
 
 //volum
 Route::patch('sections/{sections}/change/volum', 'VolumsController@change')->name('change.volum');
-Route::get('volums', 'VolumsController@index')->name('volums.index');
+Route::get('stories/{stories}/volums', 'VolumsController@index')->name('volums.index');
 Route::get('volums/{volums}', 'VolumsController@show')->name('volums.show');
-Route::get('volums/create', 'VolumsController@create')->name('volums.create');
+Route::get('stories/{stories}/volums/create', 'VolumsController@create')->name('volums.create');
 Route::post('volums', 'VolumsController@store')->name('volums.store');
 Route::get('volums/{volums}/edit', 'VolumsController@edit')->name('volums.edit');
 Route::patch('volums/{volums}', 'VolumsController@update')->name('volums.update');

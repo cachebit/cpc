@@ -17,7 +17,6 @@ class CreateVolumsTable extends Migration
             $table->integer('story_id')->unsigned();
             $table->string('title', 100);
             $table->string('description', 420);
-            $table->smallInteger('volum')->unsigned();
             $table->timestamps();
         });
     }

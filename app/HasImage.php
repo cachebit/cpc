@@ -10,6 +10,7 @@ use Image;
 
 class HasImage extends Model
 {
+  
   public function is_img(UploadedFile $img)
   {
     $e = $img->getClientOriginalExtension();

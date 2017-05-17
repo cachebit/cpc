@@ -10,9 +10,9 @@ class Section extends Model
 
   protected $fillable = ['title', 'description', 'volum'];
 
-  public function story()
+  public function imageable()
   {
-    return $this->belongsTo('App\Story');
+    return $this->morphTo();
   }
 
   public function texts()

@@ -18,10 +18,14 @@
           <input class="form-control" type="file" name="image">
         </div>
 
-        @include('add._title_description_form', [
-          'title' => $story->title,
-          'description' => $story->description,
+        @include('form._title_description_form', [
+          'title' => '故事/专辑标题',
+          'description' => '故事/专辑简介',
+          'title_value' => $story->title,
+          'description_value' => $story->description,
           ])
+
+        <button class="btn btn-primary pull-right" type="submit" name="button">更新</button>
       </form>
     </div>
   </div>

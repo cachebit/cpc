@@ -47,7 +47,7 @@ class Story extends HasImage
 
   public function sections()
   {
-    return $this->hasMany('App\Section');
+    return $this->morphMany('App\Section', 'imageable');
   }
 
   public function volums()

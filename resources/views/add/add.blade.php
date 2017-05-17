@@ -3,9 +3,9 @@
 
 @section('content')
 <div class="col-md-3">
-  @include('stories._title_description')
+  @include('show._story_title_description')
 </div>
 <div class="col-md-9">
-  @include('stories._add_derivative')
+  @include('stories._create_content')
 </div>
 @stop

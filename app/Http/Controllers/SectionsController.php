@@ -23,7 +23,7 @@ class SectionsController extends Controller
      */
     public function index(Story $story)
     {
-      return view('index.section', compact('story'));
+      return view('index.sections', compact('story'));
     }
 
     /**

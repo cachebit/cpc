@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
 use App\Volum;
+use App\Story;
 
 class VolumsController extends Controller
 {
@@ -15,9 +17,10 @@ class VolumsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Story $story)
     {
-        //
+      $volums = $story->volums;
+      return view('index.volums', compact('volums'));
     }
 
     /**
@@ -25,9 +28,9 @@ class VolumsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Story $story)
     {
-        //
+      return 'create';
     }
 
     /**

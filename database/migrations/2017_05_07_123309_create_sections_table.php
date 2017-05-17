@@ -14,10 +14,10 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('story_id')->unsigned();
-            $table->smallInteger('volum')->unsigned();
             $table->string('title', 100);
             $table->string('description', 420);
+            $table->integer('imageable_id')->unsigned();
+            $table->string('imageable_type');
             $table->timestamps();
         });
     }
