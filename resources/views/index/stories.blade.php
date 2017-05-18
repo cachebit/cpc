@@ -22,6 +22,15 @@
         <li>发表于：{{ $story->created_at->diffForHumans() }}</li>
       </ul>
       <p class="text-muted">{{ $story->description }}</p>
+      <ul class="list-unstyled">
+        @if(count($story->volums))
+        <li>-<a href="{{ route('volums.index', $story->id) }}">所有卷/篇</a></li>
+        @elseif(count($story->sections))
+        <li><a href="{{ route('sections.index', $story->id) }}">所有章节</a></li>
+        @else
+        <p>-未更新内容-</p>
+        @endif
+      </ul>
     </div>
   </div>
 </div>

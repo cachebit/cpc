@@ -9,7 +9,7 @@ class Volum extends HasImage
 
   protected $table = 'volums';
 
-  protected $fillable = ['title', 'description', 'volum'];
+  protected $fillable = ['title', 'description'];
 
 
   public function setTitleAttribute($title)

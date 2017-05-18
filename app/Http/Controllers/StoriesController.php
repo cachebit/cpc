@@ -152,7 +152,6 @@ class StoriesController extends Controller
 
       $cover = new Cover($path);
 
-
       Auth::user()->stories()->save($story);
 
       $story->covers()->save($cover);

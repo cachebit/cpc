@@ -36,6 +36,11 @@ class SectionsController extends Controller
       return view('create.section', compact('story'));
     }
 
+    public function create_in_volum(Volum $volum)
+    {
+      return 'volum';
+    }
+
     /**
      * Store a newly created resource in storage.
      *

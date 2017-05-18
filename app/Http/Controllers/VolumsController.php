@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 
 use App\Volum;
 use App\Story;
+use App\Cover;
+
+use Auth;
 
 class VolumsController extends Controller
 {
@@ -19,8 +22,7 @@ class VolumsController extends Controller
      */
     public function index(Story $story)
     {
-      $volums = $story->volums;
-      return view('index.volums', compact('volums'));
+      return view('index.volums', compact('story'));
     }
 
     /**
@@ -30,7 +32,7 @@ class VolumsController extends Controller
      */
     public function create(Story $story)
     {
-      return 'create';
+      return view('create.volum', compact('story'));
     }
 
     /**
@@ -39,9 +41,17 @@ class VolumsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Story $story)
     {
-        //
+      $this->validate($request, [
+        'title' => 'required|max:100',
+        'description' => 'required|max:420',
+        'image' => 'required|image',
+      ]);
+
+      $volum = $this->save_volum($request, $story);
+
+      return redirect()->route('volums.show', [$story->id, $volum->id]);
     }
 
     /**
@@ -50,9 +60,9 @@ class VolumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Story $story, Volum $volum)
     {
-        //
+      return view('show.volum', compact('story', 'volum'));
     }
 
     /**
@@ -98,5 +108,20 @@ class VolumsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function save_volum(Request $request, Story $story)
+    {
+      $volum = new Volum($request->all());
+
+      $path = $volum->save_covers($request->file('image'), $volum->make_covers_dir(Auth::id()));
+
+      $cover = new Cover($path);
+
+      $volum = $story->volums()->save($volum);
+
+      $volum->covers()->save($cover);
+
+      return $volum;
     }
 }

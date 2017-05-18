@@ -55,8 +55,9 @@ Route::get('sections/{sections}/add/texts', 'SectionsController@texts')->name('s
 Route::post('sections/{sections}/add/webtoons', 'SectionsController@save_webtoons')->name('sections.save_webtoons');
 Route::post('sections/{sections}/add/multiple_frames', 'SectionsController@save_multiple_frames')->name('sections.save_multiple_frames');
 Route::post('sections/{sections}/add/texts', 'SectionsController@save_texts')->name('sections.save_texts');
+Route::get('volums/{volums}/sections/create', 'SectionsController@create_in_volum')->name('sections.create_in_volum');
+//resource
 Route::get('sections/{sections}/add', 'SectionsController@add')->name('sections.add');
-Route::resource('sections', 'SectionsController');
 Route::get('stories/{stories}/sections', 'SectionsController@index')->name('sections.index');
 Route::get('stories/{stories}/sections/{sections}', 'SectionsController@show')->name('sections.show');
 Route::get('stories/{stories}/create/sections', 'SectionsController@create')->name('sections.create');
@@ -77,9 +78,9 @@ Route::delete('webtoons/{webtoons}', 'WebtoonsController@destroy')->name('webtoo
 //volum
 Route::patch('sections/{sections}/change/volum', 'VolumsController@change')->name('change.volum');
 Route::get('stories/{stories}/volums', 'VolumsController@index')->name('volums.index');
-Route::get('volums/{volums}', 'VolumsController@show')->name('volums.show');
 Route::get('stories/{stories}/volums/create', 'VolumsController@create')->name('volums.create');
-Route::post('volums', 'VolumsController@store')->name('volums.store');
+Route::get('stories/{stories}/volums/{volums}', 'VolumsController@show')->name('volums.show');
+Route::post('stories/{stories}/volums/create', 'VolumsController@store')->name('volums.store');
 Route::get('volums/{volums}/edit', 'VolumsController@edit')->name('volums.edit');
 Route::patch('volums/{volums}', 'VolumsController@update')->name('volums.update');
 Route::delete('volums/{volums}', 'VolumsController@destroy')->name('volums.destroy');
