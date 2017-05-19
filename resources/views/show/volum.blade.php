@@ -4,8 +4,6 @@
 @section('content')
   <div class="col-md-3">
     @include('show._story_info')
-  </div>
-  <div class="col-md-3">
     <h3>所有卷/篇</h3>
     @if(count($story->volums))
     <ul class="list-unstyled">
@@ -17,12 +15,35 @@
     <p>没有卷。</p>
     @endif
   </div>
-  <div class="col-md-6">
+  <div class="col-md-9">
     <div class="thumbnail">
-      <img src="{{ $volum->covers()->first()->cover }}" alt="{{ $volum->title }}的封面">
+      @if(count($volum->covers))
+      <a href="{{ route('volums.show', $volum->id) }}">
+        <img class="img-responsive" src="{{ $volum->covers()->first()->cover }}" alt="{{ $volum->title }}">
+      </a>
+      @endif
       <div class="caption">
-        <h3>{{ $volum->title }} 之卷</h3>
+        <ul class="list-inline">
+          <li><h4>{{ $volum->title }}</h4></li>
+          <li>@include('options._volum')</li>
+        </ul>
         <p>{{ $volum->description }}</p>
+        @if(count($volum->sections))
+        <ul class="list-unstyled">
+          @foreach($volum->sections()->get() as $section)
+          <li>
+            <a href="{{ route('sections.show', [
+            'stories' => $volum->story->id,
+            'sections' => $section->id
+            ]) }}">
+              {{ $section->title }}
+            </a>
+          </li>
+          @endforeach
+        </ul>
+        @else
+        <p>-未更新章节-<a class="btn btn-default pull-right" href="{{ route('sections.create', $volum->story->id) }}">立即更新</a></p>
+        @endif
       </div>
     </div>
 

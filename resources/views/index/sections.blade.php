@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="col-md-3">
-  @include('stories._title_description')
+  @include('show._story_info')
 </div>
 <div class="col-md-9">
   @if(count($story->sections))

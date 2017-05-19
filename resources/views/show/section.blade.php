@@ -9,7 +9,13 @@
   @endif
 </div>
 <div class="col-md-9">
-
+  <ul class="list-inline">
+    <li><h3>{{ $section->title }}</h3></li>
+    <li>@include('sections._options')</li>
+  </ul>
+  <p>{{ $section->description }}</p>
+  <img class="img-responsive" src="{{ $section->covers()->first()->cover }}" alt="{{ $section->title }}的封面">
+  <hr>
   @if($story->type === '条漫')
 
     @include('show._webtoons')

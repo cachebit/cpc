@@ -24,7 +24,7 @@
       @endforeach
     </ul>
     @else
-    <p>-未更新章节-<a class="btn btn-default pull-right" href="{{ route('sections.create_in_volum', $volum->id) }}">立即更新</a></p>
+    <p>-未更新章节-<a class="btn btn-default pull-right" href="{{ route('sections.create', $volum->story->id) }}">立即更新</a></p>
     @endif
   </div>
 </div>

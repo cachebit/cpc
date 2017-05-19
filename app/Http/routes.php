@@ -76,7 +76,6 @@ Route::patch('webtoons/{webtoons}', 'WebtoonsController@update')->name('webtoons
 Route::delete('webtoons/{webtoons}', 'WebtoonsController@destroy')->name('webtoons.destroy');
 
 //volum
-Route::patch('sections/{sections}/change/volum', 'VolumsController@change')->name('change.volum');
 Route::get('stories/{stories}/volums', 'VolumsController@index')->name('volums.index');
 Route::get('stories/{stories}/volums/create', 'VolumsController@create')->name('volums.create');
 Route::get('stories/{stories}/volums/{volums}', 'VolumsController@show')->name('volums.show');

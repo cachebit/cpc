@@ -71,9 +71,9 @@ class VolumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Volum $volum)
     {
-        //
+      return view('edit.volum', compact('volum'));
     }
 
     /**
@@ -83,20 +83,29 @@ class VolumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Volum $volum)
     {
-        //
-    }
+      $this->validate($request, [
+        'title' => 'required|max:100',
+        'description' => 'required|max:420',
+        'image' => 'image',
+      ]);
 
-    public function change(\App\Section $section, Request $request)
-    {
-     $this->validate($request, [
-       'volum' => 'required'
-     ]);
+      $img = $request->file('image');
 
-      $section->volum = $request->volum;
-      $section->save();
-      return redirect()->route('stories.show', $section->story->id);
+      if($img)
+      {
+        $directory = $volum->make_covers_dir(Auth::id());
+        $path = $volum->update_covers($img, $directory);
+        $volum->covers()->first()->update($path);
+      }
+
+      $volum->title = $request->title;
+      $volum->description = $request->description;
+      $volum->save();
+
+      return redirect()->route('volums.show', [$volum->story->id, $volum->id]);
+
     }
 
     /**
