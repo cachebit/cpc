@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="col-xs-12 col-sm-4 col-md-3">
-  @include('show._story_title_description')
+  @include('show._story_info')
 </div>
 
 <div class="col-xs-12 col-sm-8 col-md-9">
@@ -60,13 +60,11 @@
     </ul>
 
     <hr>
-    <div class="row">
-      @foreach($story->posters as $poster)
-      <div class="col-xs-4 col-md-3">
-        <img class="img-responsive thumbnail" src="{{ $poster->path_s }}" alt="{{ $poster->title }}">
-      </div>
-      @endforeach
+    @foreach($story->posters as $poster)
+    <div class="col-xs-4 col-md-3">
+      <img class="img-responsive thumbnail" src="{{ $poster->path_s }}" alt="{{ $poster->title }}">
     </div>
+    @endforeach
     @endif
 
 

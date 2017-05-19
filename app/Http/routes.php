@@ -55,13 +55,13 @@ Route::get('sections/{sections}/add/texts', 'SectionsController@texts')->name('s
 Route::post('sections/{sections}/add/webtoons', 'SectionsController@save_webtoons')->name('sections.save_webtoons');
 Route::post('sections/{sections}/add/multiple_frames', 'SectionsController@save_multiple_frames')->name('sections.save_multiple_frames');
 Route::post('sections/{sections}/add/texts', 'SectionsController@save_texts')->name('sections.save_texts');
-Route::get('volums/{volums}/sections/create', 'SectionsController@create_in_volum')->name('sections.create_in_volum');
 //resource
 Route::get('sections/{sections}/add', 'SectionsController@add')->name('sections.add');
 Route::get('stories/{stories}/sections', 'SectionsController@index')->name('sections.index');
+Route::get('stories/{stories}/sections/create', 'SectionsController@create')->name('sections.create');
 Route::get('stories/{stories}/sections/{sections}', 'SectionsController@show')->name('sections.show');
-Route::get('stories/{stories}/create/sections', 'SectionsController@create')->name('sections.create');
-Route::post('stories/{stories}/create/sections', 'SectionsController@store')->name('sections.store');
+Route::post('stories/{stories}/volums/sections/create', 'SectionsController@store_in_volum')->name('sections.store_in_volum');
+Route::post('stories/{stories}/sections/create', 'SectionsController@store')->name('sections.store');
 Route::get('sections/{sections}/edit', 'SectionsController@edit')->name('sections.edit');
 Route::patch('sections/{sections}', 'SectionsController@update')->name('sections.update');
 Route::delete('sections/{sections}', 'SectionsController@destroy')->name('sections.destroy');

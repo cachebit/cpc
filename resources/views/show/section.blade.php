@@ -3,18 +3,29 @@
 
 @section('content')
 <div class="col-md-3">
-
+  @include('show._story_info')
+  @if(count($story->volums))
+  @include('show._volum_info', ['volum' => $section->imageable])
+  @endif
 </div>
 <div class="col-md-9">
 
-  @if($section->story->type === '条漫')
+  @if($story->type === '条漫')
+
     @include('show._webtoons')
-  @elseif($section->story->type === '多格漫画')
+
+  @elseif($story->type === '多格漫画')
+
     @include('show._multiple_frames')
-  @elseif($section->story->type === '文字剧本')
+
+  @elseif($story->type === '文字剧本')
+
     @include('show._texts')
-  @else
+
+  @elseif($story->type === '')
+
     @include('show._section_no_content')
+
   @endif
 </div>
 @stop

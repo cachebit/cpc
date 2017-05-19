@@ -1,4 +1,4 @@
-@if(Auth::check() and Auth::user()->id === $story->user->id)
+@if(Auth::check() and $story->is_author(Auth::user()))
 <div class="dropdown">
   <button class="btn btn-default btn-xs" id="story_option" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     操作
@@ -12,7 +12,7 @@
     <li class="divider"></li>
     <li>
       <form class="" action="{{ route('stories.go_delete', $story->id) }}" method="get">
-        <button class="btn btn-danger btn-block btn-xs" href="{{ route('stories.go_delete', $story->id) }}">删除作品</button>
+        <button class="btn btn-danger btn-block btn-xs" type="submit" name="button">删除作品</button>
       </form>
     </li>
   </ul>

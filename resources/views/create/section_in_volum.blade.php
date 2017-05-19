@@ -4,14 +4,23 @@
 @section('content')
 
 @include('shared.errors')
-<div class="col-md-4">
+<div class="col-md-3">
   @include('show._story_title_description')
 </div>
-<div class="col-md-8">
+<div class="col-md-6">
   <h3>添加新的章节故事</h3>
   <hr>
-  <form action="{{ route('sections.store', $story->id) }}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('sections.store_in_volum', $story->id) }}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
+
+    <div class="form-group">
+      <label for="volum_id">所属卷：</label>
+      <select class="form-control" name="volum_id">
+        @foreach($story->volums as $volum)
+        <option value="{{ $volum->id }}">{{ $volum->title }} 之卷</option>
+        @endforeach
+      </select>
+    </div>
 
     <div class="form-group">
       <label for="image">封面：</label>

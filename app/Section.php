@@ -2,13 +2,25 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\HasImage;
+use Auth;
 
-class Section extends Model
+class Section extends HasImage
 {
   protected $table = 'sections';
 
   protected $fillable = ['title', 'description', 'volum'];
+
+  public function is_author(User $user)
+  {
+    if($this->imageable instanceof \App\Story){
+      return $user->id === $this->imageable->user_id;
+    }elseif($this->imageable instanceof \App\Volum){
+      return $user->id === $this->imageable->story->user_id;
+    }else{
+      return false;
+    }
+  }
 
   public function imageable()
   {

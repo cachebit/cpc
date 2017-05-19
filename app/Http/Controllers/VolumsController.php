@@ -105,9 +105,24 @@ class VolumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Volum $volum)
     {
-        //
+      $count_volums = count($volum->story->volums);
+      $story_id = $volum->story->id;
+
+      if(count($volum->sections)){
+        session()->flash('warning', '卷/篇内有章节故事，不能删除。');
+        return redirect()->route('volums.index', $story_id);
+      }
+
+      $volum->delete();
+      $count_volums--;
+
+      if($count_volums){
+        return redirect()->route('volums.index', $story_id);
+      }else{
+        return redirect()->route('stories.show', $story_id);
+      }
     }
 
     public function save_volum(Request $request, Story $story)

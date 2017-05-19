@@ -3,7 +3,7 @@
 
 @section('content')
   <div class="col-md-3">
-    @include('show._story_title_description')
+    @include('show._story_info')
   </div>
   <div class="col-md-3">
     <h3>所有卷/篇</h3>

@@ -11,6 +11,11 @@ class Story extends HasImage
 
   protected $fillable = ['title', 'description'];
 
+  public function is_author(User $user)
+  {
+    return $this->user_id === $user->id;
+  }
+
   public function setTitleAttribute($title)
   {
     if(!(starts_with($title, '《') && str_finish($title, '》'))){

@@ -33,12 +33,27 @@ class SectionsController extends Controller
      */
     public function create(Story $story)
     {
-      return view('create.section', compact('story'));
+      if(count($story->volums))
+      {
+        return view('create.section_in_volum', compact('story'));
+      }else{
+        return view('create.section', compact('story'));
+      }
     }
 
-    public function create_in_volum(Volum $volum)
+    public function store_in_volum(Request $request)
     {
-      return 'volum';
+      $this->validate($request, [
+        'volum_id' => 'required',
+        'title' => 'required|max:100',
+        'description' => 'required|max:420',
+        'image' => 'required|image',
+      ]);
+
+      $volum = Volum::findOrFail($request->volum_id);
+      $section = $this->save_section($request, $volum);
+
+      return redirect()->route('sections.show', [$volum->story->id, $section->id]);
     }
 
     /**
@@ -99,7 +114,7 @@ class SectionsController extends Controller
      */
     public function show(Story $story, Section $section)
     {
-      return view('show.section', compact('section'));
+      return view('show.section', compact('story', 'section'));
     }
 
     /**
@@ -182,5 +197,20 @@ class SectionsController extends Controller
       $section->delete();
       session()->flash('success', '成功删除章节！');
       return redirect()->route('stories.show', $id);
+    }
+
+    public function save_section(Request $request, Volum $volum)
+    {
+      $section = new Section($request->all());
+
+      $path = $section->save_covers($request->file('image'), $volum->make_covers_dir(Auth::id()));
+
+      $cover = new Cover($path);
+
+      $section = $volum->sections()->save($section);
+
+      $section->covers()->save($cover);
+
+      return $section;
     }
 }

@@ -11,6 +11,10 @@ class Volum extends HasImage
 
   protected $fillable = ['title', 'description'];
 
+  public function is_author(User $user)
+  {
+    return $this->story->user_id === $user->id;
+  }
 
   public function setTitleAttribute($title)
   {
