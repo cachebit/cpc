@@ -16,11 +16,11 @@
     <a href="#">添加剧本</a>
     @endif
 
-    <li><a href="{{ route('sections.edit', $section->id) }}">标题/描述/封面</a></li>
+    <li><a href="{{ route('sections.edit', [$story->id, $section->id]) }}">标题/描述/封面</a></li>
 
     <li class="divider"></li>
     <li>
-      <form action="#" method="post">
+      <form action="{{ route('sections.destroy', [$story->id, $section->id]) }}" method="post">
         {{ csrf_field() }}
         {{ method_field('DELETE') }}
 

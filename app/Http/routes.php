@@ -38,7 +38,6 @@ Route::get('{tags}/stories', 'StoriesController@tag_stories')->name('tag.stories
 //待修改
 Route::get('stories/{stories}/add', 'StoriesController@add')->name('stories.add');
 Route::get('stories/{stories}/delete', 'StoriesController@go_delete')->name('stories.go_delete');
-Route::post('stories/{stories}/add/section', 'StoriesController@save_section')->name('stories.save_section');
 //资源路由器
 Route::get('stories', 'StoriesController@index')->name('stories.index');
 Route::get('stories/create', 'StoriesController@create')->name('stories.create');
@@ -49,22 +48,14 @@ Route::patch('stories/{stories}', 'StoriesController@update')->name('stories.upd
 Route::delete('stories/{stories}', 'StoriesController@destroy')->name('stories.destroy');
 
 //section
-Route::get('sections/{sections}/add/webtoons', 'SectionsController@webtoons')->name('sections.webtoons');
-Route::get('sections/{sections}/add/multiple_frames', 'SectionsController@multiple_frames')->name('sections.multiple_frames');
-Route::get('sections/{sections}/add/texts', 'SectionsController@texts')->name('sections.texts');
-Route::post('sections/{sections}/add/webtoons', 'SectionsController@save_webtoons')->name('sections.save_webtoons');
-Route::post('sections/{sections}/add/multiple_frames', 'SectionsController@save_multiple_frames')->name('sections.save_multiple_frames');
-Route::post('sections/{sections}/add/texts', 'SectionsController@save_texts')->name('sections.save_texts');
-//resource
-Route::get('sections/{sections}/add', 'SectionsController@add')->name('sections.add');
 Route::get('stories/{stories}/sections', 'SectionsController@index')->name('sections.index');
 Route::get('stories/{stories}/sections/create', 'SectionsController@create')->name('sections.create');
-Route::get('stories/{stories}/sections/{sections}', 'SectionsController@show')->name('sections.show');
 Route::post('stories/{stories}/volums/sections/create', 'SectionsController@store_in_volum')->name('sections.store_in_volum');
 Route::post('stories/{stories}/sections/create', 'SectionsController@store')->name('sections.store');
-Route::get('sections/{sections}/edit', 'SectionsController@edit')->name('sections.edit');
-Route::patch('sections/{sections}', 'SectionsController@update')->name('sections.update');
-Route::delete('sections/{sections}', 'SectionsController@destroy')->name('sections.destroy');
+Route::get('stories/{stories}/sections/{sections}', 'SectionsController@show')->name('sections.show');
+Route::get('stories/{stories}/sections/{sections}/edit', 'SectionsController@edit')->name('sections.edit');
+Route::patch('stories/{stories}/sections/{sections}', 'SectionsController@update')->name('sections.update');
+Route::delete('stories/{stories}/sections/{sections}', 'SectionsController@destroy')->name('sections.destroy');
 
 //webtoons
 Route::get('webtoons', 'WebtoonsController@index')->name('webtoons.index');

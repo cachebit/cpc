@@ -13,6 +13,8 @@
 </div>
 @endforeach
 @else
-<p>没有卷</p>
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+  <p>没有卷</p>
+</div>
 @endif
 @stop

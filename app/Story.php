@@ -4,7 +4,7 @@ namespace App;
 
 use App\HasImage;
 
-class Story extends HasImage
+class Story extends HasImage implements Sectionable
 {
 
   protected $table = 'stories';

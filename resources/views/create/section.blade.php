@@ -5,7 +5,7 @@
 
 @include('shared.errors')
 <div class="col-md-4">
-  @include('show._story_title_description')
+  @include('show._story_info')
 </div>
 <div class="col-md-8">
   <h3>添加新的章节故事</h3>

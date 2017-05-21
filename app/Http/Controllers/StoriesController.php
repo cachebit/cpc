@@ -10,7 +10,6 @@ use App\Http\Controllers\Controller;
 use App\Story;
 use App\Cover;
 use Auth;
-use Image;
 
 class StoriesController extends Controller
 {
@@ -119,11 +118,6 @@ class StoriesController extends Controller
       $story->save();
 
       return redirect()->route('stories.show', $story->id);
-    }
-
-    public function add(Story $story)
-    {
-      return view('add.add', compact('story'));
     }
 
     /**

@@ -11,7 +11,7 @@ use App\Section;
 use App\Story;
 use App\Volum;
 use App\Cover;
-use File;
+use App\Sectionable;
 use Auth;
 
 class SectionsController extends Controller
@@ -23,7 +23,12 @@ class SectionsController extends Controller
      */
     public function index(Story $story)
     {
-      return view('index.sections', compact('story'));
+      if(count($story->volums))
+      {
+        return view('index.sections_in_volum', compact('story'));
+      }else{
+        return view('index.sections', compact('story'));
+      }
     }
 
     /**
@@ -67,43 +72,12 @@ class SectionsController extends Controller
       $this->validate($request,[
         'title' => 'required|max:100',
         'description' => 'required|max:420',
-        'volum_title' => 'max:100',
-        'volum_description' => 'max:420',
-        'volum_cover' => 'image'
+        'image' => 'required|image',
       ]);
 
-      $section = new Section($request->all());
+      $section = $this->save_section($request, $story);
 
-      if($request->volum_title){
-
-        $volum = new Volum();
-
-        $img = $request->file('volum_cover');
-
-        $directory = $story->make_covers_dir(Auth::id());
-
-        $path = $story->save_covers($img, $directory);
-
-        $cover = new Cover($path);
-
-        $volum->fill([
-          'title' => $request->volum_title,
-          'description' => $request->volum_description,
-          'volum' => $story->current_volum,
-        ]);
-
-        $story->volums()->save($volum)->covers()->save($cover);
-
-        $story->current_volum++;
-
-        $story->save();
-      }
-
-      $section->fill(['volum' => $story->current_volum]);
-
-      $story->sections()->save($section);
-
-      return redirect()->route('sections.show', $section->id);
+      return redirect()->route('sections.show', [$story->id, $section->id]);
     }
 
     /**
@@ -123,66 +97,41 @@ class SectionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Story $story, Section $section)
     {
-        //
+      return view('edit.section', compact('story', 'section'));
     }
 
-    public function add(Section $section)
-    {
-      return view('sections.add', compact('section'));
-    }
 
-    public function webtoons(Section $section)
-    {
-      return view('sections.add_webtoons', compact('section'));
-    }
-
-    public function multiple_frames(Section $section)
-    {
-      return view('sections.add_multiple_frames', compact('section'));
-    }
-
-    public function texts(Section $section)
-    {
-      return view('sections.add_texts', compact('section'));
-    }
-
-    public function save_webtoons(Request $request, Section $section)
-    {
-
-      $imgs = $request->file('image');
-
-      foreach($imgs as $img)
-      {
-        $webtoon = new \App\Webtoon();
-
-        $path_array = $webtoon->save_img($img);
-
-        $webtoon->fill($path_array);
-
-        $section->webtoons()->save($webtoon);
-      }
-
-      if($section->story->type === '')
-      {
-        $section->story->type = '条漫';
-        $section->story->save();
-      }
-
-      return redirect()->route('sections.show', $section->id);
-    }
-
-        /**
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Story $story, Section $section)
     {
-        //
+      $this->validate($request,[
+        'title' => 'required|max:100',
+        'description' => 'required|max:420',
+        'image' => 'image',
+      ]);
+
+      $img = $request->file('image');
+
+      if($img)
+      {
+        $directory = $section->make_covers_dir(Auth::id());
+        $path = $section->update_covers($img, $directory);
+        $section->covers()->first()->update($path);
+      }
+
+      $section->title = $request->title;
+      $section->description = $request->description;
+      $section->save();
+
+      return redirect()->route('sections.show', [$story->id, $section->id]);
     }
 
     /**
@@ -191,23 +140,28 @@ class SectionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Section $section)
+    public function destroy(Story $story, Section $section)
     {
-      $id = $section->story->id;
+      $id = $section->imageable->id;
       $section->delete();
       session()->flash('success', '成功删除章节！');
-      return redirect()->route('stories.show', $id);
+      if(count($story->volums))
+      {
+        return redirect()->route('volums.show', $id);
+      }else{
+        return redirect()->route('stories.show', $id);
+      }
     }
 
-    public function save_section(Request $request, Volum $volum)
+    public function save_section(Request $request, Sectionable $sectionable)
     {
       $section = new Section($request->all());
 
-      $path = $section->save_covers($request->file('image'), $volum->make_covers_dir(Auth::id()));
+      $path = $section->save_covers($request->file('image'), $sectionable->make_covers_dir(Auth::id()));
 
       $cover = new Cover($path);
 
-      $section = $volum->sections()->save($section);
+      $section = $sectionable->sections()->save($section);
 
       $section->covers()->save($cover);
 
