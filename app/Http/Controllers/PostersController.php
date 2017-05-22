@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Poster;
+use App\Story;
 use Auth;
 
 class PostersController extends Controller
@@ -19,7 +20,26 @@ class PostersController extends Controller
      */
     public function index()
     {
-        //
+      $posters = Poster::paginate(30);
+      return view('index.posters', compact('posters'));
+    }
+
+    //显示某用户的所有海报
+    public function user_posters(\App\User $user)
+    {
+      $posters = $user->posters()->paginate(30);
+      return view('index.posters', compact('posters'));
+    }
+
+    //显示某标签下的所有海报
+    public function tag_posters()
+    {
+      return 'tag_stories';
+    }
+
+    public function story_posters()
+    {
+      return 'story_stories';
     }
 
     /**
@@ -29,7 +49,13 @@ class PostersController extends Controller
      */
     public function create()
     {
-      return view('create.poster');
+      $stories = Story::where('id', Auth::id())->paginate(30);
+      return view('create.poster', compact('stories'));
+    }
+
+    public function create_in_story(Story $story)
+    {
+      return view('create.poster_in_story', compact('story'));
     }
 
     /**
@@ -41,50 +67,42 @@ class PostersController extends Controller
     public function store(Request $request)
     {
       $this->validate($request, [
-        'title' => 'max:100',
-        'description' => 'max:420',
+        'title' => 'required|max:100',
+        'description' => 'required|max:420',
         'story_id' => 'required',
       ]);
 
-      $story = \App\Story::findOrFail($request->story_id);
+      $story = Story::findOrFail($request->story_id);
 
       $quantity = $this->save_posters($request, $story);
 
-      session()->flash('success', $quantity.'张海报储存完成！');
-      return redirect()->route('stories.show', $story->id);
-    }
-
-    protected function save_posters(Request $request, \App\Story $story)
-    {
-      $imgs = $request->file('image');
-
-      $quantity = 0;
-
-      foreach($imgs as $img){
-
-        if(Poster::is_image($img)){
-
-          $poster = new Poster($request->all());
-
-          if(!$poster->title){
-            $poster->fill(['title' => $story->title.'的海报']);
-          }
-
-          if(!$poster->description){
-            $poster->fill(['description' => $story->title.'的海报']);
-          }
-
-          $path_array = $poster->save_img($img);
-
-          $poster->fill($path_array);
-
-          $story->posters()->save($poster);
-
-          $quantity++;
-        }
+      if($quantity){
+        session()->flash('success', $quantity.'张海报储存完成！');
+        return redirect()->route('stories.show', $story->id);
+      }else{
+        session()->flash('warning', '未储存任何海报，请检查图像格式和大小。');
+        return redirect()->back();
       }
 
-      return $quantity;
+    }
+
+    public function store_in_story(Request $request, Story $story)
+    {
+      $this->validate($request, [
+        'title' => 'required|max:100',
+        'description' => 'required|max:420',
+      ]);
+
+      $quantity = $this->save_posters($request, $story);
+
+      if($quantity){
+        session()->flash('success', $quantity.'张海报储存完成！');
+        return redirect()->route('stories.show', $story->id);
+      }else{
+        session()->flash('warning', '未储存任何海报，请检查图像格式和大小。');
+        return redirect()->back();
+      }
+
     }
 
     /**
@@ -93,9 +111,9 @@ class PostersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Poster $poster)
     {
-        //
+      return view('show.poster', compact('poster'));
     }
 
     /**
@@ -127,8 +145,38 @@ class PostersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Poster $poster)
     {
-        //
+      $id = $poster->story->id;
+      $poster->delete();
+      session()->flash('success', '成功删除海报。');
+      return redirect()->route('stories.show', $id);
+    }
+
+    protected function save_posters(Request $request, Story $story)
+    {
+      $imgs = $request->file('image');
+
+      $quantity = 0;
+
+      if(count($imgs)){
+        foreach($imgs as $img){
+
+          if($story->is_img($img)){
+
+            $poster = new Poster($request->all());
+
+            $path_array = $poster->save_img($img, 'posters');
+
+            $poster->fill($path_array);
+
+            $story->posters()->save($poster);
+
+            $quantity++;
+          }
+        }
+      }
+
+      return $quantity;
     }
 }

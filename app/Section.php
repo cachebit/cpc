@@ -11,12 +11,12 @@ class Section extends HasImage
 
   protected $fillable = ['title', 'description', 'volum'];
 
-  public function is_author(User $user)
+  public function is_author($id)
   {
     if($this->imageable instanceof \App\Story){
-      return $user->id === $this->imageable->user_id;
+      return $id === $this->imageable->user_id;
     }elseif($this->imageable instanceof \App\Volum){
-      return $user->id === $this->imageable->story->user_id;
+      return $id === $this->imageable->story->user_id;
     }else{
       return false;
     }

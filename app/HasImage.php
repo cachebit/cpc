@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use File;
 use Image;
+use Auth;
 
 class HasImage extends Model
 {
-  
+
   public function is_img(UploadedFile $img)
   {
     $e = $img->getClientOriginalExtension();
@@ -88,5 +89,54 @@ class HasImage extends Model
     }
 
     return $path;
+  }
+
+  //imgs fun
+  public function save_img($img, $type)
+  {
+    $path_array = $this->move_img($img, $type);
+
+    return $path_array;
+  }
+
+  //return path_array of path and path_s of Poster
+  protected function move_img($img, $type)
+  {
+    $directory = $this->make_dir(Auth::id(), $type);
+
+    $extension = $img->getClientOriginalExtension();
+
+    if($extension === 'jepg')
+    {
+      $extension = 'jpg';
+    }
+
+    $img_name = str_random(30);
+
+    $path_array['path'] = $directory.$img_name.'.'.$extension;
+
+    $path_array['path_s'] = $directory.$img_name.'_s.'.$extension;
+
+    Image::make($img)->resize(1024, null, function ($constraint) {
+      $constraint->aspectRatio();
+    })->save($path_array['path']);
+
+    Image::make($img)->fit(200)->save($path_array['path_s']);
+
+    $path_array['path'] = '/'.$path_array['path'];
+    $path_array['path_s'] = '/'.$path_array['path_s'];
+
+    return $path_array;
+  }
+
+  protected function make_dir($user_id, $type)
+  {
+    $directory = 'img/'.$type.'/'.$user_id.'/';
+
+    if(!File::isDirectory($directory)){
+      File::makeDirectory($directory,  $mode = 0755, $recursive = true);
+    }
+
+    return $directory;
   }
 }

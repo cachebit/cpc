@@ -1,4 +1,4 @@
-@if(Auth::check() and $volum->is_author(Auth::user()))
+@if(Auth::check() and $volum->is_author(Auth::id()))
 <div class="dropdown">
   <button class="btn btn-default btn-xs" id="story_option" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     操作

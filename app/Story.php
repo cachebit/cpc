@@ -11,9 +11,9 @@ class Story extends HasImage implements Sectionable
 
   protected $fillable = ['title', 'description'];
 
-  public function is_author(User $user)
+  public function is_author($id)
   {
-    return $this->user_id === $user->id;
+    return $this->user_id === $id;
   }
 
   public function setTitleAttribute($title)

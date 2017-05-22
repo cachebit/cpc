@@ -11,9 +11,9 @@ class Volum extends HasImage implements Sectionable
 
   protected $fillable = ['title', 'description'];
 
-  public function is_author(User $user)
+  public function is_author($id)
   {
-    return $this->story->user_id === $user->id;
+    return $this->story->user_id === $id;
   }
 
   public function setTitleAttribute($title)

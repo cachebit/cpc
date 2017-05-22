@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="col-md-3">
-  @include('show._story_title_description')
+  @include('show._story_info')
 </div>
 <div class="col-md-9">
   @include('stories._create_content')

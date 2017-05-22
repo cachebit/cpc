@@ -133,6 +133,11 @@ class StoriesController extends Controller
       return redirect()->route('stories.index');
     }
 
+    public function add(Story $story)
+    {
+      return view('add.add', compact('story'));
+    }
+
     public function go_delete(Story $story)
     {
       return view('stories.delete', compact('story'));

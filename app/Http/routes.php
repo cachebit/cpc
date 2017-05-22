@@ -76,10 +76,14 @@ Route::patch('volums/{volums}', 'VolumsController@update')->name('volums.update'
 Route::delete('volums/{volums}', 'VolumsController@destroy')->name('volums.destroy');
 
 //poster
+Route::get('users/{users}/posters', 'PostersController@user_posters')->name('user.posters');
+Route::get('{tags}/posters', 'PostersController@tag_posters')->name('tag.posters');
 Route::get('posters', 'PostersController@index')->name('posters.index');
-Route::get('posters/{posters}', 'PostersController@show')->name('posters.show');
+Route::get('stories/{stories}/posters/create', 'PostersController@create_in_story')->name('posters.create_in_story');
 Route::get('posters/create', 'PostersController@create')->name('posters.create');
+Route::get('posters/{posters}', 'PostersController@show')->name('posters.show');
 Route::post('posters', 'PostersController@store')->name('posters.store');
+Route::post('stories/{stories}/posters', 'PostersController@store_in_story')->name('posters.store_in_story');
 Route::get('posters/{posters}/edit', 'PostersController@edit')->name('posters.edit');
 Route::patch('posters/{posters}', 'PostersController@update')->name('posters.update');
 Route::delete('posters/{posters}', 'PostersController@destroy')->name('posters.destroy');
