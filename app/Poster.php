@@ -4,10 +4,6 @@ namespace App;
 
 use App\HasImage;
 
-use Auth;
-use File;
-use Image;
-
 class Poster extends HasImage
 {
 

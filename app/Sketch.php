@@ -2,11 +2,13 @@
 
 namespace App;
 
-use App\ImageHolder;
+use App\HasImage;
 
-class Sketch extends ImageHolder
+class Sketch extends HasImage
 {
+  protected $table = 'sketches';
 
+  protected $fillable = ['title', 'description', 'path', 'path_s'];
 
   public function story()
   {

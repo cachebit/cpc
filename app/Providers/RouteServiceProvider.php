@@ -30,10 +30,11 @@ class RouteServiceProvider extends ServiceProvider
 
         $router->model('users', 'App\User');
         $router->model('stories', 'App\Story');
-        $router->model('sections', 'App\Section');
-        $router->model('webtoons', 'App\Webtoon');
         $router->model('volums', 'App\Volum');
+        $router->model('sections', 'App\Section');
         $router->model('posters', 'App\Poster');
+        $router->model('sketches', 'App\Sketch');
+        $router->model('webtoons', 'App\Webtoon');
     }
 
     /**

@@ -87,3 +87,16 @@ Route::post('stories/{stories}/posters', 'PostersController@store_in_story')->na
 Route::get('posters/{posters}/edit', 'PostersController@edit')->name('posters.edit');
 Route::patch('posters/{posters}', 'PostersController@update')->name('posters.update');
 Route::delete('posters/{posters}', 'PostersController@destroy')->name('posters.destroy');
+
+//sketches
+Route::get('users/{users}/sketches', 'SketchesController@user_sketches')->name('user.sketches');
+Route::get('{tags}/sketches', 'SketchesController@tag_sketches')->name('tag.sketches');
+Route::get('sketches', 'SketchesController@index')->name('sketches.index');
+Route::get('stories/{stories}/sketches/create', 'SketchesController@create_in_story')->name('sketches.create_in_story');
+Route::get('sketches/create', 'SketchesController@create')->name('sketches.create');
+Route::get('sketches/{sketches}', 'SketchesController@show')->name('sketches.show');
+Route::post('sketches', 'SketchesController@store')->name('sketches.store');
+Route::post('stories/{stories}/sketches', 'SketchesController@store_in_story')->name('sketches.store_in_story');
+Route::get('sketches/{sketches}/edit', 'SketchesController@edit')->name('sketches.edit');
+Route::patch('sketches/{sketches}', 'SketchesController@update')->name('sketches.update');
+Route::delete('sketches/{sketches}', 'SketchesController@destroy')->name('sketches.destroy');

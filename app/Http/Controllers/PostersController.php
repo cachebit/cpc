@@ -49,7 +49,7 @@ class PostersController extends Controller
      */
     public function create()
     {
-      $stories = Story::where('id', Auth::id())->paginate(30);
+      $stories = Story::where('user_id', Auth::id())->paginate(30);
       return view('create.poster', compact('stories'));
     }
 
