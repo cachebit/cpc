@@ -38,9 +38,10 @@ class SketchesController extends Controller
     return 'tag_sketches';
   }
 
-  public function story_sketches()
+  public function story_sketches(Story $story)
   {
-    return 'story_sketches';
+    $sketches = $story->sketches()->paginate(30);
+    return view('index.sketches', compact('sketches'));
   }
 
   /**
@@ -187,7 +188,7 @@ class SketchesController extends Controller
 
           $sketch->fill($path_array);
 
-          $story->sketch()->save($sketch);
+          $story->sketches()->save($sketch);
 
           $quantity++;
         }

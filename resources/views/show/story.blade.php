@@ -48,30 +48,29 @@
   @endif
 
   @if(count($story->posters))
-    <ul class="list-inline">
-      <li><h3>最新海报</h3></li>
-      <li><a class="btn btn-default btn-xs" href="#">添加</a></li>
-      <li><a href="#">查看全部</a></li>
-    </ul>
-
-    <hr>
-    @foreach($story->posters as $poster)
-    <div class="col-xs-4 col-md-3">
-      <ul class="list-inline">
-        @if(Auth::check() and $story->is_author(Auth::id()))
-        <li>
-          <form class="" action="{{ route('posters.destroy') }}" method="post">
-            {{ csrf_field() }}
-            {{ method_field('DELETE') }}
-
-            <button class="btn btn-danger btn-xs pull-right" type="submit" name="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-          </form>
-        </li>
-        @endif
-        <li><a href="{{ route('posters.show' $poster->id) }}"><img class="img-responsive thumbnail" src="{{ $poster->path_s }}" alt="{{ $poster->title }}"></a></li>
-      </ul>
+  <div class="col-xs-4 col-md-3">
+    <div class="thumbnail">
+      <a href="{{ route('posters.story_posters', $story->id) }}">
+        <img class="img-responsive" src="{{ $story->posters->first()->path_s }}" alt="{{ $story->posters->first()->title }}">
+        <div class="caption">
+          <h4>海报{{ count($story->posters) }}张</h4>
+        </div>
     </div>
-    @endforeach
+    </a>
+  </div>
+  @endif
+
+  @if(count($story->sketches))
+  <div class="col-xs-4 col-md-3">
+    <div class="thumbnail">
+      <a href="{{ route('sketches.story_sketches', $story->id) }}">
+        <img class="img-responsive" src="{{ $story->sketches->first()->path_s }}" alt="{{ $story->sketches->first()->title }}">
+        <div class="caption">
+          <h4>草图{{ count($story->sketches) }}张</h4>
+        </div>
+    </div>
+    </a>
+  </div>
   @endif
 
 

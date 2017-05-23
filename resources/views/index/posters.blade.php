@@ -9,6 +9,8 @@
   </div>
   @endforeach
   @else
-  <p>-为上传任何海报-</p>
+  <div class="col-xs-12">
+    <p>-未上传任何海报-</p>
+  </div>
   @endif
 @stop

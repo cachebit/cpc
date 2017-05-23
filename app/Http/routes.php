@@ -76,8 +76,9 @@ Route::patch('volums/{volums}', 'VolumsController@update')->name('volums.update'
 Route::delete('volums/{volums}', 'VolumsController@destroy')->name('volums.destroy');
 
 //poster
-Route::get('users/{users}/posters', 'PostersController@user_posters')->name('user.posters');
-Route::get('{tags}/posters', 'PostersController@tag_posters')->name('tag.posters');
+Route::get('users/{users}/posters', 'PostersController@user_posters')->name('posters.user_posters');
+Route::get('{tags}/posters', 'PostersController@tag_posters')->name('posters.tag_posters');
+Route::get('stories/{stories}/posters', 'PostersController@story_posters')->name('posters.story_posters');
 Route::get('posters', 'PostersController@index')->name('posters.index');
 Route::get('stories/{stories}/posters/create', 'PostersController@create_in_story')->name('posters.create_in_story');
 Route::get('posters/create', 'PostersController@create')->name('posters.create');
@@ -89,8 +90,9 @@ Route::patch('posters/{posters}', 'PostersController@update')->name('posters.upd
 Route::delete('posters/{posters}', 'PostersController@destroy')->name('posters.destroy');
 
 //sketches
-Route::get('users/{users}/sketches', 'SketchesController@user_sketches')->name('user.sketches');
-Route::get('{tags}/sketches', 'SketchesController@tag_sketches')->name('tag.sketches');
+Route::get('users/{users}/sketches', 'SketchesController@user_posters')->name('sketches.user_sketches');
+Route::get('{tags}/sketches', 'SketchesController@tag_posters')->name('sketches.tag_sketches');
+Route::get('stories/{stories}/sketches', 'SketchesController@story_posters')->name('sketches.story_sketches');
 Route::get('sketches', 'SketchesController@index')->name('sketches.index');
 Route::get('stories/{stories}/sketches/create', 'SketchesController@create_in_story')->name('sketches.create_in_story');
 Route::get('sketches/create', 'SketchesController@create')->name('sketches.create');

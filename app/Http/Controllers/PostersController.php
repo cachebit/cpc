@@ -37,9 +37,10 @@ class PostersController extends Controller
       return 'tag_stories';
     }
 
-    public function story_posters()
+    public function story_posters(Story $story)
     {
-      return 'story_stories';
+      $posters = $story->posters()->paginate(30);
+      return view('index.posters', compact('posters'));
     }
 
     /**

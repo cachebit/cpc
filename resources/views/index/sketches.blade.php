@@ -5,10 +5,12 @@
   @if(count($sketches))
   @foreach($sketches as $sketch)
   <div class="col-xs-3 col-md-2">
-    <a href="{{ route('skethes.show', $sketch->id) }}"><img class="img-responsive" src="{{ $sketch->path_s }}" alt="{{ $sketch->title }}"></a>
+    <a href="{{ route('sketches.show', $sketch->id) }}"><img class="img-responsive" src="{{ $sketch->path_s }}" alt="{{ $sketch->title }}"></a>
   </div>
   @endforeach
   @else
-  <p>-为上传任何草图-</p>
+  <div class="col-xs-12">
+    <p>-未上传任何海报-</p>
+  </div>
   @endif
 @stop

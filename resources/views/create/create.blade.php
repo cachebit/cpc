@@ -29,7 +29,7 @@
     </div>
 
     <div class="col-xs-6 col-md-4 col-lg-3">
-      <a class="btn btn-primary btn-block" href="#">
+      <a class="btn btn-primary btn-block" href="{{ route('sketches.create') }}">
         <dl>
           <dt><h4><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> 草图</h4></dt>
           <dd>未完成的作品。</dd>
