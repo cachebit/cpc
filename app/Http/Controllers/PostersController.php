@@ -122,9 +122,9 @@ class PostersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Poster $poster)
     {
-        //
+      return view('edit.poster', compact('poster'));
     }
 
     /**
@@ -134,9 +134,25 @@ class PostersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Poster $poster)
     {
-        //
+      $this->validate($request, [
+        'title' => 'required|max:100',
+        'description' => 'required|max:420',
+        'image' => 'image',
+      ]);
+
+      $img = $request->file('image');
+
+      $poster->update($request->all());
+
+      if($poster->is_img($img)){
+
+        $poster->update($poster->save_img($img, 'posters'));
+
+      }
+
+      return redirect()->route('posters.show', $poster->id);
     }
 
     /**

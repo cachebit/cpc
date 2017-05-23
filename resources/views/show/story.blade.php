@@ -68,7 +68,7 @@
           </form>
         </li>
         @endif
-        <li><a href="{{ $poster->path }}"><img class="img-responsive thumbnail" src="{{ $poster->path_s }}" alt="{{ $poster->title }}"></a></li>
+        <li><a href="{{ route('posters.show' $poster->id) }}"><img class="img-responsive thumbnail" src="{{ $poster->path_s }}" alt="{{ $poster->title }}"></a></li>
       </ul>
     </div>
     @endforeach

@@ -5,7 +5,7 @@
   @if(count($posters))
   @foreach($posters as $poster)
   <div class="col-xs-3 col-md-2">
-    <a href="{{ $poster->path }}"><img class="img-responsive" src="{{ $poster->path_s }}" alt="{{ $poster->title }}"></a>
+    <a href="{{ route('posters.show', $poster->id) }}"><img class="img-responsive" src="{{ $poster->path_s }}" alt="{{ $poster->title }}"></a>
   </div>
   @endforeach
   @else
