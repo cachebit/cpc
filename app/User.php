@@ -46,6 +46,11 @@ class User extends Model implements AuthenticatableContract,
       });
     }
 
+    public function has_story()
+    {
+      return count($this->stories);
+    }
+
     public function stories()
     {
       return $this->hasMany('App\Story');

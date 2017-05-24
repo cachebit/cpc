@@ -12,6 +12,7 @@
   </a>
 </div>
 
+@if(Auth::check() and Auth::user()->has_story())
 <div class="col-xs-12 col-sm-8 col-md-9">
   <div class="row">
     <div class="col-xs-12">
@@ -60,4 +61,5 @@
 
   </div>
 </div>
+@endif
 @stop

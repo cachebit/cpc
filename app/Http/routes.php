@@ -33,6 +33,7 @@ Route::get('password/reset/{token}', 'Auth\PasswordController@getReset')->name('
 Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.update');
 
 //story
+Route::get('stories/{stories}/sections_to_volums', 'StoriesController@sections_to_volums')->name('stories.sections_to_volums');
 Route::get('users/{users}/stories', 'StoriesController@user_stories')->name('user.stories');
 Route::get('{tags}/stories', 'StoriesController@tag_stories')->name('tag.stories');
 //待修改

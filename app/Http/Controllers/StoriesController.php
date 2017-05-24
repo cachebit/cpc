@@ -75,7 +75,11 @@ class StoriesController extends Controller
      */
     public function show(Story $story)
     {
-      return view('show.story', compact('story'));
+      if(count($story->volums) && count($story->sections)){
+        return redirect()->route('stories.sections_to_volums', $story->id);
+      }else{
+        return view('show.story', compact('story'));
+      }
     }
 
     /**

@@ -19,7 +19,6 @@ class CreateSettingsTable extends Migration
             $table->string('description', 420);
             $table->string('path',255);
             $table->string('path_s',255);
-            $table->string('content',10000);
             $table->timestamps();
         });
     }
