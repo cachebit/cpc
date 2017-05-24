@@ -23,7 +23,7 @@
 </div>
 
 <div class="col-xs-6 col-md-4 col-lg-3">
-  <a class="btn btn-primary btn-block" href="#">
+  <a class="btn btn-primary btn-block" href="{{ route('settings.create_in_story', $story->id) }}">
     <dl>
       <dt><h4><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 设定</h4></dt>
       <dd>图文记录</dd>
@@ -33,7 +33,7 @@
 </div>
 
 <div class="col-xs-6 col-md-4 col-lg-3">
-  <a class="btn btn-primary btn-block" href="#">
+  <a class="btn btn-primary btn-block" href="{{ route('drafts.create_in_story', $story->id) }}">
     <dl>
       <dt><h4><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 随笔</h4></dt>
       <dd>创作笔记</dd>

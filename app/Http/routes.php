@@ -90,9 +90,9 @@ Route::patch('posters/{posters}', 'PostersController@update')->name('posters.upd
 Route::delete('posters/{posters}', 'PostersController@destroy')->name('posters.destroy');
 
 //sketches
-Route::get('users/{users}/sketches', 'SketchesController@user_posters')->name('sketches.user_sketches');
-Route::get('{tags}/sketches', 'SketchesController@tag_posters')->name('sketches.tag_sketches');
-Route::get('stories/{stories}/sketches', 'SketchesController@story_posters')->name('sketches.story_sketches');
+Route::get('users/{users}/sketches', 'SketchesController@user_sketches')->name('sketches.user_sketches');
+Route::get('{tags}/sketches', 'SketchesController@tag_sketches')->name('sketches.tag_sketches');
+Route::get('stories/{stories}/sketches', 'SketchesController@story_sketches')->name('sketches.story_sketches');
 Route::get('sketches', 'SketchesController@index')->name('sketches.index');
 Route::get('stories/{stories}/sketches/create', 'SketchesController@create_in_story')->name('sketches.create_in_story');
 Route::get('sketches/create', 'SketchesController@create')->name('sketches.create');
@@ -102,3 +102,31 @@ Route::post('stories/{stories}/sketches', 'SketchesController@store_in_story')->
 Route::get('sketches/{sketches}/edit', 'SketchesController@edit')->name('sketches.edit');
 Route::patch('sketches/{sketches}', 'SketchesController@update')->name('sketches.update');
 Route::delete('sketches/{sketches}', 'SketchesController@destroy')->name('sketches.destroy');
+
+//settings
+Route::get('users/{users}/settings', 'SettingsController@user_settings')->name('settings.user_settings');
+Route::get('{tags}/settings', 'SettingsController@tag_settings')->name('settings.tag_settings');
+Route::get('stories/{stories}/settings', 'SettingsController@story_settings')->name('settings.story_settings');
+Route::get('settings', 'SettingsController@index')->name('settings.index');
+Route::get('stories/{stories}/settings/create', 'SettingsController@create_in_story')->name('settings.create_in_story');
+Route::get('settings/create', 'SettingsController@create')->name('settings.create');
+Route::get('settings/{settings}', 'SettingsController@show')->name('settings.show');
+Route::post('settings', 'SettingsController@store')->name('settings.store');
+Route::post('stories/{stories}/settings', 'SettingsController@store_in_story')->name('settings.store_in_story');
+Route::get('settings/{settings}/edit', 'SettingsController@edit')->name('settings.edit');
+Route::patch('settings/{settings}', 'SettingsController@update')->name('settings.update');
+Route::delete('settings/{settings}', 'SettingsController@destroy')->name('settings.destroy');
+
+//drafts
+Route::get('users/{users}/drafts', 'DraftsController@user_drafts')->name('drafts.user_drafts');
+Route::get('{tags}/drafts', 'DraftsController@tag_drafts')->name('drafts.tag_drafts');
+Route::get('stories/{stories}/drafts', 'DraftsController@story_drafts')->name('drafts.story_drafts');
+Route::get('drafts', 'DraftsController@index')->name('drafts.index');
+Route::get('stories/{stories}/drafts/create', 'DraftsController@create_in_story')->name('drafts.create_in_story');
+Route::get('drafts/create', 'DraftsController@create')->name('drafts.create');
+Route::get('drafts/{drafts}', 'DraftsController@show')->name('drafts.show');
+Route::post('drafts', 'DraftsController@store')->name('drafts.store');
+Route::post('stories/{stories}/drafts', 'DraftsController@store_in_story')->name('drafts.store_in_story');
+Route::get('drafts/{drafts}/edit', 'DraftsController@edit')->name('drafts.edit');
+Route::patch('drafts/{drafts}', 'DraftsController@update')->name('drafts.update');
+Route::delete('drafts/{drafts}', 'DraftsController@destroy')->name('drafts.destroy');

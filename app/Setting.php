@@ -2,11 +2,13 @@
 
 namespace App;
 
-use App\ImageHolder;
+use App\HasImage;
 
-class Setting extends ImageHolder
+class Setting extends HasImage
 {
+  protected $table = 'settings';
 
+  protected $fillable = ['title', 'description', 'path', 'path_s'];
 
   public function story()
   {

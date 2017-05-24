@@ -15,8 +15,10 @@
       <ul class="nav navbar-nav">
         <li><a href="/">首页</a></li>
         <li><a href="{{ route('stories.index') }}">作品</a></li>
-        <li><a href="{{ route('posters.index') }}">所有海报</a></li>
-        <li><a href="{{ route('sketches.index') }}">所有草图</a></li>
+        <li><a href="{{ route('posters.index') }}">海报</a></li>
+        <li><a href="{{ route('sketches.index') }}">草图</a></li>
+        <li><a href="{{ route('settings.index') }}">设定</a></li>
+        <li><a href="{{ route('drafts.index') }}">随笔</a></li>
       </ul>
       <form class="navbar-form navbar-right">
         <div class="form-group">

@@ -7,41 +7,35 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Sketch;
+use App\Setting;
 use App\Story;
 use Auth;
 
-
-class SketchesController extends Controller
+class SettingsController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
   public function index()
   {
-    $sketches = Sketch::paginate(30);
-    return view('index.sketches', compact('sketches'));
+    $settings = Setting::paginate(30);
+    return view('index.settings', compact('settings'));
   }
 
   //显示某用户的所有海报
-  public function user_sketches(\App\User $user)
+  public function user_settings(\App\User $user)
   {
-    $sketches = $user->sketches()->paginate(30);
-    return view('index.sketches', compact('sketches'));
+    $settings = $user->settings()->paginate(30);
+    return view('index.settings', compact('settings'));
   }
 
   //显示某标签下的所有海报
-  public function tag_sketches()
+  public function tag_settings()
   {
-    return 'tag_sketches';
+    return 'tag_settings';
   }
 
-  public function story_sketches(Story $story)
+  public function story_settings(Story $story)
   {
-    $sketches = $story->sketches()->paginate(30);
-    return view('index.sketches', compact('sketches'));
+    $settings = $story->settings()->paginate(30);
+    return view('index.settings', compact('settings'));
   }
 
   /**
@@ -52,12 +46,12 @@ class SketchesController extends Controller
   public function create()
   {
     $stories = Story::where('user_id', Auth::id())->paginate(30);
-    return view('create.sketch', compact('stories'));
+    return view('create.setting', compact('stories'));
   }
 
   public function create_in_story(Story $story)
   {
-    return view('create.sketch_in_story', compact('story'));
+    return view('create.setting_in_story', compact('story'));
   }
 
   /**
@@ -76,13 +70,13 @@ class SketchesController extends Controller
 
     $story = Story::findOrFail($request->story_id);
 
-    $quantity = $this->save_sketches($request, $story);
+    $quantity = $this->save_settings($request, $story);
 
     if($quantity){
-      session()->flash('success', $quantity.'张草图储存完成！');
+      session()->flash('success', $quantity.'张设定储存完成！');
       return redirect()->route('stories.show', $story->id);
     }else{
-      session()->flash('warning', '未储存任何草图，请检查图像格式和大小。');
+      session()->flash('warning', '未储存任何设定，请检查图像格式和大小。');
       return redirect()->back();
     }
 
@@ -95,13 +89,13 @@ class SketchesController extends Controller
       'description' => 'required|max:420',
     ]);
 
-    $quantity = $this->save_sketches($request, $story);
+    $quantity = $this->save_settings($request, $story);
 
     if($quantity){
-      session()->flash('success', $quantity.'张草图储存完成！');
+      session()->flash('success', $quantity.'张设定储存完成！');
       return redirect()->route('stories.show', $story->id);
     }else{
-      session()->flash('warning', '未储存任何草图，请检查图像格式和大小。');
+      session()->flash('warning', '未储存任何设定，请检查图像格式和大小。');
       return redirect()->back();
     }
 
@@ -113,9 +107,9 @@ class SketchesController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function show(Sketch $sketch)
+  public function show(Setting $setting)
   {
-    return view('show.sketch', compact('sketch'));
+    return view('show.setting', compact('setting'));
   }
 
   /**
@@ -124,9 +118,9 @@ class SketchesController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit(Sketch $sketch)
+  public function edit(Setting $setting)
   {
-    return view('edit.sketch', compact('sketch'));
+    return view('edit.setting', compact('setting'));
   }
 
   /**
@@ -136,7 +130,7 @@ class SketchesController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Sketch $sketch)
+  public function update(Request $request, Setting $setting)
   {
     $this->validate($request, [
       'title' => 'required|max:100',
@@ -146,15 +140,15 @@ class SketchesController extends Controller
 
     $img = $request->file('image');
 
-    $sketch->update($request->all());
+    $setting->update($request->all());
 
-    if($img && $sketch->is_img($img)){
+    if($img && $setting->is_img($img)){
 
-      $sketch->update($sketch->save_img($img, 'sketches'));
+      $setting->update($setting->save_img($img, 'settings'));
 
     }
 
-    return redirect()->route('sketches.show', $sketch->id);
+    return redirect()->route('settings.show', $setting->id);
   }
 
   /**
@@ -163,15 +157,15 @@ class SketchesController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Sketch $sketch)
+  public function destroy(Setting $setting)
   {
-    $id = $sketch->story_id;
-    $sketch->delete();
-    session()->flash('success', '成功删除草图。');
-    return redirect()->route('sketches.story_sketches', $id);
+    $id = $setting->story_id;
+    $setting->delete();
+    session()->flash('success', '成功删除设定。');
+    return redirect()->route('settings.story_settings', $id);
   }
 
-  protected function save_sketches(Request $request, Story $story)
+  protected function save_settings(Request $request, Story $story)
   {
     $imgs = $request->file('image');
 
@@ -182,13 +176,13 @@ class SketchesController extends Controller
 
         if($story->is_img($img)){
 
-          $sketch = new Sketch($request->all());
+          $setting = new Setting($request->all());
 
-          $path_array = $sketch->save_img($img, 'sketches');
+          $path_array = $setting->save_img($img, 'settings');
 
-          $sketch->fill($path_array);
+          $setting->fill($path_array);
 
-          $story->sketches()->save($sketch);
+          $story->settings()->save($setting);
 
           $quantity++;
         }

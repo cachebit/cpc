@@ -147,7 +147,7 @@ class PostersController extends Controller
 
       $poster->update($request->all());
 
-      if($poster->is_img($img)){
+      if($img && $poster->is_img($img)){
 
         $poster->update($poster->save_img($img, 'posters'));
 
@@ -167,7 +167,7 @@ class PostersController extends Controller
       $id = $poster->story->id;
       $poster->delete();
       session()->flash('success', '成功删除海报。');
-      return redirect()->route('stories.show', $id);
+      return redirect()->route('posters.story_posters', $id);
     }
 
     protected function save_posters(Request $request, Story $story)

@@ -73,7 +73,30 @@
   </div>
   @endif
 
+  @if(count($story->settings))
+  <div class="col-xs-4 col-md-3">
+    <div class="thumbnail">
+      <a href="{{ route('settings.story_settings', $story->id) }}">
+        <img class="img-responsive" src="{{ $story->settings->first()->path_s }}" alt="{{ $story->settings->first()->title }}">
+        <div class="caption">
+          <h4>设定{{ count($story->settings) }}张</h4>
+        </div>
+    </div>
+    </a>
+  </div>
+  @endif
 
+  @if(count($story->drafts))
+  <div class="col-xs-4 col-md-3">
+    <div class="thumbnail">
+      <a href="{{ route('drafts.story_drafts', $story->id) }}">
+        <div class="caption">
+          <h4>随笔{{ count($story->drafts) }}篇</h4>
+        </div>
+    </div>
+    </a>
+  </div>
+  @endif
 
   @if(Auth::check() and Auth::user()->id === $story->user->id)
   @include('stories._create_content')
