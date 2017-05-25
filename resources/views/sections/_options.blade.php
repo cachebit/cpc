@@ -13,7 +13,7 @@
     @elseif($story->type === '多格漫画')
     <li><a href="{{ route('multiple_frames.create_in_section', $section->id) }}">添加多格漫画</a></li>
     @elseif($story->type === '文字剧本')
-    <li><a href="#">添加文字剧本</a></li>
+    <li><a href="{{ route('texts.create_in_section', $section->id) }}">添加文字剧本</a></li>
     @endif
 
     <li><a href="{{ route('sections.edit', [$story->id, $section->id]) }}">标题/描述/封面</a></li>

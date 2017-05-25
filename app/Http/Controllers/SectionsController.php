@@ -16,6 +16,13 @@ use Auth;
 
 class SectionsController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth', [
+          'only' => ['create', 'store', 'store_in_volum', 'edit', 'update', 'destroy', 'add_content', 'save_section']
+      ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -38,6 +45,8 @@ class SectionsController extends Controller
      */
     public function create(Story $story)
     {
+      $this->authorize('update', $story->get_user());
+
       if(count($story->volums))
       {
         return view('create.section_in_volum', compact('story'));
@@ -56,6 +65,9 @@ class SectionsController extends Controller
       ]);
 
       $volum = Volum::findOrFail($request->volum_id);
+
+      $this->authorize('update', $volum->get_user());
+
       $section = $this->save_section($request, $volum);
 
       return redirect()->route('sections.show', [$volum->story->id, $section->id]);
@@ -74,6 +86,9 @@ class SectionsController extends Controller
         'description' => 'required|max:420',
         'image' => 'required|image',
       ]);
+
+      $this->authorize('update', $story->get_user());
+
 
       $section = $this->save_section($request, $story);
 
@@ -99,6 +114,8 @@ class SectionsController extends Controller
      */
     public function edit(Story $story, Section $section)
     {
+      $this->authorize('update', $section->get_user());
+
       return view('edit.section', compact('story', 'section'));
     }
 
@@ -117,6 +134,8 @@ class SectionsController extends Controller
         'description' => 'required|max:420',
         'image' => 'image',
       ]);
+
+      $this->authorize('update', $section->get_user());
 
       $img = $request->file('image');
 
@@ -142,6 +161,8 @@ class SectionsController extends Controller
      */
     public function destroy(Story $story, Section $section)
     {
+      $this->authorize('update', $section->get_user());
+
       $id = $section->imageable->id;
       $section->delete();
       session()->flash('success', '成功删除章节！');
@@ -155,8 +176,10 @@ class SectionsController extends Controller
 
     public function add_content(Section $section)
     {
+      $this->authorize('update', $section->get_user());
+
       $story = $section->get_story();
-      
+
       return view('sections.add_content', compact('story', 'section'));
     }
 

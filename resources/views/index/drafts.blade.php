@@ -13,12 +13,7 @@
         <p>{{ $draft->description }}</p>
       </div>
       <div class="panel-footer">
-        <form class="" action="{{ route('drafts.destroy', $draft->id) }}" method="post">
-          {{ csrf_field() }}
-          {{ method_field('DELETE') }}
-
-          <button class="btn btn-danger btn-xs" type="submit" name="button">删除</span></button>
-        </form>
+        @include('options._draft')
       </div>
     </div>
   </div>

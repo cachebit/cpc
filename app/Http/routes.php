@@ -33,9 +33,8 @@ Route::get('password/reset/{token}', 'Auth\PasswordController@getReset')->name('
 Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.update');
 
 //story
-Route::get('stories/{stories}/sections_to_volums', 'StoriesController@sections_to_volums')->name('stories.sections_to_volums');
 Route::get('users/{users}/stories', 'StoriesController@user_stories')->name('user.stories');
-Route::get('{tags}/stories', 'StoriesController@tag_stories')->name('tag.stories');
+Route::get('tags/{tags}/stories', 'StoriesController@tag_stories')->name('tag.stories');
 //待修改
 Route::get('stories/{stories}/add', 'StoriesController@add')->name('stories.add');
 Route::get('stories/{stories}/delete', 'StoriesController@go_delete')->name('stories.go_delete');
@@ -70,7 +69,7 @@ Route::delete('volums/{volums}', 'VolumsController@destroy')->name('volums.destr
 
 //poster
 Route::get('users/{users}/posters', 'PostersController@user_posters')->name('posters.user_posters');
-Route::get('{tags}/posters', 'PostersController@tag_posters')->name('posters.tag_posters');
+Route::get('tags/{tags}/posters', 'PostersController@tag_posters')->name('posters.tag_posters');
 Route::get('stories/{stories}/posters', 'PostersController@story_posters')->name('posters.story_posters');
 Route::get('posters', 'PostersController@index')->name('posters.index');
 Route::get('stories/{stories}/posters/create', 'PostersController@create_in_story')->name('posters.create_in_story');
@@ -84,7 +83,7 @@ Route::delete('posters/{posters}', 'PostersController@destroy')->name('posters.d
 
 //sketches
 Route::get('users/{users}/sketches', 'SketchesController@user_sketches')->name('sketches.user_sketches');
-Route::get('{tags}/sketches', 'SketchesController@tag_sketches')->name('sketches.tag_sketches');
+Route::get('tags/{tags}/sketches', 'SketchesController@tag_sketches')->name('sketches.tag_sketches');
 Route::get('stories/{stories}/sketches', 'SketchesController@story_sketches')->name('sketches.story_sketches');
 Route::get('sketches', 'SketchesController@index')->name('sketches.index');
 Route::get('stories/{stories}/sketches/create', 'SketchesController@create_in_story')->name('sketches.create_in_story');
@@ -98,7 +97,7 @@ Route::delete('sketches/{sketches}', 'SketchesController@destroy')->name('sketch
 
 //settings
 Route::get('users/{users}/settings', 'SettingsController@user_settings')->name('settings.user_settings');
-Route::get('{tags}/settings', 'SettingsController@tag_settings')->name('settings.tag_settings');
+Route::get('tags/{tags}/settings', 'SettingsController@tag_settings')->name('settings.tag_settings');
 Route::get('stories/{stories}/settings', 'SettingsController@story_settings')->name('settings.story_settings');
 Route::get('settings', 'SettingsController@index')->name('settings.index');
 Route::get('stories/{stories}/settings/create', 'SettingsController@create_in_story')->name('settings.create_in_story');
@@ -112,7 +111,7 @@ Route::delete('settings/{settings}', 'SettingsController@destroy')->name('settin
 
 //drafts
 Route::get('users/{users}/drafts', 'DraftsController@user_drafts')->name('drafts.user_drafts');
-Route::get('{tags}/drafts', 'DraftsController@tag_drafts')->name('drafts.tag_drafts');
+Route::get('tags/{tags}/drafts', 'DraftsController@tag_drafts')->name('drafts.tag_drafts');
 Route::get('stories/{stories}/drafts', 'DraftsController@story_drafts')->name('drafts.story_drafts');
 Route::get('drafts', 'DraftsController@index')->name('drafts.index');
 Route::get('stories/{stories}/drafts/create', 'DraftsController@create_in_story')->name('drafts.create_in_story');

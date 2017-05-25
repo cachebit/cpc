@@ -6,7 +6,18 @@ use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 use App\User;
+use App\Draft;
+use App\MultipleFrame;
+use App\Poster;
+use App\Section;
+use App\Setting;
+use App\Sketch;
+use App\Story;
+use App\Text;
+use App\Volum;
+use App\Webtoon;
 use App\Policies\UserPolicy;
+use App\Policies\ContentPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -18,6 +29,16 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
         User::class => UserPolicy::class,
+        Draft::class => ContentPolicy::class,
+        MultipleFrame::class => ContentPolicy::class,
+        Poster::class => ContentPolicy::class,
+        Section::class => ContentPolicy::class,
+        Setting::class => ContentPolicy::class,
+        Sketch::class => ContentPolicy::class,
+        Story::class => ContentPolicy::class,
+        Text::class => ContentPolicy::class,
+        Volum::class => ContentPolicy::class,
+        Webtoon::class => ContentPolicy::class,
     ];
 
     /**

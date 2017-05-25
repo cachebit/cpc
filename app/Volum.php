@@ -25,6 +25,11 @@ class Volum extends HasImage implements Sectionable
     }
   }
 
+  public function get_user()
+  {
+    return $this->story->user;
+  }
+
   public function story()
   {
     return $this->belongsTo('App\Story');

@@ -13,6 +13,13 @@ use Auth;
 
 class PostersController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth', [
+          'only' => ['create', 'create_in_story', 'store', 'store_in_story', 'edit', 'update', 'destroy', 'save_posters']
+      ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -56,6 +63,8 @@ class PostersController extends Controller
 
     public function create_in_story(Story $story)
     {
+      $this->authorize('update', $story->get_user());
+
       return view('create.poster_in_story', compact('story'));
     }
 
@@ -75,6 +84,8 @@ class PostersController extends Controller
 
       $story = Story::findOrFail($request->story_id);
 
+      $this->authorize('update', $story->get_user());
+
       $quantity = $this->save_posters($request, $story);
 
       if($quantity){
@@ -93,6 +104,8 @@ class PostersController extends Controller
         'title' => 'required|max:100',
         'description' => 'required|max:420',
       ]);
+
+      $this->authorize('update', $story->get_user());
 
       $quantity = $this->save_posters($request, $story);
 
@@ -125,6 +138,8 @@ class PostersController extends Controller
      */
     public function edit(Poster $poster)
     {
+      $this->authorize('update', $poster->get_user());
+
       return view('edit.poster', compact('poster'));
     }
 
@@ -142,6 +157,8 @@ class PostersController extends Controller
         'description' => 'required|max:420',
         'image' => 'image',
       ]);
+
+      $this->authorize('update', $poster->get_user());
 
       $img = $request->file('image');
 
@@ -164,6 +181,8 @@ class PostersController extends Controller
      */
     public function destroy(Poster $poster)
     {
+      $this->authorize('update', $poster->get_user());
+      
       $id = $poster->story->id;
       $poster->delete();
       session()->flash('success', '成功删除海报。');

@@ -13,6 +13,13 @@ use Auth;
 
 class MultipleFramesController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth', [
+        'only' => ['create', 'create_in_section', 'store', 'store_in_section', 'edit', 'update', 'destroy', 'save_multiple_frames']
+    ]);
+  }
+
   public function create()
   {
 
@@ -20,6 +27,8 @@ class MultipleFramesController extends Controller
 
    public function create_in_section(Section $section)
    {
+     $this->authorize('update', $section->get_user());
+
      return view('create.multiple_frame_in_section', compact('section'));
    }
 
@@ -36,6 +45,8 @@ class MultipleFramesController extends Controller
 
   public function store_in_section(Request $request, Section $section)
   {
+    $this->authorize('update', $section->get_user());
+
     $quantity = $this->save_multiple_frames($request, $section);
 
     if($quantity){
@@ -61,6 +72,8 @@ class MultipleFramesController extends Controller
    */
   public function edit(MultipleFrame $multiple_frame)
   {
+    $this->authorize('update', $multiple_frame->get_user());
+
     return view('edit.multiple_frame', compact('multiple_frame'));
   }
 
@@ -76,6 +89,8 @@ class MultipleFramesController extends Controller
     $this->validate($request, [
       'image' => 'image',
     ]);
+
+    $this->authorize('update', $multiple_frame->get_user());
 
     $img = $request->file('image');
 
@@ -98,6 +113,8 @@ class MultipleFramesController extends Controller
    */
   public function destroy(MultipleFrame $multiple_frame)
   {
+    $this->authorize('update', $multiple_frame->get_user());
+    
     $story = $multiple_frame->section->get_story();
     $section = $multiple_frame->section;
     $multiple_frame->delete();

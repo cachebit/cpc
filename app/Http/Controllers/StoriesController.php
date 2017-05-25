@@ -13,6 +13,13 @@ use Auth;
 
 class StoriesController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth', [
+          'only' => ['create', 'store', 'edit', 'update', 'destroy', 'add', 'go_delete', 'save_story']
+      ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -90,6 +97,8 @@ class StoriesController extends Controller
      */
     public function edit(Story $story)
     {
+      $this->authorize('update', $story->get_user());
+
       return view('edit.story', compact('story'));
     }
 
@@ -107,6 +116,8 @@ class StoriesController extends Controller
         'description' => 'required|max:420',
         'image' => 'image',
       ]);
+
+      $this->authorize('update', $story->get_user());
 
       $img = $request->file('image');
 
@@ -132,6 +143,8 @@ class StoriesController extends Controller
      */
     public function destroy(Story $story)
     {
+      $this->authorize('update', $story->get_user());
+
       $story->delete();
       session()->flash('success', '成功删除作品！');
       return redirect()->route('stories.index');
@@ -139,11 +152,15 @@ class StoriesController extends Controller
 
     public function add(Story $story)
     {
-      return view('add.add', compact('story'));
+      $this->authorize('update', $story->get_user());
+
+      return view('stories.add', compact('story'));
     }
 
     public function go_delete(Story $story)
     {
+      $this->authorize('update', $story->get_user());
+      
       return view('stories.delete', compact('story'));
     }
 

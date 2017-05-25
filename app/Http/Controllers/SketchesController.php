@@ -14,6 +14,13 @@ use Auth;
 
 class SketchesController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth', [
+        'only' => ['create', 'create_in_story', 'store', 'store_in_story', 'edit', 'update', 'destroy', 'save_sketches']
+    ]);
+  }
+
   /**
    * Display a listing of the resource.
    *
@@ -57,6 +64,8 @@ class SketchesController extends Controller
 
   public function create_in_story(Story $story)
   {
+    $this->authorize('update', $story->get_user());
+
     return view('create.sketch_in_story', compact('story'));
   }
 
@@ -76,6 +85,8 @@ class SketchesController extends Controller
 
     $story = Story::findOrFail($request->story_id);
 
+    $this->authorize('update', $story->get_user());
+
     $quantity = $this->save_sketches($request, $story);
 
     if($quantity){
@@ -94,6 +105,8 @@ class SketchesController extends Controller
       'title' => 'required|max:100',
       'description' => 'required|max:420',
     ]);
+
+    $this->authorize('update', $story->get_user());
 
     $quantity = $this->save_sketches($request, $story);
 
@@ -126,6 +139,8 @@ class SketchesController extends Controller
    */
   public function edit(Sketch $sketch)
   {
+    $this->authorize('update', $sketch->get_user());
+
     return view('edit.sketch', compact('sketch'));
   }
 
@@ -143,6 +158,8 @@ class SketchesController extends Controller
       'description' => 'required|max:420',
       'image' => 'image',
     ]);
+
+    $this->authorize('update', $sketch->get_user());
 
     $img = $request->file('image');
 
@@ -165,6 +182,8 @@ class SketchesController extends Controller
    */
   public function destroy(Sketch $sketch)
   {
+    $this->authorize('update', $sketch->get_user());
+    
     $id = $sketch->story_id;
     $sketch->delete();
     session()->flash('success', '成功删除草图。');

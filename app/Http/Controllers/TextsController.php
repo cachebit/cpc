@@ -13,6 +13,13 @@ use Auth;
 
 class TextsController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth', [
+          'only' => ['create', 'create_in_section', 'store', 'store_in_section', 'edit', 'update', 'destroy']
+      ]);
+    }
+
   public function create()
   {
 
@@ -20,6 +27,8 @@ class TextsController extends Controller
 
    public function create_in_section(Section $section)
    {
+     $this->authorize('update', $section->get_user());
+
      return view('create.text_in_section', compact('section'));
    }
 
@@ -39,6 +48,8 @@ class TextsController extends Controller
     $this->validate($request, [
       'body' => 'required|max:10000',
     ]);
+
+    $this->authorize('update', $section->get_user());
 
     $text = new Text($request->all());
 
@@ -62,6 +73,8 @@ class TextsController extends Controller
    */
   public function edit(Text $text)
   {
+    $this->authorize('update', $text->get_user());
+
     return view('edit.text', compact('text'));
   }
 
@@ -78,6 +91,8 @@ class TextsController extends Controller
       'body' => 'required|max:10000',
     ]);
 
+    $this->authorize('update', $text->get_user());
+
     $text->update($request->all());
 
     $story = $text->section->get_story();
@@ -93,6 +108,8 @@ class TextsController extends Controller
    */
   public function destroy(Text $text)
   {
+    $this->authorize('update', $text->get_user());
+    
     $story = $text->section->get_story();
     $section = $text->section;
     $text->delete();

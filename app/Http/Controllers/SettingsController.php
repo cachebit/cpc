@@ -13,6 +13,13 @@ use Auth;
 
 class SettingsController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth', [
+        'only' => ['create', 'create_in_story', 'store', 'store_in_story', 'edit', 'update', 'destroy', 'save_settings']
+    ]);
+  }
+
   public function index()
   {
     $settings = Setting::paginate(30);
@@ -51,6 +58,8 @@ class SettingsController extends Controller
 
   public function create_in_story(Story $story)
   {
+    $this->authorize('update', $story->get_user());
+
     return view('create.setting_in_story', compact('story'));
   }
 
@@ -69,6 +78,8 @@ class SettingsController extends Controller
     ]);
 
     $story = Story::findOrFail($request->story_id);
+
+    $this->authorize('update', $story->get_user());
 
     $quantity = $this->save_settings($request, $story);
 
@@ -89,6 +100,8 @@ class SettingsController extends Controller
       'description' => 'required|max:420',
     ]);
 
+    $this->authorize('update', $story->get_user());
+
     $quantity = $this->save_settings($request, $story);
 
     if($quantity){
@@ -98,7 +111,6 @@ class SettingsController extends Controller
       session()->flash('warning', '未储存任何设定，请检查图像格式和大小。');
       return redirect()->back();
     }
-
   }
 
   /**
@@ -120,6 +132,8 @@ class SettingsController extends Controller
    */
   public function edit(Setting $setting)
   {
+    $this->authorize('update', $setting->get_user());
+
     return view('edit.setting', compact('setting'));
   }
 
@@ -137,6 +151,8 @@ class SettingsController extends Controller
       'description' => 'required|max:420',
       'image' => 'image',
     ]);
+
+    $this->authorize('update', $setting->get_user());
 
     $img = $request->file('image');
 
@@ -159,6 +175,8 @@ class SettingsController extends Controller
    */
   public function destroy(Setting $setting)
   {
+    $this->authorize('update', $setting->get_user());
+
     $id = $setting->story_id;
     $setting->delete();
     session()->flash('success', '成功删除设定。');

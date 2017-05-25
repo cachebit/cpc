@@ -13,6 +13,13 @@ use Auth;
 
 class WebtoonsController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth', [
+          'only' => ['create', 'create_in_section', 'store', 'store_in_section', 'edit', 'update', 'destroy', 'save_webtoons']
+      ]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -26,6 +33,7 @@ class WebtoonsController extends Controller
 
      public function create_in_section(Section $section)
      {
+       $this->authorize('update', $section->get_user());
        return view('create.webtoon_in_section', compact('section'));
      }
 
@@ -37,11 +45,13 @@ class WebtoonsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     public function store_in_section(Request $request, Section $section)
     {
+      $this->authorize('update', $section->get_user());
+
       $quantity = $this->save_webtoons($request, $section);
 
       if($quantity){
@@ -67,6 +77,8 @@ class WebtoonsController extends Controller
      */
     public function edit(Webtoon $webtoon)
     {
+      $this->authorize('update', $webtoon->get_user());
+
       return view('edit.webtoon', compact('webtoon'));
     }
 
@@ -82,6 +94,8 @@ class WebtoonsController extends Controller
       $this->validate($request, [
         'image' => 'image',
       ]);
+
+      $this->authorize('update', $webtoon->get_user());
 
       $img = $request->file('image');
 
@@ -104,6 +118,8 @@ class WebtoonsController extends Controller
      */
     public function destroy(Webtoon $webtoon)
     {
+      $this->authorize('update', $webtoon->get_user());
+
       $story = $webtoon->section->get_story();
       $section = $webtoon->section;
       $webtoon->delete();

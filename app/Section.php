@@ -33,6 +33,11 @@ class Section extends HasImage
     }
   }
 
+  public function get_user()
+  {
+    return $this->imageable->get_user();
+  }
+
   public function imageable()
   {
     return $this->morphTo();

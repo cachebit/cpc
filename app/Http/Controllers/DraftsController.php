@@ -13,6 +13,13 @@ use Auth;
 
 class DraftsController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth', [
+        'only' => ['create', 'create_in_story', 'store', 'store_in_story', 'edit', 'update', 'destroy']
+    ]);
+  }
+
   public function index()
   {
     $drafts = Draft::paginate(30);
@@ -51,6 +58,8 @@ class DraftsController extends Controller
 
   public function create_in_story(Story $story)
   {
+    $this->authorize('update', $story->get_user());
+
     return view('create.draft_in_story', compact('story'));
   }
 
@@ -71,6 +80,8 @@ class DraftsController extends Controller
 
     $story = Story::findOrFail($request->story_id);
 
+    $this->authorize('update', $story->get_user());
+
     $draft = new Draft($request->all());
 
     $draft = $story->drafts()->save($draft);
@@ -86,6 +97,8 @@ class DraftsController extends Controller
       'description' => 'required|max:420',
       'content' => 'required|max:10000',
     ]);
+
+    $this->authorize('update', $story->get_user());
 
     $draft = new Draft($request->all());
 
@@ -114,6 +127,8 @@ class DraftsController extends Controller
    */
   public function edit(Draft $draft)
   {
+    $this->authorize('update', $draft->get_user());
+
     return view('edit.draft', compact('draft'));
   }
 
@@ -132,6 +147,8 @@ class DraftsController extends Controller
       'content' => 'required|max:10000',
     ]);
 
+    $this->authorize('update', $draft->get_user());
+
     $draft->update($request->all());
 
     return redirect()->route('drafts.show', $draft->id);
@@ -145,6 +162,8 @@ class DraftsController extends Controller
    */
   public function destroy(Draft $draft)
   {
+    $this->authorize('update', $draft->get_user());
+    
     $id = $draft->story_id;
     $draft->delete();
     session()->flash('success', '成功删除随笔。');

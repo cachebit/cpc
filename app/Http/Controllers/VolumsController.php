@@ -15,6 +15,13 @@ use Auth;
 
 class VolumsController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth', [
+          'only' => ['create', 'store', 'edit', 'update', 'destroy', 'save_volum']
+      ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,6 +39,8 @@ class VolumsController extends Controller
      */
     public function create(Story $story)
     {
+      $this->authorize('update', $story->get_user());
+
       return view('create.volum', compact('story'));
     }
 
@@ -48,6 +57,8 @@ class VolumsController extends Controller
         'description' => 'required|max:420',
         'image' => 'required|image',
       ]);
+
+      $this->authorize('update', $story->get_user());
 
       $volum = $this->save_volum($request, $story);
 
@@ -73,6 +84,8 @@ class VolumsController extends Controller
      */
     public function edit(Volum $volum)
     {
+      $this->authorize('update', $volum->get_user());
+
       return view('edit.volum', compact('volum'));
     }
 
@@ -90,6 +103,8 @@ class VolumsController extends Controller
         'description' => 'required|max:420',
         'image' => 'image',
       ]);
+
+      $this->authorize('update', $volum->get_user());
 
       $img = $request->file('image');
 
@@ -116,6 +131,8 @@ class VolumsController extends Controller
      */
     public function destroy(Volum $volum)
     {
+      $this->authorize('update', $volum->get_user());
+
       $count_volums = count($volum->story->volums);
       $story_id = $volum->story->id;
 

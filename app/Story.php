@@ -16,6 +16,11 @@ class Story extends HasImage implements Sectionable
     return $this->user_id === $id;
   }
 
+  public function get_user()
+  {
+    return $this->user;
+  }
+
   public function setTitleAttribute($title)
   {
     if(!(starts_with($title, '《') && str_finish($title, '》'))){
