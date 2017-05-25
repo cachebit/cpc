@@ -21,6 +21,22 @@ class Story extends HasImage implements Sectionable
     return $this->user;
   }
 
+  public function get_score()
+  {
+    return $this->score;
+  }
+
+  public function set_score($score)
+  {
+    $this->score = $score;
+    return $this->save();
+  }
+
+  public function is_scorable()
+  {
+    return $this->gallery && count($this->scores) < 100;
+  }
+
   public function setTitleAttribute($title)
   {
     if(!(starts_with($title, '《') && str_finish($title, '》'))){
@@ -33,6 +49,11 @@ class Story extends HasImage implements Sectionable
   public function user()
   {
     return $this->belongsTo('App\User');
+  }
+
+  public function galleries()
+  {
+    return $this->morphMany('App\Gallery', 'imageable');
   }
 
   public function posters()
@@ -68,5 +89,15 @@ class Story extends HasImage implements Sectionable
   public function covers()
   {
       return $this->morphMany('App\Cover', 'imageable');
+  }
+
+  public function ups()
+  {
+    return $this->morphMany('App\Up', 'imageable');
+  }
+
+  public function scores()
+  {
+    return $this->morphMany('App\Score', 'imageable');
   }
 }

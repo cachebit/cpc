@@ -32,6 +32,10 @@ Route::post('password/email', 'Auth\PasswordController@postEmail')->name('passwo
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset')->name('password.edit');
 Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.update');
 
+//gallery
+Route::get('galleries/{galleries}', 'GalleriesController@show')->name('galleries.show');
+Route::post('galleries/{galleries}', 'GalleriesController@score')->name('galleries.score');
+
 //story
 Route::get('users/{users}/stories', 'StoriesController@user_stories')->name('user.stories');
 Route::get('tags/{tags}/stories', 'StoriesController@tag_stories')->name('tag.stories');
@@ -68,6 +72,7 @@ Route::patch('volums/{volums}', 'VolumsController@update')->name('volums.update'
 Route::delete('volums/{volums}', 'VolumsController@destroy')->name('volums.destroy');
 
 //poster
+Route::post('posters/{posters}', 'PostersController@gallery')->name('posters.gallery');
 Route::get('users/{users}/posters', 'PostersController@user_posters')->name('posters.user_posters');
 Route::get('tags/{tags}/posters', 'PostersController@tag_posters')->name('posters.tag_posters');
 Route::get('stories/{stories}/posters', 'PostersController@story_posters')->name('posters.story_posters');

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStoriesTable extends Migration
+class CreateScoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,12 @@ class CreateStoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('stories', function (Blueprint $table) {
+        Schema::create('scores', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
-            $table->integer('gallery_id')->unsigned()->index();
-            $table->string('title', 100);
-            $table->string('description', 420);
+            $table->integer('imageable_id')->unsigned();
+            $table->string('imageable_type');
             $table->float('score');
-            $table->integer('up')->unsigned();
-            $table->string('type', 24);//tables name
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateStoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('stories');
+        Schema::drop('scores');
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Poster;
 use App\Story;
+use App\Gallery;
 use Auth;
 
 class PostersController extends Controller
@@ -16,15 +17,21 @@ class PostersController extends Controller
     public function __construct()
     {
       $this->middleware('auth', [
-          'only' => ['create', 'create_in_story', 'store', 'store_in_story', 'edit', 'update', 'destroy', 'save_posters']
+          'only' => ['gallery', 'create', 'create_in_story', 'store', 'store_in_story', 'edit', 'update', 'destroy', 'save_posters']
       ]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function gallery(Poster $poster)
+    {
+      $this->authorize('update', $poster->get_user());
+
+      $gallery = new Gallery();
+      $gallery->user_id = Auth::id();
+      $gallery = $poster->galleries()->save($gallery);
+      
+      return redirect()->route('galleries.show', $gallery->id);
+    }
+
     public function index()
     {
       $posters = Poster::paginate(30);
@@ -182,7 +189,7 @@ class PostersController extends Controller
     public function destroy(Poster $poster)
     {
       $this->authorize('update', $poster->get_user());
-      
+
       $id = $poster->story->id;
       $poster->delete();
       session()->flash('success', '成功删除海报。');

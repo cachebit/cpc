@@ -56,6 +56,21 @@ class User extends Model implements AuthenticatableContract,
       return $this->hasMany('App\Story');
     }
 
+    public function galleries()
+    {
+      return $this->hasMany('App\Gallery');
+    }
+
+    public function ups()
+    {
+      return $this->hasMany('App\Up');
+    }
+
+    public function scores()
+    {
+      return $this->hasMany('App\Score');
+    }
+
     public function posters()
     {
       return $this->hasManyThrough('App\Poster', 'App\Story');

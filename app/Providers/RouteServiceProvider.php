@@ -39,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->model('webtoons', 'App\Webtoon');
         $router->model('multiple_frames', 'App\MultipleFrame');
         $router->model('texts', 'App\Text');
+        $router->model('galleries', 'App\Gallery');
     }
 
     /**
