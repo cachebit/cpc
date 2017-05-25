@@ -37,6 +37,8 @@ class RouteServiceProvider extends ServiceProvider
         $router->model('drafts', 'App\Draft');
         $router->model('settings', 'App\Setting');
         $router->model('webtoons', 'App\Webtoon');
+        $router->model('multiple_frames', 'App\MultipleFrame');
+        $router->model('texts', 'App\Text');
     }
 
     /**

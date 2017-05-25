@@ -7,13 +7,13 @@
   <ul class="dropdown-menu" aria-labelledby="section_option">
 
     @if($story->type === '')
-    <li><a href="#">添加内容</a></li>
+    <li><a href="{{ route('sections.add_content', $section->id) }}">添加内容</a></li>
     @elseif($story->type === '条漫')
-    <li><a href="#">添加条漫</a></li>
+    <li><a href="{{ route('webtoons.create_in_section', $section->id) }}">添加条漫</a></li>
     @elseif($story->type === '多格漫画')
-    <a href="#">添加多格漫画</a>
-    @elseif($story->type === '剧本')
-    <a href="#">添加剧本</a>
+    <li><a href="{{ route('multiple_frames.create_in_section', $section->id) }}">添加多格漫画</a></li>
+    @elseif($story->type === '文字剧本')
+    <li><a href="#">添加文字剧本</a></li>
     @endif
 
     <li><a href="{{ route('sections.edit', [$story->id, $section->id]) }}">标题/描述/封面</a></li>

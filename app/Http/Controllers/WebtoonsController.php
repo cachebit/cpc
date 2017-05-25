@@ -8,18 +8,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Webtoon;
+use App\Section;
+use Auth;
 
 class WebtoonsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -28,8 +21,13 @@ class WebtoonsController extends Controller
      */
     public function create()
     {
-        //
+
     }
+
+     public function create_in_section(Section $section)
+     {
+       return view('create.webtoon_in_section', compact('section'));
+     }
 
     /**
      * Store a newly created resource in storage.
@@ -42,15 +40,23 @@ class WebtoonsController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function store_in_section(Request $request, Section $section)
     {
-        //
+      $quantity = $this->save_webtoons($request, $section);
+
+      if($quantity){
+        $story = $section->get_story();
+        if(!$story->type){
+          $story->type ='条漫';
+          $story->save();
+        }
+
+        session()->flash('success', $quantity.'张条漫储存完成！');
+        return redirect()->route('sections.show', [$story->id, $section->id]);
+      }else{
+        session()->flash('warning', '未储存任何条漫，请检查图像格式和大小。');
+        return redirect()->back();
+      }
     }
 
     /**
@@ -59,9 +65,9 @@ class WebtoonsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Webtoon $webtoon)
     {
-        //
+      return view('edit.webtoon', compact('webtoon'));
     }
 
     /**
@@ -71,9 +77,23 @@ class WebtoonsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Webtoon $webtoon)
     {
-        //
+      $this->validate($request, [
+        'image' => 'image',
+      ]);
+
+      $img = $request->file('image');
+
+      if($img && $webtoon->is_img($img)){
+
+        $webtoon->update($webtoon->save_img($img, 'webtoons'));
+
+      }
+
+      $story = $webtoon->section->get_story();
+
+      return redirect()->route('sections.show', [$story->id, $webtoon->section->id]);
     }
 
     /**
@@ -84,14 +104,36 @@ class WebtoonsController extends Controller
      */
     public function destroy(Webtoon $webtoon)
     {
+      $story = $webtoon->section->get_story();
       $section = $webtoon->section;
-      $section->webtoons()->where('id', $webtoon->id)->delete();
+      $webtoon->delete();
+      return redirect()->route('sections.show', [$story->id, $section->id]);
+    }
 
-      if(count($section->webtoons) === 0){
-        $section->story->type = '';
-        $section->story->save();
+    protected function save_webtoons(Request $request, Section $section)
+    {
+      $imgs = $request->file('image');
+
+      $quantity = 0;
+
+      if(count($imgs)){
+        foreach($imgs as $img){
+
+          if($section->is_img($img)){
+
+            $webtoon = new Webtoon();
+
+            $path_array = $webtoon->save_img($img, 'webtoons');
+
+            $webtoon->fill($path_array);
+
+            $section->webtoons()->save($webtoon);
+
+            $quantity++;
+          }
+        }
       }
 
-      return redirect()->route('sections.show', $section->id);
+      return $quantity;
     }
 }

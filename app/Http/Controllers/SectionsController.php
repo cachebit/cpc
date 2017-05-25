@@ -153,6 +153,13 @@ class SectionsController extends Controller
       }
     }
 
+    public function add_content(Section $section)
+    {
+      $story = $section->get_story();
+      
+      return view('sections.add_content', compact('story', 'section'));
+    }
+
     public function save_section(Request $request, Sectionable $sectionable)
     {
       $section = new Section($request->all());

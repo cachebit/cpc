@@ -37,7 +37,7 @@
 
   @elseif($story->type === '')
 
-    @include('show._section_no_content')
+    <p>-未更新任何内容-</p>
 
   @endif
 </div>

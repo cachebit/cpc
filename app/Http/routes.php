@@ -49,6 +49,7 @@ Route::patch('stories/{stories}', 'StoriesController@update')->name('stories.upd
 Route::delete('stories/{stories}', 'StoriesController@destroy')->name('stories.destroy');
 
 //section
+Route::get('sections/{sections}/add_content', 'SectionsController@add_content')->name('sections.add_content');
 Route::get('stories/{stories}/sections', 'SectionsController@index')->name('sections.index');
 Route::get('stories/{stories}/sections/create', 'SectionsController@create')->name('sections.create');
 Route::post('stories/{stories}/volums/sections/create', 'SectionsController@store_in_volum')->name('sections.store_in_volum');
@@ -57,15 +58,6 @@ Route::get('stories/{stories}/sections/{sections}', 'SectionsController@show')->
 Route::get('stories/{stories}/sections/{sections}/edit', 'SectionsController@edit')->name('sections.edit');
 Route::patch('stories/{stories}/sections/{sections}', 'SectionsController@update')->name('sections.update');
 Route::delete('stories/{stories}/sections/{sections}', 'SectionsController@destroy')->name('sections.destroy');
-
-//webtoons
-Route::get('webtoons', 'WebtoonsController@index')->name('webtoons.index');
-Route::get('webtoons/{webtoons}', 'WebtoonsController@show')->name('webtoons.show');
-Route::get('webtoons/create', 'WebtoonsController@create')->name('webtoons.create');
-Route::post('webtoons', 'WebtoonsController@store')->name('webtoons.store');
-Route::get('webtoons/{webtoons}/edit', 'WebtoonsController@edit')->name('webtoons.edit');
-Route::patch('webtoons/{webtoons}', 'WebtoonsController@update')->name('webtoons.update');
-Route::delete('webtoons/{webtoons}', 'WebtoonsController@destroy')->name('webtoons.destroy');
 
 //volum
 Route::get('stories/{stories}/volums', 'VolumsController@index')->name('volums.index');
@@ -131,3 +123,30 @@ Route::post('stories/{stories}/drafts', 'DraftsController@store_in_story')->name
 Route::get('drafts/{drafts}/edit', 'DraftsController@edit')->name('drafts.edit');
 Route::patch('drafts/{drafts}', 'DraftsController@update')->name('drafts.update');
 Route::delete('drafts/{drafts}', 'DraftsController@destroy')->name('drafts.destroy');
+
+//webtoons
+Route::get('sections/{sections}/webtoons/create', 'WebtoonsController@create_in_section')->name('webtoons.create_in_section');
+Route::get('webtoons/create', 'WebtoonsController@create')->name('webtoons.create');
+Route::post('webtoons', 'WebtoonsController@store')->name('webtoons.store');
+Route::post('sections/{sections}/webtoons', 'WebtoonsController@store_in_section')->name('webtoons.store_in_section');
+Route::get('webtoons/{webtoons}/edit', 'WebtoonsController@edit')->name('webtoons.edit');
+Route::patch('webtoons/{webtoons}', 'WebtoonsController@update')->name('webtoons.update');
+Route::delete('webtoons/{webtoons}', 'WebtoonsController@destroy')->name('webtoons.destroy');
+
+//multiple_frames
+Route::get('sections/{sections}/multiple_frames/create', 'MultipleFramesController@create_in_section')->name('multiple_frames.create_in_section');
+Route::get('multiple_frames/create', 'MultipleFramesController@create')->name('multiple_frames.create');
+Route::post('multiple_frames', 'MultipleFramesController@store')->name('multiple_frames.store');
+Route::post('sections/{sections}/multiple_frames', 'MultipleFramesController@store_in_section')->name('multiple_frames.store_in_section');
+Route::get('multiple_frames/{multiple_frames}/edit', 'MultipleFramesController@edit')->name('multiple_frames.edit');
+Route::patch('multiple_frames/{multiple_frames}', 'MultipleFramesController@update')->name('multiple_frames.update');
+Route::delete('multiple_frames/{multiple_frames}', 'MultipleFramesController@destroy')->name('multiple_frames.destroy');
+
+//texts
+Route::get('sections/{sections}/texts/create', 'TextsController@create_in_section')->name('texts.create_in_section');
+Route::get('texts/create', 'TextsController@create')->name('texts.create');
+Route::post('texts', 'TextsController@store')->name('texts.store');
+Route::post('sections/{sections}/texts', 'TextsController@store_in_section')->name('texts.store_in_section');
+Route::get('texts/{texts}/edit', 'TextsController@edit')->name('texts.edit');
+Route::patch('texts/{texts}', 'TextsController@update')->name('texts.update');
+Route::delete('texts/{texts}', 'TextsController@destroy')->name('texts.destroy');

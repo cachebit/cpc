@@ -22,6 +22,17 @@ class Section extends HasImage
     }
   }
 
+  public function get_story()
+  {
+    $belong = $this->imageable;
+    if($belong instanceof \App\Volum)
+    {
+      return $belong->story;
+    }elseif($belong instanceof \App\Story){
+      return $belong;
+    }
+  }
+
   public function imageable()
   {
     return $this->morphTo();

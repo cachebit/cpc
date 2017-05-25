@@ -11,6 +11,7 @@
           <h4>{{ $story->title }}</h4>
         </a>
       </li>
+      <li><span class="glyphicon glyphicon-tag" aria-hidden="true"></span> <a href="#">{{ $story->type }}</a></li>
       <li>@include('stories._options')</li>
       <li>作者：<a href="{{ route('users.show', $story->user->id) }}">{{ $story->user->name }}</a></li>
       <li>发表于：{{ $story->created_at->diffForHumans() }}</li>
