@@ -46,62 +46,83 @@
   @endforeach
   @else
   <div class="col-xs-12">
-    <p>-未更新任何章节故事。-</p>
+    <div class="thumbnail">
+      <div class="caption">
+        <p>-未更新任何章节故事。-</p>
+      </div>
+    </div>
   </div>
   @endif
 
 
-    @if(count($story->posters))
-    <div class="col-xs-6 col-sm-4 col-md-3">
-      <a href="{{ route('posters.story_posters', $story->id) }}">
-      <div class="thumbnail">
-          <img class="img-responsive" src="{{ $story->posters->first()->path_s }}" alt="{{ $story->posters->first()->title }}">
-          <div class="caption">
-            <h4>海报{{ count($story->posters) }}张</h4>
-          </div>
-      </div>
-      </a>
-    </div>
-    @endif
 
-    @if(count($story->sketches))
     <div class="col-xs-6 col-sm-4 col-md-3">
-      <a href="{{ route('sketches.story_sketches', $story->id) }}">
       <div class="thumbnail">
-          <img class="img-responsive" src="{{ $story->sketches->first()->path_s }}" alt="{{ $story->sketches->first()->title }}">
-          <div class="caption">
-            <h4>草图{{ count($story->sketches) }}张</h4>
-          </div>
+        @if(count($story->posters))
+        <a href="{{ route('posters.story_posters', $story->id) }}">
+            <img class="img-responsive" src="{{ $story->posters->first()->path_s }}" alt="{{ $story->posters->first()->title }}">
+            <div class="caption">
+              <h4>海报{{ count($story->posters) }}张</h4>
+            </div>
+        </a>
+        @else
+        <div class="caption">
+          <p class="text-center">-未更新任何海报。-</p>
+        </div>
+        @endif
       </div>
-      </a>
     </div>
-    @endif
 
-    @if(count($story->settings))
     <div class="col-xs-6 col-sm-4 col-md-3">
-      <a href="{{ route('settings.story_settings', $story->id) }}">
       <div class="thumbnail">
-          <img class="img-responsive" src="{{ $story->settings->first()->path_s }}" alt="{{ $story->settings->first()->title }}">
-          <div class="caption">
-            <h4>设定{{ count($story->settings) }}张</h4>
-          </div>
+        @if(count($story->sketches))
+        <a href="{{ route('sketches.story_sketches', $story->id) }}">
+            <img class="img-responsive" src="{{ $story->sketches->first()->path_s }}" alt="{{ $story->sketches->first()->title }}">
+            <div class="caption">
+              <h4>草图{{ count($story->sketches) }}张</h4>
+            </div>
+        </a>
+        @else
+        <div class="caption">
+          <p class="text-center">-未更新任何草图。-</p>
+        </div>
+        @endif
       </div>
-      </a>
     </div>
-    @endif
 
-    @if(count($story->drafts))
     <div class="col-xs-6 col-sm-4 col-md-3">
-      <a href="{{ route('drafts.story_drafts', $story->id) }}">
       <div class="thumbnail">
-        <img class="img-responsive" src="{{ $story->covers()->first()->cover_s }}" alt="{{ $story->title }}">
-          <div class="caption">
-            <h4>随笔{{ count($story->drafts) }}篇</h4>
-          </div>
+        @if(count($story->settings))
+        <a href="{{ route('settings.story_settings', $story->id) }}">
+            <img class="img-responsive" src="{{ $story->settings->first()->path_s }}" alt="{{ $story->settings->first()->title }}">
+            <div class="caption">
+              <h4>设定{{ count($story->settings) }}张</h4>
+            </div>
+        </a>
+        @else
+        <div class="caption">
+          <p class="text-center">-未更新任何设定。-</p>
+        </div>
+        @endif
       </div>
-      </a>
     </div>
-    @endif
+
+    <div class="col-xs-6 col-sm-4 col-md-3">
+      <div class="thumbnail">
+        @if(count($story->drafts))
+        <a href="{{ route('drafts.story_drafts', $story->id) }}">
+          <img class="img-responsive" src="{{ $story->covers()->first()->cover_s }}" alt="{{ $story->title }}">
+            <div class="caption">
+              <h4>随笔{{ count($story->drafts) }}篇</h4>
+            </div>
+        </a>
+        @else
+        <div class="caption">
+          <p class="text-center">-未更新任何随笔。-</p>
+        </div>
+        @endif
+      </div>
+    </div>
 
     @if(Auth::check() and Auth::user()->id === $story->user->id)
     @include('stories._create_content')

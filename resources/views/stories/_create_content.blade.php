@@ -66,6 +66,7 @@
   <br>
 </div>
 
+@if(count($story->volums) or count($story->sections))
 <div class="col-xs-12">
   <h4 class="text-muted">给章节添加内容</h4>
 </div>
@@ -99,3 +100,4 @@
   </a>
   <br>
 </div>
+@endif
