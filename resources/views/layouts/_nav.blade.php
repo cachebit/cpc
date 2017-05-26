@@ -19,13 +19,15 @@
         <li><a href="{{ route('sketches.index') }}">草图</a></li>
         <li><a href="{{ route('settings.index') }}">设定</a></li>
         <li><a href="{{ route('drafts.index') }}">随笔</a></li>
+        <li><a href="{{ route('galleries.index') }}">晒图评分区</a></li>
+        <li><a href="{{ route('galleries.top') }}">图榜</a></li>
       </ul>
-      <form class="navbar-form navbar-right">
+      <!-- <form class="navbar-form navbar-right">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>
         <button type="submit" class="btn btn-default">search</button>
-      </form>
+      </form> -->
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

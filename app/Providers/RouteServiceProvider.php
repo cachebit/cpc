@@ -40,6 +40,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->model('multiple_frames', 'App\MultipleFrame');
         $router->model('texts', 'App\Text');
         $router->model('galleries', 'App\Gallery');
+        $router->model('scores', 'App\Score');
     }
 
     /**

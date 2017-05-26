@@ -31,11 +31,6 @@ class Poster extends HasImage implements Scorable
     return $this->save();
   }
 
-  public function is_scorable()
-  {
-    return $this->gallery && count($this->scores) < 100;
-  }
-
   public function story()
   {
     return $this->belongsTo('App\Story');
@@ -49,10 +44,5 @@ class Poster extends HasImage implements Scorable
   public function ups()
   {
     return $this->morphMany('App\Up', 'imageable');
-  }
-
-  public function scores()
-  {
-    return $this->morphMany('App\Score', 'imageable');
   }
 }

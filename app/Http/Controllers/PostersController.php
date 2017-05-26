@@ -25,11 +25,18 @@ class PostersController extends Controller
     {
       $this->authorize('update', $poster->get_user());
 
-      $gallery = new Gallery();
-      $gallery->user_id = Auth::id();
-      $gallery = $poster->galleries()->save($gallery);
-      
-      return redirect()->route('galleries.show', $gallery->id);
+      if(count($poster->galleries))
+      {
+        session()->flash('warning', '已入展，不要重复添加！');
+      }else{
+        $gallery = new Gallery();
+        $gallery->user_id = Auth::id();
+        $gallery = $poster->galleries()->save($gallery);
+
+        session()->flash('success', '入展成功！');
+      }
+
+      return redirect()->back();
     }
 
     public function index()

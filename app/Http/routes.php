@@ -33,8 +33,14 @@ Route::get('password/reset/{token}', 'Auth\PasswordController@getReset')->name('
 Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.update');
 
 //gallery
+Route::get('galleries/top', 'GalleriesController@top')->name('galleries.top');
+Route::get('galleries', 'GalleriesController@index')->name('galleries.index');
 Route::get('galleries/{galleries}', 'GalleriesController@show')->name('galleries.show');
 Route::post('galleries/{galleries}', 'GalleriesController@score')->name('galleries.score');
+
+//score
+Route::get('users/{users}/scores', 'ScoresController@user_scored')->name('scores.user_scored');
+Route::delete('scores/{scores}', 'ScoresController@destroy')->name('scores.destroy');
 
 //story
 Route::get('users/{users}/stories', 'StoriesController@user_stories')->name('user.stories');

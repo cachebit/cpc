@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Score extends Model
 {
-  protected $table = 'ups';
-  
+  protected $table = 'scores';
+
   public function user()
   {
     return $this->belongsTo('App\User');
   }
 
-  public function imageable()
+  public function gallery()
   {
-    return $this->morphTo();
+    return $this->belongsTo('App\Gallery');
   }
 }

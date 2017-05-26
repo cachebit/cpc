@@ -31,28 +31,13 @@ class Draft extends Model implements Scorable
     return $this->save();
   }
 
-  public function is_scorable()
-  {
-    return $this->gallery && count($this->scores) < 100;
-  }
-
   public function story()
   {
     return $this->belongsTo('App\Story');
   }
 
-  public function galleries()
-  {
-    return $this->morphMany('App\Gallery', 'imageable');
-  }
-
   public function ups()
   {
     return $this->morphMany('App\Up', 'imageable');
-  }
-
-  public function scores()
-  {
-    return $this->morphMany('App\Score', 'imageable');
   }
 }

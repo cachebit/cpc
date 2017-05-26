@@ -17,6 +17,7 @@ class CreateGalleriesTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->integer('imageable_id')->unsigned();
             $table->string('imageable_type');
+            $table->boolean('scorable')->default(true);
             $table->timestamps();
         });
     }

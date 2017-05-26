@@ -4,39 +4,56 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\User;
+
 class Gallery extends Model
 {
   protected $table = 'galleries';
 
-  public function get_content()
+  public function user_scorable(User $user)
+  {
+    if($this->scores()->where('user_id', $user->id)->first() === null)
+    {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  public function get_score()
+  {
+    return $this->imageable->score;
+  }
+
+  public function scored()
+  {
+    $this->scorable = false;
+    $this->save();
+    return $this->all()->random();
+  }
+
+  public function get_img()
   {
     $belong = $this->imageable;
 
-    if($belong instanceof \App\Story){
+    return $belong->path;
+  }
 
-    }elseif($belong instanceof \App\Draft){
-      echo '<h3>'.$belong->title.'</h3><p>'.$belong->description.'</p><hr/><p>'.$belong->content.'</p>';
-      return;
-    }elseif($belong instanceof \App\Poster){
-      echo '
-      <div class="thumbnail">
-        <img class="img-responsive" src="'.$belong->path.'"/>
-        <div class="caption">
-          <p>类型：海报</p>
-        </div>
-      </div>
-      ';
-      return;
-    }elseif($belong instanceof \App\Setting){
-      echo '<h3>'.$belong->title.'</h3><p>'.$belong->description.'</p><hr/><img class="img-responsive" src="'.$belong->path.'"/>';
-      return;
-    }elseif($belong instanceof \App\Sketch){
-      echo '<h3>'.$belong->title.'</h3><p>'.$belong->description.'</p><hr/><img class="img-responsive" src="'.$belong->path.'"/>';
-      return;
-    }else{
-      echo '<p>-获取内容失败-</p>';
-      return;
-    }
+  public function get_thumbnail()
+  {
+    $belong = $this->imageable;
+
+    return $belong->path_s;
+  }
+
+  public function get_description()
+  {
+    return $this->imageable->description;
+  }
+
+  public function get_title()
+  {
+    return $this->imageable->title;
   }
 
   public function user()
@@ -47,5 +64,10 @@ class Gallery extends Model
   public function imageable()
   {
     return $this->morphTo();
+  }
+
+  public function scores()
+  {
+    return $this->hasMany('App\Score');
   }
 }

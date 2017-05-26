@@ -15,8 +15,7 @@ class CreateScoresTable extends Migration
         Schema::create('scores', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
-            $table->integer('imageable_id')->unsigned();
-            $table->string('imageable_type');
+            $table->integer('gallery_id')->unsigned()->index();
             $table->float('score');
             $table->timestamps();
         });
