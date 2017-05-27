@@ -10,6 +10,12 @@ class Sketch extends HasImage implements Scorable
 
   protected $fillable = ['title', 'description', 'path', 'path_s'];
 
+  static public function lastest()
+  {
+    $sketch = new static;
+    return $sketch->orderBy('created_at', 'desc')->paginate(6);
+  }
+
   public function is_author($id)
   {
     return $this->story->is_author($id);

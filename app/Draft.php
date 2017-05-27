@@ -10,6 +10,12 @@ class Draft extends Model implements Scorable
 
   protected $fillable = ['title', 'description', 'content'];
 
+  static public function lastest()
+  {
+    $sketch = new static;
+    return $sketch->orderBy('created_at', 'desc')->paginate(6);
+  }
+
   public function is_author($id)
   {
     return $this->story->is_author($id);
