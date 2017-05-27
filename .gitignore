@@ -1,7 +1,11 @@
 /vendor
 /node_modules
-/public/images
-/public/img
+/public/img/covers
+/public/img/multiple_frames
+/public/img/posters
+/public/img/settings
+/public/img/sketches
+/public/img/webtoons
 Homestead.yaml
 Homestead.json
 .env
