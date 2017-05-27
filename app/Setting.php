@@ -10,10 +10,10 @@ class Setting extends HasImage implements Scorable
 
   protected $fillable = ['title', 'description', 'path', 'path_s'];
 
-  static public function lastest()
+  static public function lastest($n)
   {
     $sketch = new static;
-    return $sketch->orderBy('created_at', 'desc')->paginate(6);
+    return $sketch->orderBy('created_at', 'desc')->paginate($n);
   }
 
   public function is_author($id)

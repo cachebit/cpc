@@ -1,9 +1,9 @@
-<div class="col-md-6">
+<div class="col-md-8">
   <h5>>>最新海报 <small>LASTEST POSTERS</small></h5>
-  @if(count($lastests))
+  @if(count($promotes))
    <div class="row">
-    @foreach($lastests as $poster)
-     <div class="col-xs-6">
+    @foreach($promotes as $poster)
+     <div class="col-xs-6 col-sm-4">
        <div class="thumbnail">
          <a href="{{ route('posters.show', $poster->id) }}">
            <img class="img-responsive" src="{{ $poster->path_s }}">

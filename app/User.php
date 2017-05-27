@@ -46,6 +46,12 @@ class User extends Model implements AuthenticatableContract,
       });
     }
 
+    static public function lastest($n)
+    {
+      $user = new static;
+      return $user->orderBy('created_at', 'desc')->paginate($n);
+    }
+
     public function has_story()
     {
       return count($this->stories);

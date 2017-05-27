@@ -1,9 +1,9 @@
-<div class="col-md-6">
+<div class="col-md-8">
   <h5>>>最新设定 <small>LASTEST SETTINGS</small></h5>
-  @if(count($lastests))
+  @if(count($promotes))
    <div class="row">
-    @foreach($lastests as $setting)
-     <div class="col-xs-6">
+    @foreach($promotes as $setting)
+     <div class="col-xs-6 col-sm-4">
        <div class="thumbnail">
          <a href="{{ route('settings.show', $setting->id) }}">
            <img class="img-responsive" src="{{ $setting->path_s }}">

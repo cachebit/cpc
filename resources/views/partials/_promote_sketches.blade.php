@@ -1,9 +1,9 @@
-<div class="col-md-6">
+<div class="col-md-8">
   <h5>>>最新摸鱼 <small>LASTEST SKETCHES</small></h5>
-  @if(count($lastests))
+  @if(count($promotes))
    <div class="row">
-    @foreach($lastests as $sketch)
-     <div class="col-xs-6">
+    @foreach($promotes as $sketch)
+     <div class="col-xs-6 col-sm-4">
        <div class="thumbnail">
          <a href="{{ route('sketches.show', $sketch->id) }}">
            <img class="img-responsive" src="{{ $sketch->path_s }}">

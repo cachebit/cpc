@@ -11,6 +11,12 @@ class Story extends HasImage implements Sectionable
 
   protected $fillable = ['title', 'description'];
 
+  static public function lastest($n)
+  {
+    $story = new static;
+    return $story->orderBy('created_at', 'desc')->paginate($n);
+  }
+
   public function is_author($id)
   {
     return $this->user_id === $id;
