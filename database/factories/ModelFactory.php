@@ -10,6 +10,7 @@
 | database. Just tell the factory how a default model should look.
 |
 */
+use Carbon\Carbon;
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
@@ -25,6 +26,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'activated' => true,
         'password' => bcrypt('password'),
         'remember_token' => str_random(10),
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now(),
     ];
 });
 
@@ -36,6 +39,8 @@ $factory->define(App\Story::class, function (Faker\Generator $faker) {
         'score' => 999,
         'up' => 0,
         'type' => '',
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now(),
     ];
 });
 
@@ -46,6 +51,8 @@ $factory->define(App\Cover::class, function (Faker\Generator $faker) {
         'cover_s' => '/img/site/blank.gif',
         'imageable_type' => 'App\Story',
         'imageable_id' => 1,
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now(),
     ];
 });
 
@@ -58,6 +65,8 @@ $factory->define(App\Poster::class, function (Faker\Generator $faker) {
       'up' => 0,
       'path' => '/img/site/blank.gif',
       'path_s' => '/img/site/blank.gif',
+      'created_at' => Carbon::now(),
+      'updated_at' => Carbon::now(),
     ];
 });
 
@@ -70,6 +79,8 @@ $factory->define(App\Setting::class, function (Faker\Generator $faker) {
       'up' => 0,
       'path' => '/img/site/blank.gif',
       'path_s' => '/img/site/blank.gif',
+      'created_at' => Carbon::now(),
+      'updated_at' => Carbon::now(),
     ];
 });
 
@@ -82,6 +93,8 @@ $factory->define(App\Sketch::class, function (Faker\Generator $faker) {
       'up' => 0,
       'path' => '/img/site/blank.gif',
       'path_s' => '/img/site/blank.gif',
+      'created_at' => Carbon::now(),
+      'updated_at' => Carbon::now(),
     ];
 });
 
@@ -91,5 +104,7 @@ $factory->define(App\Gallery::class, function (Faker\Generator $faker) {
       'imageable_id' => 1,
       'imageable_type' => '',
       'scorable' => true,
+      'created_at' => Carbon::now(),
+      'updated_at' => Carbon::now(),
     ];
 });
