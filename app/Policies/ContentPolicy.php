@@ -13,4 +13,9 @@ class ContentPolicy
     {
         return $currentUser->id === $user->id;
     }
+
+    public function score(User $currentUser, User $user)
+    {
+        return $currentUser->id !== $user->id;
+    }
 }

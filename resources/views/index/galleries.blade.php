@@ -12,6 +12,9 @@
     </div>
   </div>
   @endforeach
+  <div class="col-xs-12">
+    {!! $galleries->render() !!}
+  </div>
 @else
   <div class="col-xs-12">
     <p>-勤劳的您已评完全部晒图，看看其他内容吧！-</p>

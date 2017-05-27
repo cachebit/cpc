@@ -2,18 +2,16 @@
 @section('title', 'All Users.')
 
 @section('content')
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h5>All Users</h5>
-  </div>
-  <div class="panel-body">
-    <ul class="list-unstyled">
-      @foreach($users as $user)
-        @include('users._user')
-      @endforeach
-    </ul>
+<div class="col-md-3">
 
-    {!! $users->render() !!}
-  </div>
+</div>
+<div class="col-md-6">
+  <ul class="list-unstyled">
+    @foreach($users as $user)
+      @include('users._user')
+    @endforeach
+  </ul>
+
+  {!! $users->render() !!}
 </div>
 @stop

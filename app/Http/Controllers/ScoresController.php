@@ -13,6 +13,13 @@ use Auth;
 
 class ScoresController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth', [
+        'only' => ['user_scored', 'destroy']
+    ]);
+  }
+
   public function user_scored(User $user)
   {
     $scores = Score::where('user_id', $user->id)->get();

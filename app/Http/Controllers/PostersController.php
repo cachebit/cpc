@@ -41,7 +41,7 @@ class PostersController extends Controller
 
     public function index()
     {
-      $posters = Poster::paginate(30);
+      $posters = Poster::paginate(24);
       return view('index.posters', compact('posters'));
     }
 

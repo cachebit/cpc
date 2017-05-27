@@ -93,6 +93,7 @@ Route::patch('posters/{posters}', 'PostersController@update')->name('posters.upd
 Route::delete('posters/{posters}', 'PostersController@destroy')->name('posters.destroy');
 
 //sketches
+Route::post('sketches/{sketches}', 'SketchesController@gallery')->name('sketches.gallery');
 Route::get('users/{users}/sketches', 'SketchesController@user_sketches')->name('sketches.user_sketches');
 Route::get('tags/{tags}/sketches', 'SketchesController@tag_sketches')->name('sketches.tag_sketches');
 Route::get('stories/{stories}/sketches', 'SketchesController@story_sketches')->name('sketches.story_sketches');
@@ -107,6 +108,7 @@ Route::patch('sketches/{sketches}', 'SketchesController@update')->name('sketches
 Route::delete('sketches/{sketches}', 'SketchesController@destroy')->name('sketches.destroy');
 
 //settings
+Route::post('settings/{settings}', 'SettingsController@gallery')->name('settings.gallery');
 Route::get('users/{users}/settings', 'SettingsController@user_settings')->name('settings.user_settings');
 Route::get('tags/{tags}/settings', 'SettingsController@tag_settings')->name('settings.tag_settings');
 Route::get('stories/{stories}/settings', 'SettingsController@story_settings')->name('settings.story_settings');

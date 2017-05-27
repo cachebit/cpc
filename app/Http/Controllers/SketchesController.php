@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Sketch;
 use App\Story;
+use App\Gallery;
 use Auth;
 
 
@@ -19,6 +20,24 @@ class SketchesController extends Controller
     $this->middleware('auth', [
         'only' => ['create', 'create_in_story', 'store', 'store_in_story', 'edit', 'update', 'destroy', 'save_sketches']
     ]);
+  }
+
+  public function gallery(Sketch $sketch)
+  {
+    $this->authorize('update', $sketch->get_user());
+
+    if(count($sketch->galleries))
+    {
+      session()->flash('warning', '已入展，不要重复添加！');
+    }else{
+      $gallery = new Gallery();
+      $gallery->user_id = Auth::id();
+      $gallery = $sketch->galleries()->save($gallery);
+
+      session()->flash('success', '入展成功！');
+    }
+
+    return redirect()->back();
   }
 
   /**
@@ -183,7 +202,7 @@ class SketchesController extends Controller
   public function destroy(Sketch $sketch)
   {
     $this->authorize('update', $sketch->get_user());
-    
+
     $id = $sketch->story_id;
     $sketch->delete();
     session()->flash('success', '成功删除草图。');

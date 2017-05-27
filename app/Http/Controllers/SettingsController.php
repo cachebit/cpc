@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Setting;
 use App\Story;
+use App\Gallery;
 use Auth;
 
 class SettingsController extends Controller
@@ -18,6 +19,24 @@ class SettingsController extends Controller
     $this->middleware('auth', [
         'only' => ['create', 'create_in_story', 'store', 'store_in_story', 'edit', 'update', 'destroy', 'save_settings']
     ]);
+  }
+
+  public function gallery(Setting $setting)
+  {
+    $this->authorize('update', $setting->get_user());
+
+    if(count($setting->galleries))
+    {
+      session()->flash('warning', '已入展，不要重复添加！');
+    }else{
+      $gallery = new Gallery();
+      $gallery->user_id = Auth::id();
+      $gallery = $setting->galleries()->save($gallery);
+
+      session()->flash('success', '入展成功！');
+    }
+
+    return redirect()->back();
   }
 
   public function index()

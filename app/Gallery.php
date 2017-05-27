@@ -12,12 +12,32 @@ class Gallery extends Model
 
   public function user_scorable(User $user)
   {
+    if($this->scores()->where('user_id', $user->id)->first() === null && !$this->imageable->is_author($user->id))
+    {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  public function scorable(User $user)
+  {
     if($this->scores()->where('user_id', $user->id)->first() === null)
     {
       return true;
     }else{
       return false;
     }
+  }
+
+  public function is_author($id)
+  {
+    return $this->imageable->is_author($id);
+  }
+
+  public function get_user()
+  {
+    return $this->imageable->get_user();
   }
 
   public function get_score()

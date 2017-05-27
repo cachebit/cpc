@@ -7,6 +7,7 @@
     <div class="thumbnail">
       <img class="img-responsive" src="{{ $gallery->get_img() }}" alt="{{ $gallery->get_title() }}">
       <div class="caption">
+        @if(Auth::check() and !$gallery->is_author(Auth::id()))
         <h3>请给作品打分（1-15）</h3>
         <ul class="list-inline">
           <li>
@@ -115,6 +116,7 @@
             </form>
           </li>
         </ul>
+        @endif
       </div>
     </div>
   </div>

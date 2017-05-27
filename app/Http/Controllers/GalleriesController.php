@@ -14,12 +14,17 @@ use Auth;
 
 class GalleriesController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth', [
+        'only' => ['score', 'save_score', 'next_gallery']
+    ]);
+  }
 
   public function index()
   {
-    $galleries = Gallery::where('scorable', true)->get()->filter(function ($item) {
-      return $item->user_scorable(Auth::user());
-    });
+    $galleries = Gallery::where('scorable', true)->paginate(24);
+
     return view('index.galleries', compact('galleries'));
   }
 
@@ -39,6 +44,8 @@ class GalleriesController extends Controller
     $this->validate($request,[
       'score' => 'required|integer|min:1|max:15',
     ]);
+
+    $this->authorize('score', $gallery->get_user());
 
     $id = $this->save_score($gallery, 10*$request->score);
 

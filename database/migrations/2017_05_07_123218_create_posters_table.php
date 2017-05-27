@@ -15,7 +15,6 @@ class CreatePostersTable extends Migration
         Schema::create('posters', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('story_id')->unsigned()->index();
-            $table->integer('gallery_id')->unsigned()->index();
             $table->string('title', 100);
             $table->string('description', 420);
             $table->float('score');
