@@ -16,7 +16,9 @@ use App\Story;
 use App\Text;
 use App\Volum;
 use App\Webtoon;
+use App\Gallery;
 use App\Score;
+use App\Up;
 use App\Policies\UserPolicy;
 use App\Policies\ContentPolicy;
 
@@ -40,8 +42,8 @@ class AuthServiceProvider extends ServiceProvider
         Text::class => ContentPolicy::class,
         Volum::class => ContentPolicy::class,
         Webtoon::class => ContentPolicy::class,
-        Score::class => ContentPolicy::class,
         Gallery::class => ContentPolicy::class,
+        Score::class => ContentPolicy::class,
         Up::class => ContentPolicy::class,
     ];
 

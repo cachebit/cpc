@@ -18,6 +18,7 @@ class CreateDraftsTable extends Migration
             $table->string('title', 100);
             $table->string('description', 420);
             $table->float('score');
+            $table->string('scores', 10000);
             $table->integer('up')->unsigned();
             $table->string('content',10000);
             $table->timestamps();

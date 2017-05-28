@@ -108,3 +108,15 @@ $factory->define(App\Gallery::class, function (Faker\Generator $faker) {
       'updated_at' => Carbon::now(),
     ];
 });
+
+
+
+$factory->define(App\Score::class, function (Faker\Generator $faker) {
+    return [
+      'user_id' => 1,
+      'gallery_id' => 1,
+      'score' => (float)rand(70,150),
+      'created_at' => Carbon::now(),
+      'updated_at' => Carbon::now(),
+    ];
+});

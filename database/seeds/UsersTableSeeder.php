@@ -12,10 +12,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-      $users = factory(User::class)->times(50)->make();
+      $users = factory(User::class)->times(15)->make();
       User::insert($users->toArray());
 
-      $user = User::find(1);
+      $user = User::find(15);
       $user->name = 'ray';
       $user->email = 'gunsmoke@qq.com';
       $user->password = bcrypt('password');

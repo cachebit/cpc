@@ -12,10 +12,10 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
-      $setting = factory(Setting::class)->times(500)->make();
+      $setting = factory(Setting::class)->times(10)->make();
       Setting::insert($setting->toArray());
 
-      for($i = 1; $i <= 500; $i++)
+      for($i = 1; $i <= 10; $i++)
       {
         $setting = Setting::find($i);
         $setting->story_id = $i;

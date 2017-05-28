@@ -5,10 +5,9 @@
   <div class="col-md-9">
     @include('shared.errors')
     <div class="thumbnail">
-      <img class="img-responsive" src="{{ $gallery->get_img() }}" alt="{{ $gallery->get_title() }}">
-      <div class="caption">
         @if(Auth::check() and !$gallery->is_author(Auth::id()))
         <h3>请给作品打分（1-15）</h3>
+        <p>作者编号：{{ $gallery->get_user()->id }}</p>
         <ul class="list-inline">
           <li>
             <form action="{{ route('galleries.score', $gallery->id) }}" method="post">
@@ -117,6 +116,8 @@
           </li>
         </ul>
         @endif
+          <img class="img-responsive" src="{{ $gallery->get_img() }}" alt="{{ $gallery->get_title() }}">
+          <div class="caption">
       </div>
     </div>
   </div>

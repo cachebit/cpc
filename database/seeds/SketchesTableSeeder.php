@@ -12,10 +12,10 @@ class SketchesTableSeeder extends Seeder
      */
     public function run()
     {
-      $sketch = factory(Sketch::class)->times(500)->make();
+      $sketch = factory(Sketch::class)->times(10)->make();
       Sketch::insert($sketch->toArray());
 
-      for($i = 1; $i <= 500; $i++)
+      for($i = 1; $i <= 10; $i++)
       {
         $sketch = Sketch::find($i);
         $sketch->story_id = $i;

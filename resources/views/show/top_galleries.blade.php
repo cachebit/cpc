@@ -2,6 +2,10 @@
 @section('title', '图榜')
 
 @section('content')
+<div class="col-xs-12">
+  <a class="btn btn-info" href="{{ route('galleries.set_scorable') }}">重置公告牌</a>
+  <hr>
+</div>
 @foreach($galleries as $gallery)
 <div class="col-xs-4 col-sm-3 col-md-2">
   <div class="thumbnail">

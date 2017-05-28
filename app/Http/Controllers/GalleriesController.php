@@ -31,6 +31,7 @@ class GalleriesController extends Controller
   public function top()
   {
     $galleries = Gallery::where('scorable', false)->get();
+
     return view('show.top_galleries', compact('galleries'));
   }
 
@@ -45,7 +46,7 @@ class GalleriesController extends Controller
       'score' => 'required|integer|min:1|max:15',
     ]);
 
-    $this->authorize('score', $gallery->get_user());
+    $this->authorize('score', $gallery);
 
     $id = $this->save_score($gallery, 10*$request->score);
 
@@ -69,17 +70,13 @@ class GalleriesController extends Controller
         $score->user_id = Auth::id();
 
         $gallery->scores()->save($score);
+        $score_array = $gallery->imageable->scores;
+        $gallery->imageable->scores = $score_array.$grade.' ';
+        $gallery->imageable->save();
 
         if(count($gallery->scores) >= 5)
         {
           $gallery->scored();
-          $grade = 0.0;
-          $scores = $gallery->scores;
-
-          $grade = $scores->avg('score');
-
-          $gallery->imageable->score = $grade;
-          $gallery->imageable->save();
         }
       }
     }
@@ -96,5 +93,20 @@ class GalleriesController extends Controller
     });
 
     return $scorable->first();
+  }
+
+  //temprary
+  public function set_scorable()
+  {
+    $galleries = Gallery::all();
+    $galleries = $galleries->each(function ($gallery, $key) {
+      if(!$gallery->scorable)
+      {
+        $gallery->unscored();
+      }
+    });
+
+    session()->flash('success', '重新注册一个用户，可以重新评分打榜。');
+    return redirect()->route('galleries.index');
   }
 }

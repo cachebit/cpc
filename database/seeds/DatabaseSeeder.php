@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call('SettingsTableSeeder');
         $this->call('SketchesTableSeeder');
         $this->call('GalleriesTableSeeder');
+        $this->call('ScoresTableSeeder');
 
         Model::reguard();
     }

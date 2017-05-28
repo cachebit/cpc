@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use App\User;
+use App\Gallery;
 
 class ContentPolicy
 {
@@ -14,8 +15,8 @@ class ContentPolicy
         return $currentUser->id === $user->id;
     }
 
-    public function score(User $currentUser, User $user)
+    public function score(User $currentUser, Gallery $gallery)
     {
-        return $currentUser->id !== $user->id;
+        return !($currentUser->id === $gallery->get_user()->id);
     }
 }

@@ -12,40 +12,36 @@ class GalleriesTableSeeder extends Seeder
      */
     public function run()
     {
-      $gallery = factory(Gallery::class)->times(1500)->make();
+      $gallery = factory(Gallery::class)->times(30)->make();
       Gallery::insert($gallery->toArray());
 
-      for($i = 1; $i <= 1500; $i++)
+      for($i = 1; $i <= 30; $i++)
       {
         $gallery = Gallery::find($i);
-        if($i <= 500)
+        if($i <= 10)
         {
-          $id = $i%500;
-          if($id == 0){
-            $id =500;
-          }
-          $gallery->imageable_id = $id;
-          $gallery->user_id = \App\Poster::find($id)->first()->get_user()->id;
+          $gallery->imageable_id = $i;
+          $gallery->user_id = \App\Poster::find($i)->get_user()->id;
           $gallery->imageable_type = 'App\Poster';
 
-        }elseif($i > 500 && $i <= 1000){
+        }elseif($i > 10 && $i <= 20){
 
-          $id = $i%500;
+          $id = $i%10;
           if($id == 0){
-            $id =500;
+            $id =10;
           }
           $gallery->imageable_id = $id;
-          $gallery->user_id = \App\Setting::find($id)->first()->get_user()->id;
+          $gallery->user_id = \App\Setting::find($id)->get_user()->id;
           $gallery->imageable_type = 'App\Setting';
 
         }else{
 
-          $id = $i%500;
+          $id = $i%10;
           if($id == 0){
-            $id =500;
+            $id =10;
           }
           $gallery->imageable_id = $id;
-          $gallery->user_id = \App\Sketch::find($id)->first()->get_user()->id;
+          $gallery->user_id = \App\Sketch::find($id)->get_user()->id;
           $gallery->imageable_type = 'App\Sketch';
 
         }

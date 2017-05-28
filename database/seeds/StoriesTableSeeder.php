@@ -12,13 +12,13 @@ class StoriesTableSeeder extends Seeder
      */
     public function run()
     {
-      $story = factory(Story::class)->times(500)->make();
+      $story = factory(Story::class)->times(10)->make();
       Story::insert($story->toArray());
 
-      for($i = 1; $i <= 500; $i++)
+      for($i = 1; $i <= 10; $i++)
       {
         $story = Story::find($i);
-        $story->user_id = $i%50==0?1:$i%50;
+        $story->user_id = $i;
         $story->save();
       }
     }

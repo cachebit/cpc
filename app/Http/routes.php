@@ -37,6 +37,8 @@ Route::get('galleries/top', 'GalleriesController@top')->name('galleries.top');
 Route::get('galleries', 'GalleriesController@index')->name('galleries.index');
 Route::get('galleries/{galleries}', 'GalleriesController@show')->name('galleries.show');
 Route::post('galleries/{galleries}', 'GalleriesController@score')->name('galleries.score');
+//temprary
+Route::get('reset/galleries', 'GalleriesController@set_scorable')->name('galleries.set_scorable');
 
 //score
 Route::get('users/{users}/scores', 'ScoresController@user_scored')->name('scores.user_scored');

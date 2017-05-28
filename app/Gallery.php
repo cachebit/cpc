@@ -10,6 +10,40 @@ class Gallery extends Model
 {
   protected $table = 'galleries';
 
+  public static function boot()
+  {
+    parent::boot();
+
+    static::updating(function($gallery){
+
+      for($i = 0; $i < 4; $i++)
+      {
+        $score_string = $gallery->imageable->scores;
+        $gallery->imageable->scores = $score_string.$score_string.' ';
+      }
+
+      $scores = $gallery->imageable->scores;
+      $score_array = explode(' ', $scores);
+      $sum = (float)0.0;
+      $n = count($score_array);
+      $grade = 0.0;
+      $diff = 0;
+      for($i = 0; $i < $n; $i++)
+      {
+        if($score_array[$i] == '')
+        {
+          $diff++;
+        }else{
+          $sum+=$score_array[$i];
+        }
+      }
+      $grade = (float)$sum/($n-$diff);
+
+      $gallery->imageable->score = $grade;
+      $gallery->imageable->save();
+    });
+  }
+
   public function user_scorable(User $user)
   {
     if($this->scores()->where('user_id', $user->id)->first() === null && !$this->imageable->is_author($user->id))
@@ -49,7 +83,14 @@ class Gallery extends Model
   {
     $this->scorable = false;
     $this->save();
-    return $this->all()->random();
+    return;
+  }
+
+  public function unscored()
+  {
+    $this->scorable = true;
+    $this->save();
+    return;
   }
 
   public function get_img()

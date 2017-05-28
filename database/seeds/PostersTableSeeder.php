@@ -12,10 +12,10 @@ class PostersTableSeeder extends Seeder
      */
     public function run()
     {
-      $poster = factory(Poster::class)->times(500)->make();
+      $poster = factory(Poster::class)->times(10)->make();
       Poster::insert($poster->toArray());
 
-      for($i = 1; $i <= 500; $i++)
+      for($i = 1; $i <= 10; $i++)
       {
         $poster = Poster::find($i);
         $poster->story_id = $i;
