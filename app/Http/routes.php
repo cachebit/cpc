@@ -33,6 +33,7 @@ Route::get('password/reset/{token}', 'Auth\PasswordController@getReset')->name('
 Route::post('password/reset', 'Auth\PasswordController@postReset')->name('password.update');
 
 //gallery
+Route::get('galleries/statistics', 'GalleriesController@statistics')->name('galleries.statistics');
 Route::get('galleries/top', 'GalleriesController@top')->name('galleries.top');
 Route::get('galleries', 'GalleriesController@index')->name('galleries.index');
 Route::get('galleries/{galleries}', 'GalleriesController@show')->name('galleries.show');

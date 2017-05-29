@@ -21,6 +21,7 @@
         <li><a href="{{ route('drafts.index') }}">随笔</a></li>
         <li><a href="{{ route('galleries.index') }}">晒图评分区</a></li>
         <li><a href="{{ route('galleries.top') }}">图榜</a></li>
+        <li><a href="{{ route('galleries.statistics') }}">统计</a></li>
       </ul>
       <!-- <form class="navbar-form navbar-right">
         <div class="form-group">

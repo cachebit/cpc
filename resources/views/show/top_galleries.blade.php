@@ -11,6 +11,7 @@
   <div class="thumbnail">
     <img src="{{ $gallery->get_thumbnail() }}">
     <div class="caption">
+      <p>序号：{{ $gallery->id }}</p>
       <p>得分：{{ $gallery->get_score() }}</p>
     </div>
   </div>

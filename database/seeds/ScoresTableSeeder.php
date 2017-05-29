@@ -38,8 +38,31 @@ class ScoresTableSeeder extends Seeder
         $score->gallery_id = $id;
         $score->save();
 
-        $score_string = $score->gallery->imageable->scores;
-        $score->gallery->imageable->scores = $score_string.$score->score.' ';
+        $score_array = $score->gallery->imageable->scores;
+        $aesthetic = $score->get_user()->aesthetic;
+
+        if($score_array == '')
+        {
+          $score_array = $aesthetic.' ';
+        }else{
+          $aesthetic_sum = 0.0;
+          for($j = 0; $j < strlen($score_array); $j++)
+          {
+            if($score_array[$j] == ' ')
+            {
+              $aesthetic_sum = substr($score_array, 0, $j);
+              $score_array = substr($score_array, ($j+1));
+              $aesthetic_sum = $aesthetic_sum+$aesthetic+0.016;
+              $aesthetic_sum = round($aesthetic_sum, 2);
+              $score_array = $aesthetic_sum.' '.$score_array;
+              break;
+            }
+          }
+        }
+        $grade = $score->score*$aesthetic;
+        $grade = round($grade, 2);
+
+        $score->gallery->imageable->scores = $score_array.$grade.' ';
         $score->gallery->imageable->save();
       }
     }

@@ -19,6 +19,7 @@ class SettingsTableSeeder extends Seeder
       {
         $setting = Setting::find($i);
         $setting->story_id = $i;
+        $setting->scores = '';
         $setting->save();
       }
     }

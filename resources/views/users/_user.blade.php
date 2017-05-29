@@ -26,7 +26,7 @@
         <div class="col-xs-4">
           <ul class="list-unstyled">
             <li><p><b>审美： </b>{{ $user->aesthetic }}</p></li>
-            <li><p><b>阅历： </b>{{ $user->experience }}</p></li>
+            <li><p><b>评图： </b>{{ count($user->scores) }}</p></li>
             <li><p><b>实践： </b>{{ $user->practice }}</p></li>
             <li><p><b>激情： </b>{{ $user->passion }}</p></li>
           </ul>

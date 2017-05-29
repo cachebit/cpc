@@ -19,6 +19,7 @@ class PostersTableSeeder extends Seeder
       {
         $poster = Poster::find($i);
         $poster->story_id = $i;
+        $poster->scores = '';
         $poster->save();
       }
     }

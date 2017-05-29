@@ -19,7 +19,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'title' => $faker->name,
         'group' => $faker->name,
         'portrait' => '/img/portrait/user.gif',
-        'aesthetic' => 100.00,
+        'aesthetic' => (float)rand(70,150),
         'passion' => 100.00,
         'experience' => 0,
         'practice' => 0,

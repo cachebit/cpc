@@ -60,20 +60,48 @@ class GalleriesController extends Controller
     }
   }
 
+  public function statistics()
+  {
+    $galleries = Gallery::where('scorable', false)->get();
+    return view('index.statistics', compact('galleries'));
+  }
+
   protected function save_score(Gallery $gallery, $grade)
   {
     if($gallery->scorable){
-      if($gallery->user_scorable(Auth::user()))
+      $user = Auth::user();
+      if($gallery->user_scorable($user))
       {
         $score = new Score();
         $score->score = $grade;
-        $score->user_id = Auth::id();
-
+        $score->user_id = $user->id;
         $gallery->scores()->save($score);
+
         $score_array = $gallery->imageable->scores;
+
+        $aesthetic = $user->aesthetic;
+        if($score_array == '')
+        {
+          $score_array = $aesthetic.' ';
+        }else{
+          $aesthetic_sum = 0.0;
+          for($i = 0; $i < strlen($score_array); $i++)
+          {
+            if($score_array[$i] == ' ')
+            {
+              $aesthetic_sum = substr($score_array, 0, $i);
+              $score_array = substr($score_array, ($i+1));
+              $aesthetic_sum+=$aesthetic;
+              $score_array = $aesthetic_sum.' '.$score_array;
+              break;
+            }
+          }
+        }
+
+        $grade = round($grade*$user->aesthetic, 2);
+
         $gallery->imageable->scores = $score_array.$grade.' ';
         $gallery->imageable->save();
-
         if(count($gallery->scores) >= 5)
         {
           $gallery->scored();

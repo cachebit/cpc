@@ -19,6 +19,7 @@ class SketchesTableSeeder extends Seeder
       {
         $sketch = Sketch::find($i);
         $sketch->story_id = $i;
+        $sketch->scores = '';
         $sketch->save();
       }
     }
