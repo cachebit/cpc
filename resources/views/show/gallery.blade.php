@@ -7,7 +7,7 @@
     <div class="thumbnail">
         @if(Auth::check() and !$gallery->is_author(Auth::id()))
         <h3>请给作品打分（1-15）</h3>
-        <p>作者编号：{{ $gallery->get_user()->id }}</p>
+        <p>作者编号：{{ $gallery->get_user()->id }} 可否评分：{{ $gallery->scorable }}</p>
         <ul class="list-inline">
           <li>
             <form action="{{ route('galleries.score', $gallery->id) }}" method="post">

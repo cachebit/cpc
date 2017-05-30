@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Poster;
+use App\Story;
 
 class PostersTableSeeder extends Seeder
 {
@@ -12,15 +13,11 @@ class PostersTableSeeder extends Seeder
      */
     public function run()
     {
-      $poster = factory(Poster::class)->times(10)->make();
-      Poster::insert($poster->toArray());
-
       for($i = 1; $i <= 10; $i++)
       {
-        $poster = Poster::find($i);
-        $poster->story_id = $i;
-        $poster->scores = '';
-        $poster->save();
+        $poster = factory(Poster::class)->make();
+        $story = Story::find($i);
+        $story->posters()->save($poster);
       }
     }
 }

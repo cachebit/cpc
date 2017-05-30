@@ -57,6 +57,40 @@ class User extends Model implements AuthenticatableContract,
       return count($this->stories);
     }
 
+    public function update_aesthetic()
+    {
+      $user_scores = $this->scores;
+
+      $user_scores = $user_scores->filter(function ($item) {
+        return !$item->gallery->scorable;
+      })->all();
+      dd($user_scores);
+
+      $n = count($user_scores);
+      $sum = 0.00;
+      if($n)
+      {
+        for($i = 0; $i < $n; $i++)
+        {
+          $user_score = $user_scores[$i];
+          $score_final = $user_score->gallery->imageable->score;
+          $sum+=abs(($user_score->score - $score_final)*100)/$score_final;
+        }
+
+        $this->aesthetic = round(1.5*(100.00 - $sum/$n), 2);
+        $this->save();
+
+        return true;
+
+      }else{
+
+        return false;
+
+      }
+
+
+    }
+
     public function stories()
     {
       return $this->hasMany('App\Story');

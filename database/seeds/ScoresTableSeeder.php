@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Score;
+use App\User;
 
 class ScoresTableSeeder extends Seeder
 {
@@ -12,11 +13,11 @@ class ScoresTableSeeder extends Seeder
      */
     public function run()
     {
-      $score = factory(Score::class)->times(120)->make();
-      Score::insert($score->toArray());
 
       for($i = 1; $i <= 120; $i++)
       {
+        $score = factory(Score::class)->make();
+
         $id = $i%30;
         if($id == 0)
         {
@@ -33,10 +34,9 @@ class ScoresTableSeeder extends Seeder
         }
 
         $user_id+=10;
-        $score = Score::find($i);
-        $score->user_id = $user_id;
+        $user = User::find($user_id);
         $score->gallery_id = $id;
-        $score->save();
+        $user->scores()->save($score);
 
         $score_array = $score->gallery->imageable->scores;
         $aesthetic = $score->get_user()->aesthetic;

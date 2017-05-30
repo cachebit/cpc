@@ -10,6 +10,24 @@ class Draft extends Model implements Scorable
 
   protected $fillable = ['title', 'description', 'content'];
 
+  public static function boot()
+  {
+    parent::boot();
+
+    static::creating(function($draft){
+
+      $user = $draft->get_user();
+
+      $user->coins = $user->coins+3;
+      $user->practice = $user->practice+1;
+      $user->experience = $user->experience+3;
+      $user->passion = $user->passion>=150?150:$user->passion+1;
+
+      $user->save();
+
+    });//static::creating
+  }
+
   static public function lastest()
   {
     $sketch = new static;

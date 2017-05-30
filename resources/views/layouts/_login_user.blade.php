@@ -1,8 +1,9 @@
+@if(Auth::check())
 <li>
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="row">
-        <div class="col-xs-3">
+        <div class="col-xs-1">
           <a href="{{ route('users.show', $user->id) }}">
             <img class="img-responsive" src="{{ $user->portrait }}" alt="{{ $user->name }}">
           </a>
@@ -24,7 +25,7 @@
             <li><p><b>金币：</b>{{ $user->coins }}</p></li>
           </ul>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-6">
           <ul class="list-unstyled">
             <li><p><b>审美： </b>{{ $user->aesthetic }}</p></li>
             <li><p><b>阅历： </b>{{ $user->experience }}</p></li>
@@ -36,3 +37,5 @@
     </div>
   </div>
 </li>
+
+@endif

@@ -11,6 +11,23 @@ class Section extends HasImage
 
   protected $fillable = ['title', 'description', 'volum'];
 
+  public static function boot()
+  {
+    parent::boot();
+
+    static::creating(function($section){
+
+      $user = $section->get_user();
+
+      $user->practice = $user->practice+1;
+      $user->experience = $user->experience+1;
+      $user->passion = $user->passion>=150?150:$user->passion+1;
+
+      $user->save();
+
+    });//static::creating
+  }
+
   public function is_author($id)
   {
     if($this->imageable instanceof \App\Story){

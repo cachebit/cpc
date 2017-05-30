@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Story;
+use App\User;
 
 class StoriesTableSeeder extends Seeder
 {
@@ -12,14 +13,11 @@ class StoriesTableSeeder extends Seeder
      */
     public function run()
     {
-      $story = factory(Story::class)->times(10)->make();
-      Story::insert($story->toArray());
-
       for($i = 1; $i <= 10; $i++)
       {
-        $story = Story::find($i);
-        $story->user_id = $i;
-        $story->save();
+        $story = factory(Story::class)->make();
+        $user = User::find($i);
+        $user->stories()->save($story);
       }
     }
 }

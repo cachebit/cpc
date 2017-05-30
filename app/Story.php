@@ -11,6 +11,23 @@ class Story extends HasImage implements Sectionable
 
   protected $fillable = ['title', 'description'];
 
+  public static function boot()
+  {
+    parent::boot();
+
+    static::creating(function($story){
+
+      $user = $story->get_user();
+
+      $user->practice = $user->practice+1;
+      $user->experience = $user->experience+1;
+      $user->passion = $user->passion>=150?150:$user->passion+1;
+
+      $user->save();
+
+    });//static::creating
+  }
+
   static public function lastest($n)
   {
     $story = new static;

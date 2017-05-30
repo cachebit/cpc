@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Setting;
+use App\Story;
 
 class SettingsTableSeeder extends Seeder
 {
@@ -12,15 +13,11 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
-      $setting = factory(Setting::class)->times(10)->make();
-      Setting::insert($setting->toArray());
-
       for($i = 1; $i <= 10; $i++)
       {
-        $setting = Setting::find($i);
-        $setting->story_id = $i;
-        $setting->scores = '';
-        $setting->save();
+        $setting = factory(Setting::class)->make();
+        $story = Story::find($i);
+        $story->posters()->save($setting);
       }
     }
 }

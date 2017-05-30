@@ -12,16 +12,13 @@ class GalleriesTableSeeder extends Seeder
      */
     public function run()
     {
-      $gallery = factory(Gallery::class)->times(30)->make();
-      Gallery::insert($gallery->toArray());
-
       for($i = 1; $i <= 30; $i++)
       {
-        $gallery = Gallery::find($i);
+        $gallery = factory(Gallery::class)->make();
         if($i <= 10)
         {
+          $user = \App\Poster::find($i)->get_user();
           $gallery->imageable_id = $i;
-          $gallery->user_id = \App\Poster::find($i)->get_user()->id;
           $gallery->imageable_type = 'App\Poster';
 
         }elseif($i > 10 && $i <= 20){
@@ -30,8 +27,8 @@ class GalleriesTableSeeder extends Seeder
           if($id == 0){
             $id =10;
           }
+          $user = \App\Setting::find($id)->get_user();
           $gallery->imageable_id = $id;
-          $gallery->user_id = \App\Setting::find($id)->get_user()->id;
           $gallery->imageable_type = 'App\Setting';
 
         }else{
@@ -40,13 +37,13 @@ class GalleriesTableSeeder extends Seeder
           if($id == 0){
             $id =10;
           }
+          $user = \App\Sketch::find($id)->get_user();
           $gallery->imageable_id = $id;
-          $gallery->user_id = \App\Sketch::find($id)->get_user()->id;
           $gallery->imageable_type = 'App\Sketch';
 
         }
 
-        $gallery->save();
+        $user->galleries()->save($gallery);
 
       }
     }
