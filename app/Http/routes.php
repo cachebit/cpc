@@ -14,6 +14,7 @@
 //navs
 Route::get('/','StaticPagesController@home')->name('home');
 Route::get('create','StaticPagesController@create')->name('create');
+Route::get('beans','StaticPagesController@beans')->name('beans');
 
 //users
 Route::get('signup', 'UsersController@create')->name('signup');

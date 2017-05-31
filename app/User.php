@@ -10,6 +10,8 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+use Log;
+
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
                                     CanResetPasswordContract
@@ -78,7 +80,7 @@ class User extends Model implements AuthenticatableContract,
 
         $this->aesthetic = round(1.5*(100.00 - $sum/$n), 2);
         $this->save();
-
+        Log::info('用户：'.$this->id.' 的 Aesthetic 更新成功。');
         return true;
 
       }else{

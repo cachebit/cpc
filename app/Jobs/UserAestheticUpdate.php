@@ -10,18 +10,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Gallery;
 
+
 class UserAestheticUpdate extends Job implements SelfHandling, ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
+
+    protected $gallery;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Gallery $gallery)
     {
-        //
+      $this->gallery = $gallery;
     }
 
     /**
@@ -29,9 +32,9 @@ class UserAestheticUpdate extends Job implements SelfHandling, ShouldQueue
      *
      * @return void
      */
-    public function handle(Gallery $gallery)
+    public function handle()
     {
-      $scores = $gallery->scores;
+      $scores = $this->gallery->scores;
 
       $scores->each(function ($score, $key) {
         $score->get_user()->update_aesthetic();

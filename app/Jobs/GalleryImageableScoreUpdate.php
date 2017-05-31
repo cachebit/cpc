@@ -9,19 +9,22 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Gallery;
+use Log;
 
 class GalleryImageableScoreUpdate extends Job implements SelfHandling, ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
+
+    protected $gallery;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Gallery $gallery)
     {
-        //
+      $this->gallery = $gallery;
     }
 
     /**
@@ -29,9 +32,9 @@ class GalleryImageableScoreUpdate extends Job implements SelfHandling, ShouldQue
      *
      * @return void
      */
-    public function handle(Gallery $gallery)
+    public function handle()
     {
-      $scores = $gallery->imageable->scores;
+      $scores = $this->gallery->imageable->scores;
       $score_array = explode(' ', $scores);
       $sum = (float)0.0;
       $n = count($score_array);
@@ -50,7 +53,8 @@ class GalleryImageableScoreUpdate extends Job implements SelfHandling, ShouldQue
 
       $grade = round($grade, 2);
 
-      $gallery->imageable->score = $grade;
-      $gallery->imageable->save();
+      $this->gallery->imageable->score = $grade;
+      $this->gallery->imageable->save();
+      Log::info('展品：'.$this->gallery->imageable_type.' 的 '.$this->gallery->imageable_id.' 号 score 更新成功。');
     }
 }

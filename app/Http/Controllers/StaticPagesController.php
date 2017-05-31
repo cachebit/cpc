@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Queue;
+use Log;
 
 
 class StaticPagesController extends Controller
@@ -19,4 +21,17 @@ class StaticPagesController extends Controller
     {
       return view('create.create');
     }
+
+    public function beans()
+    {
+      Queue::push(function($job)
+      {
+
+        Log::info('beanstaldk 成功记录此消息。');
+
+        $job->delete();
+
+      });
+    }
+
 }
