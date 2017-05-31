@@ -4,7 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Jobs\GalleryImageableScoreUpdate;
+use App\Jobs\UserAestheticUpdate;
+
 use App\User;
+use Queue;
 
 class Gallery extends Model
 {
@@ -16,34 +20,10 @@ class Gallery extends Model
 
     static::updating(function($gallery){
 
-      $scores = $gallery->imageable->scores;
-      $score_array = explode(' ', $scores);
-      $sum = (float)0.0;
-      $n = count($score_array);
-      $grade = 0.0;
-      $diff = 0;
-      for($i = 1; $i < $n; $i++)
-      {
-        if($score_array[$i] == '')
-        {
-          $diff++;
-        }else{
-          $sum+=$score_array[$i];
-        }
-      }
-      $grade = (float)$sum/$score_array[0];
+      $gallery->update_imageable_score($gallery);
 
-      $grade = round($grade, 2);
+      $gallery->update_user_aesthetic($gallery);
 
-      $gallery->imageable->score = $grade;
-      $gallery->imageable->save();
-
-      //还要更新user的aesthetic。
-      $scores = $gallery->scores;
-
-      $scores->each(function ($score, $key) {
-        $score->get_user()->update_aesthetic();
-      });
 
     });//static::updating
 
@@ -58,6 +38,19 @@ class Gallery extends Model
       $user->save();
 
     });//static::creating
+  }
+
+  //队列函数
+  //更新imageable的分数
+  protected function update_imageable_score(Gallery $gallery)
+  {
+    Queue::push(new GalleryImageableScoreUpdate($gallery));
+  }
+
+  protected function update_user_aesthetic(Gallery $gallery)
+  {
+    Queue::push(new UserAestheticUpdate($gallery));
+
   }
 
   public function user_scorable(User $user)
