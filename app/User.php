@@ -63,16 +63,15 @@ class User extends Model implements AuthenticatableContract,
 
       $user_scores = $user_scores->filter(function ($item) {
         return !$item->gallery->scorable;
-      })->all();
-      dd($user_scores);
+      });
 
       $n = count($user_scores);
       $sum = 0.00;
       if($n)
       {
-        for($i = 0; $i < $n; $i++)
+        while(count($user_scores))
         {
-          $user_score = $user_scores[$i];
+          $user_score = $user_scores->shift();
           $score_final = $user_score->gallery->imageable->score;
           $sum+=abs(($user_score->score - $score_final)*100)/$score_final;
         }
