@@ -9,7 +9,6 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Gallery;
-use Log;
 
 class GalleryImageableScoreUpdate extends Job implements SelfHandling, ShouldQueue
 {
@@ -55,6 +54,5 @@ class GalleryImageableScoreUpdate extends Job implements SelfHandling, ShouldQue
 
       $this->gallery->imageable->score = $grade;
       $this->gallery->imageable->save();
-      Log::info('展品：'.$this->gallery->imageable_type.' 的 '.$this->gallery->imageable_id.' 号 score 更新成功。');
     }
 }

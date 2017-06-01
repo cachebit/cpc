@@ -9,6 +9,7 @@ use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Gallery;
+use Log;
 
 
 class UserAestheticUpdate extends Job implements SelfHandling, ShouldQueue
@@ -34,6 +35,7 @@ class UserAestheticUpdate extends Job implements SelfHandling, ShouldQueue
      */
     public function handle()
     {
+      Log::info('进入 UserAestheticUpdate 队列');
       $scores = $this->gallery->scores;
 
       $scores->each(function ($score, $key) {

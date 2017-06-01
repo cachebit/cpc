@@ -26,6 +26,19 @@ class Webtoon extends HasImage
       $user->save();
 
     });//static::creating
+
+    static::deleted(function($webtoon){
+
+      $user = $webtoon->get_user();
+
+      $user->coins = $user->coins-3;
+      $user->practice = $user->practice-1;
+      $user->experience = $user->experience-3;
+      $user->passion = $user->passio-1;
+
+      $user->save();
+
+    });//static::creating
   }
 
   public function is_author($id)

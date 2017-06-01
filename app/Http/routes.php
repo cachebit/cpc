@@ -43,8 +43,12 @@ Route::post('galleries/{galleries}', 'GalleriesController@score')->name('galleri
 Route::get('reset/galleries', 'GalleriesController@set_scorable')->name('galleries.set_scorable');
 
 //score
-Route::get('users/{users}/scores', 'ScoresController@user_scored')->name('scores.user_scored');
+Route::get('users/{users}/scores', 'ScoresController@user_recent_scored')->name('scores.user_recent_scored');
 Route::delete('scores/{scores}', 'ScoresController@destroy')->name('scores.destroy');
+
+//ups
+Route::get('users/{users}/ups', 'UpsController@user_recent_uped')->name('scores.user_recent_uped');
+Route::delete('ups/{ups}', 'UpsController@destroy')->name('ups.destroy');
 
 //story
 Route::get('users/{users}/stories', 'StoriesController@user_stories')->name('user.stories');
