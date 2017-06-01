@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Story;
 use App\Cover;
+use App\Up;
 use Auth;
 
 class StoriesController extends Controller
@@ -43,6 +44,32 @@ class StoriesController extends Controller
     public function tag_stories()
     {
       return 'tag_stories';
+    }
+
+    public function up(Story $story)
+    {
+
+      $story->up = $story->up+1;
+      $story->save();
+
+      $up = new Up();
+      $up->user_id = Auth::id();
+      $story->ups()->save($up);
+
+      session()->flash('success', '成功点赞！');
+      return redirect()->back();
+    }
+
+    public function down(Story $story)
+    {
+
+      $story->up = $story->up == 0?0:$story->up-1;
+      $story->save();
+
+      $story->ups()->where('user_id', Auth::id())->delete();
+
+      session()->flash('warning', '取消点赞');
+      return redirect()->back();
     }
 
     /**
@@ -160,7 +187,7 @@ class StoriesController extends Controller
     public function go_delete(Story $story)
     {
       $this->authorize('update', $story->get_user());
-      
+
       return view('stories.delete', compact('story'));
     }
 

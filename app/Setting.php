@@ -26,6 +26,19 @@ class Setting extends HasImage implements Scorable
       $user->save();
 
     });//static::creating
+
+    static::creating(function($setting){
+
+      $user = $setting->get_user();
+
+      $user->coins = $user->coins-3;
+      $user->practice = $user->practice-1;
+      $user->experience = $user->experience-3;
+      $user->passion = $user->passion<=0?0:$user->passion-1;
+
+      $user->save();
+
+    });//static::creating
   }
 
   static public function lastest($n)

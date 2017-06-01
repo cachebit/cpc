@@ -5,7 +5,14 @@
   </a>
   @endif
   <div class="caption">
-    <h4><a href="{{ route('stories.show', $story->id) }}">{{ $story->title }}</a></h4>
+    <ul class="list-inline">
+      <li>
+        <a href="{{ route('stories.show', $story->id) }}">
+          <h4>{{ $story->title }}</h4>
+        </a>
+        <li>@include('options._share_story')</li>
+      </li>
+    </ul>
 
     <ul class="list-inline">
       <li><span class="glyphicon glyphicon-tag" aria-hidden="true"></span> <a href="#">{{ $story->type }}</a></li>
@@ -25,7 +32,7 @@
 
     <ul class="list-inline">
       <li>作者：<a href="{{ route('users.show', $story->user->id) }}">{{ $story->user->name }}</a></li>
-      <li class="pull-right">@include('options._share_story')</li>
+      <li class="pull-right">@include('options._story_ups')</li>
     </ul>
   </div>
 </div>

@@ -53,7 +53,8 @@ Route::delete('ups/{ups}', 'UpsController@destroy')->name('ups.destroy');
 //story
 Route::get('users/{users}/stories', 'StoriesController@user_stories')->name('user.stories');
 Route::get('tags/{tags}/stories', 'StoriesController@tag_stories')->name('tag.stories');
-//待修改
+Route::post('stories/{stories}/up', 'StoriesController@up')->name('stories.up');
+Route::post('stories/{stories}/down', 'StoriesController@down')->name('stories.down');
 Route::get('stories/{stories}/add', 'StoriesController@add')->name('stories.add');
 Route::get('stories/{stories}/delete', 'StoriesController@go_delete')->name('stories.go_delete');
 //资源路由器
@@ -66,6 +67,7 @@ Route::patch('stories/{stories}', 'StoriesController@update')->name('stories.upd
 Route::delete('stories/{stories}', 'StoriesController@destroy')->name('stories.destroy');
 
 //section
+Route::post('sections/{sections}/up', 'SectionsController@up')->name('sections.up');
 Route::get('sections/{sections}/add_content', 'SectionsController@add_content')->name('sections.add_content');
 Route::get('stories/{stories}/sections', 'SectionsController@index')->name('sections.index');
 Route::get('stories/{stories}/sections/create', 'SectionsController@create')->name('sections.create');
@@ -77,6 +79,7 @@ Route::patch('stories/{stories}/sections/{sections}', 'SectionsController@update
 Route::delete('stories/{stories}/sections/{sections}', 'SectionsController@destroy')->name('sections.destroy');
 
 //volum
+Route::post('volums/{volums}/up', 'VolumsController@up')->name('volums.up');
 Route::get('stories/{stories}/volums', 'VolumsController@index')->name('volums.index');
 Route::get('stories/{stories}/volums/create', 'VolumsController@create')->name('volums.create');
 Route::get('stories/{stories}/volums/{volums}', 'VolumsController@show')->name('volums.show');
@@ -86,6 +89,7 @@ Route::patch('volums/{volums}', 'VolumsController@update')->name('volums.update'
 Route::delete('volums/{volums}', 'VolumsController@destroy')->name('volums.destroy');
 
 //poster
+Route::post('posters/{posters}/up', 'PostersController@up')->name('posters.up');
 Route::post('posters/{posters}', 'PostersController@gallery')->name('posters.gallery');
 Route::get('users/{users}/posters', 'PostersController@user_posters')->name('posters.user_posters');
 Route::get('tags/{tags}/posters', 'PostersController@tag_posters')->name('posters.tag_posters');
@@ -101,6 +105,7 @@ Route::patch('posters/{posters}', 'PostersController@update')->name('posters.upd
 Route::delete('posters/{posters}', 'PostersController@destroy')->name('posters.destroy');
 
 //sketches
+Route::post('sketches/{sketches}/up', 'SketchesController@up')->name('sketches.up');
 Route::post('sketches/{sketches}', 'SketchesController@gallery')->name('sketches.gallery');
 Route::get('users/{users}/sketches', 'SketchesController@user_sketches')->name('sketches.user_sketches');
 Route::get('tags/{tags}/sketches', 'SketchesController@tag_sketches')->name('sketches.tag_sketches');
@@ -116,6 +121,7 @@ Route::patch('sketches/{sketches}', 'SketchesController@update')->name('sketches
 Route::delete('sketches/{sketches}', 'SketchesController@destroy')->name('sketches.destroy');
 
 //settings
+Route::post('settings/{settings}/up', 'SettingsController@up')->name('settings.up');
 Route::post('settings/{settings}', 'SettingsController@gallery')->name('settings.gallery');
 Route::get('users/{users}/settings', 'SettingsController@user_settings')->name('settings.user_settings');
 Route::get('tags/{tags}/settings', 'SettingsController@tag_settings')->name('settings.tag_settings');
@@ -131,6 +137,7 @@ Route::patch('settings/{settings}', 'SettingsController@update')->name('settings
 Route::delete('settings/{settings}', 'SettingsController@destroy')->name('settings.destroy');
 
 //drafts
+Route::post('drafts/{drafts}/up', 'DraftsController@up')->name('drafts.up');
 Route::get('users/{users}/drafts', 'DraftsController@user_drafts')->name('drafts.user_drafts');
 Route::get('tags/{tags}/drafts', 'DraftsController@tag_drafts')->name('drafts.tag_drafts');
 Route::get('stories/{stories}/drafts', 'DraftsController@story_drafts')->name('drafts.story_drafts');

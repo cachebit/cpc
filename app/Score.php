@@ -23,6 +23,18 @@ class Score extends Model
       $user->save();
 
     });//static::creating
+
+    static::deleted(function($score){
+
+      $user = $score->get_user();
+
+      $user->coins = $user->coins-1;
+      $user->experience = $user->experience-1;
+      $user->passion = $user->passion<=0?0:$user->passion-1;
+
+      $user->save();
+
+    });//static::creating
   }
 
   public function get_user()

@@ -38,6 +38,18 @@ class Gallery extends Model
       $user->save();
 
     });//static::creating
+
+    static::deleted(function($gallery){
+
+      $user = $gallery->get_user();
+
+      $user->practice = $user->practice-1;
+      $user->experience = $user->experience-3;
+      $user->passion = $user->passion<=0?0:$user->passion-1;
+
+      $user->save();
+
+    });//static::creating
   }
 
   //队列函数

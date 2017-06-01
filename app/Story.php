@@ -26,12 +26,29 @@ class Story extends HasImage implements Sectionable
       $user->save();
 
     });//static::creating
+
+    static::deleted(function($story){
+
+      $user = $story->get_user();
+
+      $user->practice = $user->practice-1;
+      $user->experience = $user->experience-1;
+      $user->passion = $user->passion<=0?0:$user->passion-1;
+
+      $user->save();
+
+    });//static::creating
   }
 
   static public function lastest($n)
   {
     $story = new static;
     return $story->orderBy('created_at', 'desc')->paginate($n);
+  }
+
+  public function user_uped($id)
+  {
+    return $this->ups()->where('user_id', $id)->first();
   }
 
   public function is_author($id)

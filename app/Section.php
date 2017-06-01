@@ -26,6 +26,18 @@ class Section extends HasImage
       $user->save();
 
     });//static::creating
+
+    static::deleted(function($section){
+
+      $user = $section->get_user();
+
+      $user->practice = $user->practice1;
+      $user->experience = $user->experience-1;
+      $user->passion = $user->passion<=0?0:$user->passion-1;
+
+      $user->save();
+
+    });//static::creating
   }
 
   public function is_author($id)

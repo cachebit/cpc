@@ -18,7 +18,8 @@
     <div class="media-body">
       <ul class="list-inline">
         <li><h4>{{ $section->title }}</h4></li>
-        <li>@include('sections._options')</li>
+        <li>@include('options._section')</li>
+        <li>@include('options._guest_section')</li>
       </ul>
       <p>{{ $section->description }}</p>
     </div>

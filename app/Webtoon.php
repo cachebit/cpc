@@ -34,7 +34,7 @@ class Webtoon extends HasImage
       $user->coins = $user->coins-3;
       $user->practice = $user->practice-1;
       $user->experience = $user->experience-3;
-      $user->passion = $user->passio-1;
+      $user->passion = $user->passion<=0?0:$user->passion-1;
 
       $user->save();
 
