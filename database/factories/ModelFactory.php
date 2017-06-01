@@ -45,10 +45,11 @@ $factory->define(App\Story::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Cover::class, function (Faker\Generator $faker) {
+    $path = '/img/site/covers/'.rand(1,30).'.jpg';
     return [
-        'cover' => '/img/site/covers/'.rand(1,30).'.jpg',
-        'cover_m' => '/img/site/covers/'.rand(1,30).'.jpg',
-        'cover_s' => '/img/site/covers/'.rand(1,30).'.jpg',
+        'cover' => $path,
+        'cover_m' => $path,
+        'cover_s' => $path,
         'imageable_type' => 'App\Story',
         'imageable_id' => 1,
         'created_at' => Carbon::now(),
@@ -57,42 +58,45 @@ $factory->define(App\Cover::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Poster::class, function (Faker\Generator $faker) {
+    $path = '/img/site/covers/'.rand(1,30).'.jpg';
     return [
       'story_id' => 1,
       'title' => $faker->name,
       'description' => $faker->sentence,
       'score' => 0,
       'up' => 0,
-      'path' => '/img/site/blank.gif',
-      'path_s' => '/img/site/blank.gif',
+      'path' => $path,
+      'path_s' => $path,
       'created_at' => Carbon::now(),
       'updated_at' => Carbon::now(),
     ];
 });
 
 $factory->define(App\Setting::class, function (Faker\Generator $faker) {
+    $path = '/img/site/covers/'.rand(1,30).'.jpg';
     return [
       'story_id' => 1,
       'title' => $faker->name,
       'description' => $faker->sentence,
       'score' => 0,
       'up' => 0,
-      'path' => '/img/site/blank.gif',
-      'path_s' => '/img/site/blank.gif',
+      'path' => $path,
+      'path_s' => $path,
       'created_at' => Carbon::now(),
       'updated_at' => Carbon::now(),
     ];
 });
 
 $factory->define(App\Sketch::class, function (Faker\Generator $faker) {
+    $path = '/img/site/covers/'.rand(1,30).'.jpg';
     return [
       'story_id' => 1,
       'title' => $faker->name,
       'description' => $faker->sentence,
       'score' => 0,
       'up' => 0,
-      'path' => '/img/site/blank.gif',
-      'path_s' => '/img/site/blank.gif',
+      'path' => $path,
+      'path_s' => $path,
       'created_at' => Carbon::now(),
       'updated_at' => Carbon::now(),
     ];
