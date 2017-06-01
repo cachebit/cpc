@@ -48,6 +48,7 @@ class StoriesController extends Controller
 
     public function up(Story $story)
     {
+      $this->authorize('up', $story->get_user());
 
       $story->up = $story->up+1;
       $story->save();
@@ -62,6 +63,7 @@ class StoriesController extends Controller
 
     public function down(Story $story)
     {
+      $this->authorize('up', $story->get_user());
 
       $story->up = $story->up == 0?0:$story->up-1;
       $story->save();

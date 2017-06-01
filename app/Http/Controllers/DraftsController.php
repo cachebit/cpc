@@ -45,6 +45,35 @@ class DraftsController extends Controller
     return view('index.drafts', compact('drafts'));
   }
 
+  public function up(Draft $draft)
+  {
+    $this->authorize('up', $draft->get_user());
+
+    $draft->up = $draft->up+1;
+    $draft->save();
+
+    $up = new Up();
+    $up->user_id = Auth::id();
+    $draft->ups()->save($up);
+
+    session()->flash('success', '成功点赞！');
+    return redirect()->back();
+  }
+
+  public function down(Draft $draft)
+  {
+    $this->authorize('up', $draft->get_user());
+
+    $draft->up = $draft->up == 0?0:$draft->up-1;
+    $draft->save();
+
+    $draft->ups()->where('user_id', Auth::id())->delete();
+
+    session()->flash('warning', '取消点赞');
+    return redirect()->back();
+  }
+
+
   /**
    * Show the form for creating a new resource.
    *
@@ -163,7 +192,7 @@ class DraftsController extends Controller
   public function destroy(Draft $draft)
   {
     $this->authorize('update', $draft->get_user());
-    
+
     $id = $draft->story_id;
     $draft->delete();
     session()->flash('success', '成功删除随笔。');

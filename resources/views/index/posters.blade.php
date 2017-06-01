@@ -4,9 +4,18 @@
 @section('content')
   @if(count($posters))
   @foreach($posters as $poster)
-  <div class="col-xs-4 col-sm-3 col-md-2">
-    <a href="{{ route('posters.show', $poster->id) }}"><img class="img-responsive" src="{{ $poster->path_s }}" alt="{{ $poster->title }}"></a>
-    <br>
+  <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+    <div class="thumbnail">
+      <a href="{{ route('posters.show', $poster->id) }}">
+        <img class="img-responsive" src="{{ $poster->path_s }}" alt="{{ $poster->title }}">
+      </a>
+      <ul class="list-inline">
+        <li>
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          <a href="{{ route('users.show', $poster->get_user()->id) }}">{{ mb_substr($poster->get_user()->name, 0, 13) }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
   @endforeach
   <div class="col-xs-12">

@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Poster;
 use App\Story;
 use App\Gallery;
+use App\Up;
 use Auth;
 
 class PostersController extends Controller
@@ -19,6 +20,36 @@ class PostersController extends Controller
       $this->middleware('auth', [
           'only' => ['gallery', 'create', 'create_in_story', 'store', 'store_in_story', 'edit', 'update', 'destroy', 'save_posters']
       ]);
+    }
+
+
+
+    public function up(Poster $poster)
+    {
+      $this->authorize('up', $poster->get_user());
+
+      $poster->up = $poster->up+1;
+      $poster->save();
+
+      $up = new Up();
+      $up->user_id = Auth::id();
+      $poster->ups()->save($up);
+
+      session()->flash('success', '成功点赞！');
+      return redirect()->back();
+    }
+
+    public function down(Poster $poster)
+    {
+      $this->authorize('up', $poster->get_user());
+
+      $poster->up = $poster->up == 0?0:$poster->up-1;
+      $poster->save();
+
+      $poster->ups()->where('user_id', Auth::id())->delete();
+
+      session()->flash('warning', '取消点赞');
+      return redirect()->back();
     }
 
     public function gallery(Poster $poster)

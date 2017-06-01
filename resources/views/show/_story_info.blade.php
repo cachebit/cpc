@@ -5,13 +5,22 @@
   </a>
   @endif
   <div class="caption">
-    <h4><a href="{{ route('stories.show', $story->id) }}">{{ $story->title }}</a></h4>
-
     <ul class="list-inline">
-      <li><span class="glyphicon glyphicon-tag" aria-hidden="true"></span> <a href="#">{{ $story->type }}</a></li>
+      <li>
+        <a href="{{ route('stories.show', $story->id) }}">
+          <h4>《{{ mb_substr($story->title, 0, 11) }}》</h4>
+        </a>
+        <li>@include('options._share_story')</li>
+      </li>
     </ul>
-
-    <p class="text-muted">{{ $story->description }}</p>
+    <ul class="list-inline">
+      @if($story->type)
+      <li><span class="glyphicon glyphicon-tag" aria-hidden="true"></span> <a href="#">{{ $story->type }}</a></li>
+      @else
+      <li>-未更新标签。-</li>
+      @endif
+    </ul>
+    <p class="text-muted">{{ mb_substr($story->description, 0, 34) }}</p>
 
     <ul class="list-unstyled">
       @if(count($story->volums))
@@ -24,8 +33,11 @@
     </ul>
 
     <ul class="list-inline">
-      <li>作者：<a href="{{ route('users.show', $story->user->id) }}">{{ $story->user->name }}</a></li>
-      <li class="pull-right">@include('options._share_story')</li>
+      <li>
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        <a href="{{ route('users.show', $story->user->id) }}">{{ mb_substr($story->user->name, 0, 10) }}</a>
+      </li>
+      <li class="pull-right">@include('options._story_ups')</li>
     </ul>
   </div>
 </div>

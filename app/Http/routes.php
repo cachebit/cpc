@@ -67,7 +67,6 @@ Route::patch('stories/{stories}', 'StoriesController@update')->name('stories.upd
 Route::delete('stories/{stories}', 'StoriesController@destroy')->name('stories.destroy');
 
 //section
-Route::post('sections/{sections}/up', 'SectionsController@up')->name('sections.up');
 Route::get('sections/{sections}/add_content', 'SectionsController@add_content')->name('sections.add_content');
 Route::get('stories/{stories}/sections', 'SectionsController@index')->name('sections.index');
 Route::get('stories/{stories}/sections/create', 'SectionsController@create')->name('sections.create');
@@ -79,7 +78,6 @@ Route::patch('stories/{stories}/sections/{sections}', 'SectionsController@update
 Route::delete('stories/{stories}/sections/{sections}', 'SectionsController@destroy')->name('sections.destroy');
 
 //volum
-Route::post('volums/{volums}/up', 'VolumsController@up')->name('volums.up');
 Route::get('stories/{stories}/volums', 'VolumsController@index')->name('volums.index');
 Route::get('stories/{stories}/volums/create', 'VolumsController@create')->name('volums.create');
 Route::get('stories/{stories}/volums/{volums}', 'VolumsController@show')->name('volums.show');
@@ -90,6 +88,7 @@ Route::delete('volums/{volums}', 'VolumsController@destroy')->name('volums.destr
 
 //poster
 Route::post('posters/{posters}/up', 'PostersController@up')->name('posters.up');
+Route::post('posters/{posters}/down', 'PostersController@down')->name('posters.down');
 Route::post('posters/{posters}', 'PostersController@gallery')->name('posters.gallery');
 Route::get('users/{users}/posters', 'PostersController@user_posters')->name('posters.user_posters');
 Route::get('tags/{tags}/posters', 'PostersController@tag_posters')->name('posters.tag_posters');
@@ -106,6 +105,7 @@ Route::delete('posters/{posters}', 'PostersController@destroy')->name('posters.d
 
 //sketches
 Route::post('sketches/{sketches}/up', 'SketchesController@up')->name('sketches.up');
+Route::post('sketches/{sketches}/down', 'SketchesController@down')->name('sketches.down');
 Route::post('sketches/{sketches}', 'SketchesController@gallery')->name('sketches.gallery');
 Route::get('users/{users}/sketches', 'SketchesController@user_sketches')->name('sketches.user_sketches');
 Route::get('tags/{tags}/sketches', 'SketchesController@tag_sketches')->name('sketches.tag_sketches');
@@ -122,6 +122,7 @@ Route::delete('sketches/{sketches}', 'SketchesController@destroy')->name('sketch
 
 //settings
 Route::post('settings/{settings}/up', 'SettingsController@up')->name('settings.up');
+Route::post('settings/{settings}/down', 'SettingsController@down')->name('settings.down');
 Route::post('settings/{settings}', 'SettingsController@gallery')->name('settings.gallery');
 Route::get('users/{users}/settings', 'SettingsController@user_settings')->name('settings.user_settings');
 Route::get('tags/{tags}/settings', 'SettingsController@tag_settings')->name('settings.tag_settings');
@@ -138,6 +139,7 @@ Route::delete('settings/{settings}', 'SettingsController@destroy')->name('settin
 
 //drafts
 Route::post('drafts/{drafts}/up', 'DraftsController@up')->name('drafts.up');
+Route::post('drafts/{drafts}/down', 'DraftsController@down')->name('drafts.down');
 Route::get('users/{users}/drafts', 'DraftsController@user_drafts')->name('drafts.user_drafts');
 Route::get('tags/{tags}/drafts', 'DraftsController@tag_drafts')->name('drafts.tag_drafts');
 Route::get('stories/{stories}/drafts', 'DraftsController@story_drafts')->name('drafts.story_drafts');

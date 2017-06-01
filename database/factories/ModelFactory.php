@@ -34,7 +34,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Story::class, function (Faker\Generator $faker) {
     return [
-        'title' => '《一个title名称》',
+        'title' => '一个title名称，一个很长很长的名称，要你相信',
         'description' => '故事改编自吉川英治的小说《宫本武藏》。自1998年起在讲谈社《周刊Morning》杂志连载。日本国内总发行量至33卷时已突破6000万本。本作品曾获得2000年第24届讲谈社漫画赏一般部门奖、2000年第4届文化厅媒体艺术祭漫画部门奖以及2002年第6届手冢治虫文化奖漫画大奖。',
         'score' => 0,
         'up' => 0,
@@ -46,9 +46,9 @@ $factory->define(App\Story::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Cover::class, function (Faker\Generator $faker) {
     return [
-        'cover' => '/img/site/blank.gif',
-        'cover_m' => '/img/site/blank.gif',
-        'cover_s' => '/img/site/blank.gif',
+        'cover' => '/img/site/covers/'.rand(1,30).'.jpg',
+        'cover_m' => '/img/site/covers/'.rand(1,30).'.jpg',
+        'cover_s' => '/img/site/covers/'.rand(1,30).'.jpg',
         'imageable_type' => 'App\Story',
         'imageable_id' => 1,
         'created_at' => Carbon::now(),

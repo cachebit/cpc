@@ -16,7 +16,6 @@
     <div class="container">
       @include('layouts._header')
       @include('layouts._nav')
-      @include('layouts._login_user',['user' => Auth::user()])
       <div class="row">
         @include('shared.messages')
         <div class="col-md-3">

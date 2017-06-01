@@ -47,6 +47,11 @@ class Sketch extends HasImage implements Scorable
     return $sketch->orderBy('created_at', 'desc')->paginate($n);
   }
 
+  public function user_uped($id)
+  {
+    return $this->ups()->where('user_id', $id)->first();
+  }
+
   public function is_author($id)
   {
     return $this->story->is_author($id);

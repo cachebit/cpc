@@ -18,4 +18,14 @@ class UserPolicy
     {
         return $currentUser->id === $user->id;
     }
+
+    public function score(User $currentUser, User $user)
+    {
+      return $currentUser->id !== $user->id;
+    }
+
+    public function up(User $currentUser, User $user)
+    {
+        return !($currentUser->id === $user->id);
+    }
 }

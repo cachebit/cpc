@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Sketch;
 use App\Story;
 use App\Gallery;
+use App\Up;
 use Auth;
 
 
@@ -37,6 +38,34 @@ class SketchesController extends Controller
       session()->flash('success', '入展成功！');
     }
 
+    return redirect()->back();
+  }
+
+  public function up(Sketch $sketch)
+  {
+    $this->authorize('up', $sketch->get_user());
+
+    $sketch->up = $sketch->up+1;
+    $sketch->save();
+
+    $up = new Up();
+    $up->user_id = Auth::id();
+    $sketch->ups()->save($up);
+
+    session()->flash('success', '成功点赞！');
+    return redirect()->back();
+  }
+
+  public function down(Sketch $sketch)
+  {
+    $this->authorize('up', $sketch->get_user());
+
+    $sketch->up = $sketch->up == 0?0:$sketch->up-1;
+    $sketch->save();
+
+    $sketch->ups()->where('user_id', Auth::id())->delete();
+
+    session()->flash('warning', '取消点赞');
     return redirect()->back();
   }
 

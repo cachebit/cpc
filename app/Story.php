@@ -40,6 +40,11 @@ class Story extends HasImage implements Sectionable
     });//static::creating
   }
 
+  public function get_title()
+  {
+    return '《'.$this->title.'》';
+  }
+
   static public function lastest($n)
   {
     $story = new static;
@@ -70,15 +75,6 @@ class Story extends HasImage implements Sectionable
   {
     $this->score = $score;
     return $this->save();
-  }
-
-  public function setTitleAttribute($title)
-  {
-    if(!(starts_with($title, '《') && str_finish($title, '》'))){
-      $this->attributes['title'] = '《'.$title.'》';
-    }else{
-      $this->attributes['title'] = $title;
-    }
   }
 
   public function user()

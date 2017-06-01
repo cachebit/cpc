@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Setting;
 use App\Story;
 use App\Gallery;
+use App\Up;
 use Auth;
 
 class SettingsController extends Controller
@@ -36,6 +37,34 @@ class SettingsController extends Controller
       session()->flash('success', '入展成功！');
     }
 
+    return redirect()->back();
+  }
+
+  public function up(Setting $setting)
+  {
+    $this->authorize('up', $setting->get_user());
+
+    $setting->up = $setting->up+1;
+    $setting->save();
+
+    $up = new Up();
+    $up->user_id = Auth::id();
+    $setting->ups()->save($up);
+
+    session()->flash('success', '成功点赞！');
+    return redirect()->back();
+  }
+
+  public function down(Setting $setting)
+  {
+    $this->authorize('up', $setting->get_user());
+
+    $setting->up = $setting->up == 0?0:$setting->up-1;
+    $setting->save();
+
+    $setting->ups()->where('user_id', Auth::id())->delete();
+
+    session()->flash('warning', '取消点赞');
     return redirect()->back();
   }
 

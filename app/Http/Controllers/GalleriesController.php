@@ -46,8 +46,8 @@ class GalleriesController extends Controller
     $this->validate($request,[
       'score' => 'required|integer|min:1|max:15',
     ]);
-
-    $this->authorize('score', $gallery);
+    
+    $this->authorize('score', $gallery->get_user());
 
     $id = $this->save_score($gallery, 10*$request->score);
 

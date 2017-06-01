@@ -1,7 +1,7 @@
 <header>
   <ul class="list-inline">
     <li><a href="{{ route('home') }}"><h1>漫侣！ - CPComic!<small>无CP 不漫画！╮(￣▽￣)╭</small></h1></a></li>
-    <li class=" pull-right">
+    <li>
       <ul class="nav nav-pills">
         @if (Auth::check())
         <li role="presentation" class="dropdown">
