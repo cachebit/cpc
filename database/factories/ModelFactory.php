@@ -45,7 +45,7 @@ $factory->define(App\Story::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Cover::class, function (Faker\Generator $faker) {
-    $path = '/img/site/covers/'.rand(1,30).'.jpg';
+    $path = '/img/site/covers/'.rand(1,100).'.jpg';
     return [
         'cover' => $path,
         'cover_m' => $path,
@@ -58,7 +58,7 @@ $factory->define(App\Cover::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Poster::class, function (Faker\Generator $faker) {
-    $path = '/img/site/covers/'.rand(1,30).'.jpg';
+    $path = '/img/site/covers/'.rand(1,100).'.jpg';
     return [
       'story_id' => 1,
       'title' => $faker->name,
@@ -73,7 +73,7 @@ $factory->define(App\Poster::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Setting::class, function (Faker\Generator $faker) {
-    $path = '/img/site/covers/'.rand(1,30).'.jpg';
+    $path = '/img/site/covers/'.rand(1,100).'.jpg';
     return [
       'story_id' => 1,
       'title' => $faker->name,
@@ -88,7 +88,7 @@ $factory->define(App\Setting::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Sketch::class, function (Faker\Generator $faker) {
-    $path = '/img/site/covers/'.rand(1,30).'.jpg';
+    $path = '/img/site/covers/'.rand(1,100).'.jpg';
     return [
       'story_id' => 1,
       'title' => $faker->name,
