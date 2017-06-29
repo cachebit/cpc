@@ -50,8 +50,6 @@ class SettingsController extends Controller
     $up = new Up();
     $up->user_id = Auth::id();
     $setting->ups()->save($up);
-
-    session()->flash('success', '成功点赞！');
     return redirect()->back();
   }
 
@@ -62,9 +60,7 @@ class SettingsController extends Controller
     $setting->up = $setting->up == 0?0:$setting->up-1;
     $setting->save();
 
-    $setting->ups()->where('user_id', Auth::id())->delete();
-
-    session()->flash('warning', '取消点赞');
+    $setting->ups()->where('user_id', Auth::id())->first()->delete();
     return redirect()->back();
   }
 

@@ -12,27 +12,15 @@ class Up extends Model
   {
     parent::boot();
 
-    static::creating(function($up){
+    static::created(function($up){
 
-      $user = $up->user;
-
-      $user->coins = $user->coins+1;
-      $user->experience = $user->experience+1;
-      $user->passion = $user->passion>=150?150:$user->passion+1;
-
-      $user->save();
+      $up->user->created_up_bonus();
 
     });//static::creating
 
-    static::deleted(function($up){
+    static::deleting(function($up){
 
-      $user = $up->user;
-
-      $user->coins = $user->coins-1;
-      $user->experience = $user->experience-1;
-      $user->passion = $user->passion<=0?0:$user->passion-1;
-
-      $user->save();
+      $up->user->deleted_up_deduction();
 
     });//static::creating
   }

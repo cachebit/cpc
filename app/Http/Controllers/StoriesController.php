@@ -36,7 +36,8 @@ class StoriesController extends Controller
     //显示某用户的所有故事/专辑
     public function user_stories(\App\User $user)
     {
-      $stories = $user->stories()->orderBy('created_at', 'desc')->paginate(30);
+      $stories = $user->stories()->orderBy('created_at', 'desc')->paginate(24);
+
       return view('index.stories', compact('stories'));
     }
 
@@ -50,28 +51,34 @@ class StoriesController extends Controller
     {
       $this->authorize('up', $story->get_user());
 
-      $story->up = $story->up+1;
-      $story->save();
+      $this->record_user_up_story(Auth::id(), $story);
 
+      $story->plus_up();
+
+      return redirect()->back();
+    }
+
+    protected function record_user_up_story($user_id, Story $story)
+    {
       $up = new Up();
       $up->user_id = Auth::id();
       $story->ups()->save($up);
-
-      session()->flash('success', '成功点赞！');
-      return redirect()->back();
     }
 
     public function down(Story $story)
     {
       $this->authorize('up', $story->get_user());
 
-      $story->up = $story->up == 0?0:$story->up-1;
-      $story->save();
+      $this->deleted_user_up_story(Auth::id(), $story);
 
-      $story->ups()->where('user_id', Auth::id())->delete();
+      $story->minus_up();
 
-      session()->flash('warning', '取消点赞');
       return redirect()->back();
+    }
+
+    protected function deleted_user_up_story($user_id, Story $story)
+    {
+      $story->ups()->where('user_id', Auth::id())->first()->delete();
     }
 
     /**
@@ -148,18 +155,9 @@ class StoriesController extends Controller
 
       $this->authorize('update', $story->get_user());
 
-      $img = $request->file('image');
+      $story->update_cover($request->file('image'));
 
-      if($img)
-      {
-        $directory = $story->make_covers_dir(Auth::id());
-        $path = $story->update_covers($img, $directory);
-        $story->covers()->first()->update($path);
-      }
-
-      $story->title = $request->title;
-      $story->description = $request->description;
-      $story->save();
+      $story->update($request->all());
 
       return redirect()->route('stories.show', $story->id);
     }
@@ -175,7 +173,6 @@ class StoriesController extends Controller
       $this->authorize('update', $story->get_user());
 
       $story->delete();
-      session()->flash('success', '成功删除作品！');
       return redirect()->route('stories.index');
     }
 
@@ -197,13 +194,9 @@ class StoriesController extends Controller
     {
       $story = new Story($request->all());
 
-      $path = $story->save_covers($request->file('image'), $story->make_covers_dir(Auth::id()));
-
-      $cover = new Cover($path);
-
       Auth::user()->stories()->save($story);
 
-      $story->covers()->save($cover);
+      $story->save_cover($request->file('image'), Auth::id());
 
       return $story;
     }

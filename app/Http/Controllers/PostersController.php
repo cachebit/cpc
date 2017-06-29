@@ -35,7 +35,6 @@ class PostersController extends Controller
       $up->user_id = Auth::id();
       $poster->ups()->save($up);
 
-      session()->flash('success', '成功点赞！');
       return redirect()->back();
     }
 
@@ -46,10 +45,9 @@ class PostersController extends Controller
       $poster->up = $poster->up == 0?0:$poster->up-1;
       $poster->save();
 
-      $poster->ups()->where('user_id', Auth::id())->delete();
+      $poster->ups()->where('user_id', Auth::id())->first()->delete();
 
-      session()->flash('warning', '取消点赞');
-      return redirect()->back();
+      return redirect()->route('posters.show', $poster->id);
     }
 
     public function gallery(Poster $poster)

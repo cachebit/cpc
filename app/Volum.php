@@ -15,27 +15,15 @@ class Volum extends HasImage implements Sectionable
   {
     parent::boot();
 
-    static::creating(function($volum){
+    static::created(function($volum){
 
-      $user = $volum->get_user();
-
-      $user->practice = $user->practice+1;
-      $user->experience = $user->experience+1;
-      $user->passion = $user->passion>=150?150:$user->passion+1;
-
-      $user->save();
+      $volum->get_user()->created_volum_bonus();
 
     });//static::creating
 
-    static::creating(function($volum){
+    static::deleted(function($volum){
 
-      $user = $volum->get_user();
-
-      $user->practice = $user->practice-1;
-      $user->experience = $user->experience-1;
-      $user->passion = $user->passion<=0?0:$user->passion-1;
-
-      $user->save();
+      $volum->get_user()->deleted_volum_deduction();
 
     });//static::creating
   }

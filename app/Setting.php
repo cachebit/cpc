@@ -14,29 +14,15 @@ class Setting extends HasImage implements Scorable
   {
     parent::boot();
 
-    static::creating(function($setting){
+    static::created(function($setting){
 
-      $user = $setting->get_user();
-
-      $user->coins = $user->coins+3;
-      $user->practice = $user->practice+1;
-      $user->experience = $user->experience+3;
-      $user->passion = $user->passion>=150?150:$user->passion+1;
-
-      $user->save();
+      $setting->get_user()->created_setting_bonus();
 
     });//static::creating
 
-    static::creating(function($setting){
+    static::deleted(function($setting){
 
-      $user = $setting->get_user();
-
-      $user->coins = $user->coins-3;
-      $user->practice = $user->practice-1;
-      $user->experience = $user->experience-3;
-      $user->passion = $user->passion<=0?0:$user->passion-1;
-
-      $user->save();
+      $setting->get_user()->deleted_setting_deduction();
 
     });//static::creating
   }

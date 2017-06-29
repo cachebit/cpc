@@ -52,7 +52,6 @@ class SketchesController extends Controller
     $up->user_id = Auth::id();
     $sketch->ups()->save($up);
 
-    session()->flash('success', '成功点赞！');
     return redirect()->back();
   }
 
@@ -63,9 +62,8 @@ class SketchesController extends Controller
     $sketch->up = $sketch->up == 0?0:$sketch->up-1;
     $sketch->save();
 
-    $sketch->ups()->where('user_id', Auth::id())->delete();
+    $sketch->ups()->where('user_id', Auth::id())->first()->delete();
 
-    session()->flash('warning', '取消点赞');
     return redirect()->back();
   }
 

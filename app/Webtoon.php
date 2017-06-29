@@ -14,29 +14,15 @@ class Webtoon extends HasImage
   {
     parent::boot();
 
-    static::creating(function($webtoon){
+    static::created(function($webtoon){
 
-      $user = $webtoon->get_user();
-
-      $user->coins = $user->coins+3;
-      $user->practice = $user->practice+1;
-      $user->experience = $user->experience+3;
-      $user->passion = $user->passion>=150?150:$user->passion+1;
-
-      $user->save();
+      $webtoon->get_user()->created_webtoon_bonus();
 
     });//static::creating
 
     static::deleted(function($webtoon){
 
-      $user = $webtoon->get_user();
-
-      $user->coins = $user->coins-3;
-      $user->practice = $user->practice-1;
-      $user->experience = $user->experience-3;
-      $user->passion = $user->passion<=0?0:$user->passion-1;
-
-      $user->save();
+      $webtoon->get_user()->deleted_webtoon_deduction();
 
     });//static::creating
   }

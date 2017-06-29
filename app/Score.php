@@ -12,27 +12,15 @@ class Score extends Model
   {
     parent::boot();
 
-    static::creating(function($score){
+    static::created(function($score){
 
-      $user = $score->get_user();
-
-      $user->coins = $user->coins+1;
-      $user->experience = $user->experience+1;
-      $user->passion = $user->passion>=150?150:$user->passion+1;
-
-      $user->save();
+      $score->get_user()->created_score_bonus();
 
     });//static::creating
 
     static::deleted(function($score){
 
-      $user = $score->get_user();
-
-      $user->coins = $user->coins-1;
-      $user->experience = $user->experience-1;
-      $user->passion = $user->passion<=0?0:$user->passion-1;
-
-      $user->save();
+      $$score->get_user()->deleted_score_deduction();
 
     });//static::creating
   }

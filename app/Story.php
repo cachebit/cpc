@@ -3,6 +3,7 @@
 namespace App;
 
 use App\HasImage;
+use App\Cover;
 
 class Story extends HasImage implements Sectionable
 {
@@ -15,29 +16,48 @@ class Story extends HasImage implements Sectionable
   {
     parent::boot();
 
-    static::creating(function($story){
+    static::created(function($story){
 
-      $user = $story->get_user();
-
-      $user->practice = $user->practice+1;
-      $user->experience = $user->experience+1;
-      $user->passion = $user->passion>=150?150:$user->passion+1;
-
-      $user->save();
+      $story->get_user()->created_story_bonus();
 
     });//static::creating
 
     static::deleted(function($story){
 
-      $user = $story->get_user();
-
-      $user->practice = $user->practice-1;
-      $user->experience = $user->experience-1;
-      $user->passion = $user->passion<=0?0:$user->passion-1;
-
-      $user->save();
+      $story->get_user()->deleted_story_deduction();
 
     });//static::creating
+  }
+
+  public function plus_up()
+  {
+    $this->up = $this->up+1;
+    $this->save();
+  }
+
+  public function minus_up()
+  {
+    $this->up = $this->up == 0?0:$this->up-1;
+    $this->save();
+  }
+
+  public function save_cover($img, $user_id)
+  {
+    $path = $this->save_covers($img, $this->make_covers_dir($user_id));
+
+    $cover = new Cover($path);
+
+    $this->covers()->save($cover);
+  }
+
+  public function update_cover($img)
+  {
+    if($img)
+    {
+      $directory = $this->make_covers_dir(Auth::id());
+      $path = $this->update_covers($img, $directory);
+      $this->covers()->first()->update($path);
+    }
   }
 
   public function get_title()
@@ -53,7 +73,7 @@ class Story extends HasImage implements Sectionable
 
   public function user_uped($id)
   {
-    return $this->ups()->where('user_id', $id)->first();
+    return (boolean)$this->ups()->where('user_id', $id)->first();
   }
 
   public function is_author($id)
@@ -76,6 +96,10 @@ class Story extends HasImage implements Sectionable
     $this->score = $score;
     return $this->save();
   }
+
+  /*
+  *Eloguent functions
+  */
 
   public function user()
   {

@@ -14,29 +14,15 @@ class Draft extends Model implements Scorable
   {
     parent::boot();
 
-    static::creating(function($draft){
+    static::created(function($draft){
 
-      $user = $draft->get_user();
-
-      $user->coins = $user->coins+3;
-      $user->practice = $user->practice+1;
-      $user->experience = $user->experience+3;
-      $user->passion = $user->passion>=150?150:$user->passion+1;
-
-      $user->save();
+      $draft->get_user()->created_draft_bonus();
 
     });//static::creating
 
-    static::creating(function($draft){
+    static::deleted(function($draft){
 
-      $user = $draft->get_user();
-
-      $user->coins = $user->coins-3;
-      $user->practice = $user->practice-1;
-      $user->experience = $user->experience-3;
-      $user->passion = $user->passion<=0?0:$user->passion-1;
-
-      $user->save();
+      $draft->get_user()->deleted_draft_deduction();
 
     });//static::creating
   }

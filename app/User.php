@@ -53,6 +53,262 @@ class User extends Model implements AuthenticatableContract,
       return $user->orderBy('created_at', 'desc')->paginate($n);
     }
 
+    public function created_story_bonus()
+    {
+      $this->practice = $this->practice+1;
+      $this->experience = $this->experience+1;
+      $this->passion = $this->passion>=150?150:$this->passion+1;
+
+      session()->flash('success', '创建成功！实践+1，经验+1，热情+1。');
+      $this->save();
+    }
+
+    public function deleted_story_deduction()
+    {
+      $this->practice = $this->practice-1;
+      $this->experience = $this->experience-1;
+      $this->passion = $this->passion<=0?0:$this->passion-1;
+
+      session()->flash('warning', '删除成功！实践-1，经验-1，热情-1。');
+      $this->save();
+    }
+
+    public function created_volum_bonus()
+    {
+      $this->practice = $this->practice+1;
+      $this->experience = $this->experience+1;
+      $this->passion = $this->passion>=150?150:$this->passion+1;
+
+      session()->flash('success', '创建成功！实践+1，经验+1，热情+1。');
+      $this->save();
+    }
+
+    public function deleted_volum_deduction()
+    {
+      $this->practice = $this->practice-1;
+      $this->experience = $this->experience-1;
+      $this->passion = $this->passion<=0?0:$user->passion-1;
+
+      session()->flash('warning', '删除成功！实践-1，经验-1，热情-1。');
+      $this->save();
+    }
+
+    public function created_section_bonus()
+    {
+      $this->practice = $this->practice+1;
+      $this->experience = $this->experience+1;
+      $this->passion = $this->passion>=150?150:$this->passion+1;
+
+      session()->flash('success', '创建成功！实践+1，经验+1，热情+1。');
+      $this->save();
+    }
+
+    public function deleted_section_deduction()
+    {
+      $this->practice = $this->practice-1;
+      $this->experience = $this->experience-1;
+      $this->passion = $this->passion<=0?0:$user->passion-1;
+
+      session()->flash('warning', '删除成功！实践-1，经验-1，热情-1。');
+      $this->save();
+    }
+
+    public function created_draft_bonus()
+    {
+      $this->coins = $this->coins+3;
+      $this->practice = $this->practice+1;
+      $this->experience = $this->experience+3;
+      $this->passion = $this->passion>=150?150:$this->passion+1;
+
+      session()->flash('success', '创建成功！金币+3，实践+1，经验+3，热情+1。');
+      $this->save();
+    }
+
+    public function deleted_draft_deduction()
+    {
+      $this->coins = $this->coins-3;
+      $this->practice = $this->practice-1;
+      $this->experience = $this->experience-3;
+      $this->passion = $this->passion<=0?0:$this->passion-1;
+
+      session()->flash('warning', '删除成功！金币-3，实践-1，经验-3，热情-1。');
+      $this->save();
+    }
+
+    public function created_multiple_frame_bonus()
+    {
+      $this->coins = $this->coins+3;
+      $this->practice = $this->practice+1;
+      $this->experience = $this->experience+3;
+      $this->passion = $this->passion>=150?150:$this->passion+1;
+
+      session()->flash('success', '创建成功！金币+3，实践+1，经验+3，热情+1。');
+      $this->save();
+    }
+
+    public function deleted_multiple_frame_deduction()
+    {
+      $this->coins = $this->coins-3;
+      $this->practice = $this->practice-1;
+      $this->experience = $this->experience-3;
+      $this->passion = $this->passion<=0?0:$user->passion-1;
+
+      session()->flash('warning', '删除成功！金币-3，实践-1，经验-3，热情-1。');
+      $this->save();
+    }
+
+    public function created_poster_bonus()
+    {
+      $this->coins = $this->coins+3;
+      $this->practice = $this->practice+1;
+      $this->experience = $this->experience+3;
+      $this->passion = $this->passion>=150?150:$this->passion+1;
+
+      session()->flash('success', '创建成功！金币+3，实践+1，经验+3，热情+1。');
+      $this->save();
+    }
+
+    public function deleted_poster_deduction()
+    {
+      $this->coins = $this->coins-3;
+      $this->practice = $this->practice-1;
+      $this->experience = $this->experience-3;
+      $this->passion = $this->passion<=0?0:$user->passion-1;
+
+      session()->flash('warning', '删除成功！金币-3，实践-1，经验-3，热情-1。');
+      $this->save();
+    }
+
+    public function created_score_bonus()
+    {
+      $this->coins = $this->coins+3;
+      $this->practice = $this->practice+1;
+      $this->experience = $this->experience+3;
+      $this->passion = $this->passion>=150?150:$this->passion+1;
+
+      session()->flash('success', '创建成功！金币+3，实践+1，经验+3，热情+1。');
+      $this->save();
+    }
+
+    public function deleted_score_deduction()
+    {
+      $this->coins = $this->coins-3;
+      $this->practice = $this->practice-1;
+      $this->experience = $this->experience-3;
+      $this->passion = $this->passion<=0?0:$user->passion-1;
+
+      session()->flash('warning', '删除成功！金币-3，实践-1，经验-3，热情-1。');
+      $this->save();
+    }
+
+    public function created_setting_bonus()
+    {
+      $this->coins = $this->coins+3;
+      $this->practice = $this->practice+1;
+      $this->experience = $this->experience+3;
+      $this->passion = $this->passion>=150?150:$this->passion+1;
+
+      session()->flash('success', '创建成功！金币+3，实践+1，经验+3，热情+1。');
+      $this->save();
+    }
+
+    public function deleted_setting_deduction()
+    {
+      $this->coins = $this->coins-3;
+      $this->practice = $this->practice-1;
+      $this->experience = $this->experience-3;
+      $this->passion = $this->passion<=0?0:$user->passion-1;
+
+      session()->flash('warning', '删除成功！金币-3，实践-1，经验-3，热情-1。');
+      $this->save();
+    }
+
+    public function created_sketch_bonus()
+    {
+      $this->coins = $this->coins+3;
+      $this->practice = $this->practice+1;
+      $this->experience = $this->experience+3;
+      $this->passion = $this->passion>=150?150:$this->passion+1;
+
+      session()->flash('success', '创建成功！金币+3，实践+1，经验+3，热情+1。');
+      $this->save();
+    }
+
+    public function deleted_sketch_deduction()
+    {
+      $this->coins = $this->coins-3;
+      $this->practice = $this->practice-1;
+      $this->experience = $this->experience-3;
+      $this->passion = $this->passion<=0?0:$user->passion-1;
+
+      session()->flash('warning', '删除成功！金币-3，实践-1，经验-3，热情-1。');
+      $this->save();
+    }
+
+    public function created_text_bonus()
+    {
+      $this->coins = $this->coins+3;
+      $this->practice = $this->practice+1;
+      $this->experience = $this->experience+3;
+      $this->passion = $this->passion>=150?150:$this->passion+1;
+
+      session()->flash('success', '创建成功！金币+3，实践+1，经验+3，热情+1。');
+      $this->save();
+    }
+
+    public function deleted_text_deduction()
+    {
+      $this->coins = $this->coins-3;
+      $this->practice = $this->practice-1;
+      $this->experience = $this->experience-3;
+      $this->passion = $this->passion<=0?0:$user->passion-1;
+
+      session()->flash('warning', '删除成功！金币-3，实践-1，经验-3，热情-1。');
+      $this->save();
+    }
+
+    public function created_up_bonus()
+    {
+      $this->coins = $this->coins+1;
+      $this->experience = $this->experience+1;
+      $this->passion = $this->passion>=150?150:$this->passion+1;
+
+      session()->flash('success', '成功点赞！金币+1，经验+1，热情+1。');
+      $this->save();
+    }
+
+    public function deleted_up_deduction()
+    {
+      $this->coins = $this->coins-1;
+      $this->experience = $this->experience-1;
+      $this->passion = $this->passion<=0?0:$this->passion-1;
+
+      session()->flash('warning', '取消点赞！金币-1，经验-1，热情-1。');
+      $this->save();
+    }
+
+    public function created_webtoon_bonus()
+    {
+      $this->coins = $this->coins+3;
+      $this->practice = $this->practice+1;
+      $this->experience = $this->experience+3;
+      $this->passion = $this->passion>=150?150:$this->passion+1;
+
+      session()->flash('success', '创建成功！金币+3，实践+1，经验+3，热情+1。');
+      $this->save();
+    }
+
+    public function deleted_webtoon_deduction()
+    {
+      $this->coins = $this->coins-3;
+      $this->practice = $this->practice-1;
+      $this->experience = $this->experience-3;
+      $this->passion = $this->passion<=0?0:$user->passion-1;
+
+      session()->flash('warning', '删除成功！金币-3，实践-1，经验-3，热情-1。');
+      $this->save();
+    }
+
     public function has_story()
     {
       return count($this->stories);

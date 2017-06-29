@@ -15,27 +15,15 @@ class Section extends HasImage
   {
     parent::boot();
 
-    static::creating(function($section){
+    static::created(function($section){
 
-      $user = $section->get_user();
-
-      $user->practice = $user->practice+1;
-      $user->experience = $user->experience+1;
-      $user->passion = $user->passion>=150?150:$user->passion+1;
-
-      $user->save();
+      $section->get_user()->created_section_bonus();
 
     });//static::creating
 
     static::deleted(function($section){
 
-      $user = $section->get_user();
-
-      $user->practice = $user->practice1;
-      $user->experience = $user->experience-1;
-      $user->passion = $user->passion<=0?0:$user->passion-1;
-
-      $user->save();
+      $section->get_user()->deleted_section_deduction();
 
     });//static::creating
   }

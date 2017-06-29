@@ -56,7 +56,6 @@ class DraftsController extends Controller
     $up->user_id = Auth::id();
     $draft->ups()->save($up);
 
-    session()->flash('success', '成功点赞！');
     return redirect()->back();
   }
 
@@ -67,9 +66,8 @@ class DraftsController extends Controller
     $draft->up = $draft->up == 0?0:$draft->up-1;
     $draft->save();
 
-    $draft->ups()->where('user_id', Auth::id())->delete();
+    $draft->ups()->where('user_id', Auth::id())->first()->delete();
 
-    session()->flash('warning', '取消点赞');
     return redirect()->back();
   }
 
